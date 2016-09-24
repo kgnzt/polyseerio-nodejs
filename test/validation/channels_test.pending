@@ -1,0 +1,70 @@
+'use strict';
+
+const should = require('should'),
+      co = require('co'),
+      { DEFAULT_TIMEOUT } = require('./config'),
+      { getSDK } = require('./helper');
+
+describe('Channels', function () {
+  this.timeout(DEFAULT_TIMEOUT);
+
+  const Channel = getSDK('Channel');
+
+  it('can create a channel', () => {
+    return co(function* () {
+      yield Channel.create({ 
+        name: 'foo'
+      }).should.be.fulfilled();
+    });
+  });
+
+  it('can find channels ', () => {
+    return co(function* () {
+      yield Channel.find({}).should.be.fulfilled();
+    });
+  });
+
+  it('can find a channel by id', () => {
+    return co(function* () {
+      const resource = yield Channel.create({ 
+        name: 'foo'
+      }).should.be.fulfilled();
+
+      yield Channel.findById(resource.id).should.be.fulfilled();
+    });
+  });
+
+  it('can update a channel by id', () => {
+    return co(function* () {
+      const resource = yield Channel.create({ 
+        name: 'foo'
+      }).should.be.fulfilled();
+
+      yield Channel.update(resource.data.id, {
+        name: 'bar'
+      }).should.be.fulfilled();
+    });
+  });
+
+  it('can message a channel by id', () => {
+    return co(function* () {
+      const resource = yield Channel.create({ 
+        name: 'foo'
+      }).should.be.fulfilled();
+
+      yield Channel.message({
+        content: 'hello world'
+      }).should.be.fulfilled();
+    });
+  });
+
+  it('can remove a channel by id', () => {
+    return co(function* () {
+      const resource = yield Channel.create({ 
+        name: 'foo'
+      }).should.be.fulfilled();
+
+      yield Channel.remove(resource.data.id).should.be.fulfilled();
+    });
+  });
+});

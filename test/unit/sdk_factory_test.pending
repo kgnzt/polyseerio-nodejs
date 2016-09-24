@@ -1,0 +1,51 @@
+'use strict';
+
+const should = require('should'),
+      proxyquire = require('proxyquire'),
+      sinon = require('sinon');
+
+describe('SDKMethodFactory', () => {
+  const MethodDouble = {
+          foo: sinon.spy(),
+          bar: sinon.spy(),
+          ping: sinon.spy(),
+          pong: sinon.spy()
+        };
+
+  const factory = proxyquire('../../lib/sdk/method/factory', {
+    './': MethodDouble
+  });
+
+  beforeEach(() => {
+    MethodDouble.foo.reset();
+    MethodDouble.bar.reset();
+    MethodDouble.ping.reset();
+    MethodDouble.pong.reset();
+  });
+
+  describe('function', () => {
+    it('correctly returns method object based on method requested', () => {
+      const request = sinon.stub(),
+            resource = 'alpha',
+            methods = ['foo', 'pong'];
+
+      const result = factory(request, resource, methods);
+
+      result.should.have.property('foo');
+      result.should.have.property('pong');
+
+      MethodDouble.foo.calledWithExactly(request, resource).should.eql(true);
+      MethodDouble.pong.calledWithExactly(request, resource).should.eql(true);
+    });
+
+    it('throws when the method does not exist', () => {
+      const request = sinon.stub(),
+            resource = 'alpha',
+            methods = ['foo', 'NOT_IN_METHODS'];
+
+      (function () {
+        factory(request, resource, methods);
+      }).should.throw(/was asked to generate a 'NOT_IN_METHODS' method/);
+    });
+  });
+});
