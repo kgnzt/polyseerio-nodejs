@@ -1,14 +1,11 @@
-# THIS SDK IS PRE-RELEASE AND NON FUNCTIONAL.
-# PACKAGE VERSION > 0.0.0 WILL BE FUNCTIONAL.
+![Alt text](/asset/polyseerio_sdk_nodejs.png?raw=true "Polyseer.io SDK for Node.js.")
 
-![Alt text](/asset/polyseerio_sdk_nodejs.png?raw=true "Polyseer.io SDK for Node.JS.")
+# Polyseer.io SDK for Node.js
 
-# Polyseer.io SDK for Node.JS
-
-The official Polyseer.io SDK for Node.JS. Detailed API information can be found at (http://polyseer.io/documentation).
+The official Polyseer.io SDK for Node.js. Detailed API information can be found at (http://polyseer.io/documentation).
 
 ## Requirements
-  - Node.JS
+  - Node.js
   - NPM
 
 ## Installation
