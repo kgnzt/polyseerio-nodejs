@@ -3,13 +3,27 @@
 const should              = require('should'),
       co                  = require('co'),
       { DEFAULT_TIMEOUT } = require('./config'),
-      { getSDK }          = require('./helper');
+      { setupValidationEnvironment,
+        cleanupValidationEnvironment,
+        getClient }       = require('./helper');
 
 describe('Events', function () {
   this.timeout(DEFAULT_TIMEOUT);
 
-  const Event = getSDK('Event');
+  const polyseerio = getClient();
 
+  const { Environment,
+          Event } = polyseerio;
+
+  before(() => {
+    return setupValidationEnvironment(polyseerio);
+  });
+
+  after(() => {
+    return cleanupValidationEnvironment(polyseerio);
+  });
+
+/*
   it('can create an event', () => {
     return co(function* () {
       yield Event.create({ name: 'zoo' }).should.be.fulfilled();
@@ -21,6 +35,7 @@ describe('Events', function () {
       yield Event.find({}).should.be.fulfilled();
     });
   });
+  */
 
   it('can find an event by id', () => {
     return co(function* () {
