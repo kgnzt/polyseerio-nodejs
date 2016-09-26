@@ -12,7 +12,7 @@ const TestEnvironment = {
 const DEFAULT_CLIENT_OPTIONS = {
   deduce: false,
   environment: TestEnvironment.name
-}
+};
 
 /**
  * Create an environment if it does not exist.
@@ -28,7 +28,7 @@ function ensureEnvironment (Environment, environment) {
     then(_ => _, error => {
       return Environment.create(environment);
     });
-};
+}
 
 /**
  * Remove an environment if it does not exist.
@@ -43,7 +43,7 @@ function removeEnvironment (Environment, environment) {
     }, error => {
       return;
     });
-};
+}
 
 /**
  * Create environments if they don't exist.
@@ -56,7 +56,7 @@ function ensureEnvironments (Environment, environments) {
         ensures = environments.map(ensure);
 
   return global.Promise.all(ensures);
-};
+}
 
 /**
  * Remove environments if they exist.
@@ -69,7 +69,7 @@ function removeEnvironments (Environment, environments) {
         removes = environments.map(remove);
 
   return global.Promise.all(removes);
-};
+}
 
 /**
  * Ensure a validation-testing environment exists.
