@@ -1,13 +1,14 @@
 'use strict';
 
-const should = require('should'),
+const should        = require('should'),
       { getClient } = require('./helper');
 
 describe('Client API is being defined correctly', () => {
+  const Client = getClient();
 
   describe('Alert', () => {
     it('has the correct API', () => {
-      const { Alert } = getClient();
+      const { Alert } = Client;
   
       (Alert !== undefined).should.eql(true);
   
@@ -33,7 +34,7 @@ describe('Client API is being defined correctly', () => {
 
   describe('Channel', () => {
     it('has the correct API', () => {
-      const { Channel } = getClient();
+      const { Channel } = Client;
 
       (Channel !== undefined).should.eql(true);
   
@@ -59,7 +60,7 @@ describe('Client API is being defined correctly', () => {
 
   describe('Environment', () => {
     it('has the correct API', () => {
-      const { Environment } = getClient();
+      const { Environment } = Client;
 
       (Environment !== undefined).should.eql(true);
 
@@ -85,7 +86,7 @@ describe('Client API is being defined correctly', () => {
 
   describe('Event', () => {
     it('has the correct API', () => {
-      const { Event } = getClient();
+      const { Event } = Client;
 
       (Event !== undefined).should.eql(true);
 
@@ -105,7 +106,7 @@ describe('Client API is being defined correctly', () => {
 
   describe('Expectation', () => {
     it('has the correct API', () => {
-      const { Expectation } = getClient();
+      const { Expectation } = Client;
 
       (Expectation !== undefined).should.eql(true);
   
@@ -131,7 +132,7 @@ describe('Client API is being defined correctly', () => {
 
   describe('Instance', () => {
     it('has the correct API', () => {
-      const { Instance } = getClient();
+      const { Instance } = Client;
 
       (Instance !== undefined).should.eql(true);
 
@@ -157,7 +158,7 @@ describe('Client API is being defined correctly', () => {
 
   describe('LogicBlock', () => {
     it('has the correct API', () => {
-      const { LogicBlock } = getClient();
+      const { LogicBlock } = Client;
 
       (LogicBlock !== undefined).should.eql(true);
 
@@ -183,7 +184,7 @@ describe('Client API is being defined correctly', () => {
 
   describe('Member', () => {
     it('has the correct API', () => {
-      const { Member } = getClient();
+      const { Member } = Client;
 
       (Member !== undefined).should.eql(true);
 
@@ -206,7 +207,7 @@ describe('Client API is being defined correctly', () => {
 
   describe('Settings', () => {
     it('has the correct API', () => {
-      const { Settings } = getClient();
+      const { Settings } = Client;
 
       (Settings !== undefined).should.eql(true);
 
@@ -222,7 +223,7 @@ describe('Client API is being defined correctly', () => {
 
   describe('Task', () => {
     it('has the correct API', () => {
-      const { Task } = getClient();
+      const { Task } = Client;
 
       (Task !== undefined).should.eql(true);
 
