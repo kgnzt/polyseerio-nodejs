@@ -70,6 +70,9 @@ instance, call the required polyseerio module with an access-token.
 ### polyseerio
 
   * polyseerio(token, options)
+  * polyseerio
+    * `.Color`
+    * `.Icon`
 
 ### client
 
