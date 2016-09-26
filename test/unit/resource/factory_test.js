@@ -214,6 +214,18 @@ describe('Resource Factory', () => {
   describe('addMethods', () => {
     const { addMethods } = factory;
 
+    it('returns the Resource if methods are empty and does not throw', () => {
+      const Resource = {}, // no prototype
+            request = sinon.stub(),
+            methods = {};
+
+      (function () {
+        const result = addMethods(Resource, request, methods);
+
+        result.should.eql(Resource);
+      }).should.not.throw();
+    });
+
     it('attaches a collection of instance methods to the object', () => {
       const Resource = {
               prototype: {}
