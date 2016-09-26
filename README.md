@@ -54,7 +54,8 @@ Example:
   * All client SDK calls return a Promise.
   * Supports functional style programming.
   * Supports object-oriented style programming.
-  * A resources environment can be deduced or explicitly passed to SDK calls through the options.
+    * ORM style instances. E.g. environment.save(), alert.trigger();
+  * A resources environment can be deduced or explicitly passed to SDK calls through the options param.
 
 
 ## Example
