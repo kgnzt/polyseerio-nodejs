@@ -33,7 +33,8 @@ Example:
 
       return Event.create({
         name: `Attached ${instance.name}.`,
-        color: 'green',
+        color: polyseerio.Color.GREEN,
+        icon: polyseerio.Icon.CHECK,
         description: `ID: ${instance.id}`
       });
     }).then(event => {
