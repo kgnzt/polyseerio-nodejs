@@ -1,5 +1,7 @@
 'use strict';
 
+const should = require('should');
+
 describe('index', () => {
   const index = require('../../index'),
         factory = require('../../lib');

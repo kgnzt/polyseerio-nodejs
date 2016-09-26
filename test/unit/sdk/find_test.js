@@ -3,14 +3,14 @@
 const should = require('should'),
       proxyquire = require('proxyquire');
 
-describe('Method: findById', () => {
+describe('Method: find', () => {
   const { resourceDouble,
           createRequestMock,
           createSDKHelperDouble,
           resetSDKHelperDouble } = require('./helper'),
         helperDouble = createSDKHelperDouble();
-  
-  const generator = proxyquire('../../../lib/sdk/static/findById', {
+
+  const generator = proxyquire('../../../lib/sdk/static/find', {
     '../helper': helperDouble
   });
 
@@ -24,52 +24,58 @@ describe('Method: findById', () => {
 
   describe('function call', () => {
     let request = null,
-        findById = null;
+        find = null;
 
     beforeEach(() => {
       request = createRequestMock();
-      findById = generator(request, resourceDouble);
+      find = generator(request, resourceDouble, {});
       resetSDKHelperDouble(helperDouble);
     });
 
     it('makes the correct call to get', () => {
-      const id = 'bar',
+      const qs = {
+              limit: 2
+            },
             options = {},
             result = 'foo';
 
       helperDouble.resolveEid.returns('zing');
       helperDouble.getResourcePath.withArgs(resourceDouble, {
-        id,
         eid: 'zing'
-      }).returns('/foo/bar');
+      }).returns('/foo');
       request.get.returns(global.Promise.resolve(result));
 
-      return findById(id, options).
+      return find(qs, options).
         then(_ => {
           request.get.calledWithExactly({
-            uri: '/foo/bar'
+            qs,
+            uri: '/foo'
           }).should.eql(true);
         });
     });
 
     it('resolves when get resolves', () => {
-      const id = 'bar',
+      const qs = {
+              limit: 2
+            },
             options = {},
             result = 'foo';
 
       request.get.returns(global.Promise.resolve(result));
 
-      return findById(id, options).should.be.fulfilled(result);
+      return find(qs, options).should.be.fulfilled(result);
     });
 
     it('rejects when get rejects', () => {
-      const id = 'bar',
+      const qs = {
+              limit: 2
+            },
             options = {},
             error = new Error('foo');
 
       request.get.returns(global.Promise.reject(error));
 
-      return findById(id, options).should.be.rejectedWith(error);
+      return find(qs, options).should.be.rejectedWith(error);
     });
   });
 });

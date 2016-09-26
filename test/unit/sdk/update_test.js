@@ -3,14 +3,14 @@
 const should = require('should'),
       proxyquire = require('proxyquire');
 
-describe('Method: trigger', () => {
+describe('Method: update', () => {
   const { resourceDouble,
           createRequestMock,
           createSDKHelperDouble,
           resetSDKHelperDouble } = require('./helper'),
         helperDouble = createSDKHelperDouble();
   
-  const generator = proxyquire('../../../lib/sdk/static/trigger', {
+  const generator = proxyquire('../../../lib/sdk/static/update', {
     '../helper': helperDouble
   });
 
@@ -24,56 +24,58 @@ describe('Method: trigger', () => {
 
   describe('function call', () => {
     let request = null,
-        trigger = null;
+        update = null;
 
     beforeEach(() => {
       request = createRequestMock();
-      trigger = generator(request, resourceDouble);
+      update = generator(request, resourceDouble, {});
       resetSDKHelperDouble(helperDouble);
     });
 
-    it('makes the correct call to post', () => {
-      const id = 'omega',
-            payload = {a:'b'},
-            options = {},
+    it('makes the correct call to put', () => {
+      const id = 'bar',
+            updates = {
+              alpha: 'beta',
+            },
+            options = {
+              ding: 'dong'
+            },
             result = 'foo';
 
       helperDouble.resolveEid.returns('zing');
       helperDouble.getResourcePath.withArgs(resourceDouble, {
         id,
         eid: 'zing'
-      }).returns('/foo/omega');
-      request.post.returns(global.Promise.resolve(result));
+      }).returns('/foo/bar');
+      request.put.returns(global.Promise.resolve(result));
 
-      return trigger(id, payload, options).
+      return update(id, updates, options).
         then(_ => {
-          request.post.calledWithExactly({
-            uri: '/foo/omega/trigger',
-            body: payload
+          request.put.calledWithExactly({
+            uri: '/foo/bar',
+            body: updates
           }).should.eql(true);
         });
     });
 
-    it('resolves when post resolves', () => {
-      const id = 'omega',
-            payload = {a:'b'},
+    it('resolves when put resolves', () => {
+      const id = 'bar',
             options = {},
             result = 'foo';
 
-      request.post.returns(global.Promise.resolve(result));
+      request.put.returns(global.Promise.resolve(result));
 
-      return trigger(id, payload, options).should.be.fulfilled(result);
+      return update(id, options).should.be.fulfilled(result);
     });
 
-    it('rejects when post rejects', () => {
-      const id = 'omega',
-            payload = {a:'b'},
+    it('rejects when put rejects', () => {
+      const id = 'bar',
             options = {},
             error = new Error('foo');
 
-      request.post.returns(global.Promise.reject(error));
+      request.put.returns(global.Promise.reject(error));
 
-      return trigger(id, payload, options).should.be.rejectedWith(error);
+      return update(id, options).should.be.rejectedWith(error);
     });
   });
 });

@@ -3,14 +3,14 @@
 const should = require('should'),
       proxyquire = require('proxyquire');
 
-describe('Method: remove', () => {
+describe('Method: trigger', () => {
   const { resourceDouble,
           createRequestMock,
           createSDKHelperDouble,
           resetSDKHelperDouble } = require('./helper'),
         helperDouble = createSDKHelperDouble();
   
-  const generator = proxyquire('../../../lib/sdk/static/remove', {
+  const generator = proxyquire('../../../lib/sdk/static/trigger', {
     '../helper': helperDouble
   });
 
@@ -24,16 +24,17 @@ describe('Method: remove', () => {
 
   describe('function call', () => {
     let request = null,
-        remove = null;
+        trigger = null;
 
     beforeEach(() => {
       request = createRequestMock();
-      remove = generator(request, resourceDouble);
+      trigger = generator(request, resourceDouble, {});
       resetSDKHelperDouble(helperDouble);
     });
 
-    it('makes the correct call to del', () => {
+    it('makes the correct call to post', () => {
       const id = 'omega',
+            payload = {a:'b'},
             options = {},
             result = 'foo';
 
@@ -42,34 +43,39 @@ describe('Method: remove', () => {
         id,
         eid: 'zing'
       }).returns('/foo/omega');
-      request.del.returns(global.Promise.resolve(result));
+      request.post.returns(global.Promise.resolve(result));
 
-      return remove(id, options).
+      return trigger(id, payload, options).
         then(_ => {
-          request.del.calledWithExactly({
-            uri: '/foo/omega'
+          request.post.calledWithExactly({
+            uri: '/foo/omega/trigger',
+            body: {
+              meta: payload
+            }
           }).should.eql(true);
         });
     });
 
-    it('resolves when del resolves', () => {
+    it('resolves when post resolves', () => {
       const id = 'omega',
+            payload = {a:'b'},
             options = {},
             result = 'foo';
 
-      request.del.returns(global.Promise.resolve(result));
+      request.post.returns(global.Promise.resolve(result));
 
-      return remove(id, options).should.be.fulfilled(result);
+      return trigger(id, payload, options).should.be.fulfilled(result);
     });
 
-    it('rejects when del rejects', () => {
+    it('rejects when post rejects', () => {
       const id = 'omega',
+            payload = {a:'b'},
             options = {},
             error = new Error('foo');
 
-      request.del.returns(global.Promise.reject(error));
+      request.post.returns(global.Promise.reject(error));
 
-      return remove(id, options).should.be.rejectedWith(error);
+      return trigger(id, payload, options).should.be.rejectedWith(error);
     });
   });
 });

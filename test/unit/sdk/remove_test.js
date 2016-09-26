@@ -3,14 +3,14 @@
 const should = require('should'),
       proxyquire = require('proxyquire');
 
-describe('Method: update', () => {
+describe('Method: remove', () => {
   const { resourceDouble,
           createRequestMock,
           createSDKHelperDouble,
           resetSDKHelperDouble } = require('./helper'),
         helperDouble = createSDKHelperDouble();
   
-  const generator = proxyquire('../../../lib/sdk/static/update', {
+  const generator = proxyquire('../../../lib/sdk/static/remove', {
     '../helper': helperDouble
   });
 
@@ -24,58 +24,52 @@ describe('Method: update', () => {
 
   describe('function call', () => {
     let request = null,
-        update = null;
+        remove = null;
 
     beforeEach(() => {
       request = createRequestMock();
-      update = generator(request, resourceDouble);
+      remove = generator(request, resourceDouble, {});
       resetSDKHelperDouble(helperDouble);
     });
 
-    it('makes the correct call to put', () => {
-      const id = 'bar',
-            updates = {
-              alpha: 'beta',
-            },
-            options = {
-              ding: 'dong'
-            },
+    it('makes the correct call to del', () => {
+      const id = 'omega',
+            options = {},
             result = 'foo';
 
       helperDouble.resolveEid.returns('zing');
       helperDouble.getResourcePath.withArgs(resourceDouble, {
         id,
         eid: 'zing'
-      }).returns('/foo/bar');
-      request.put.returns(global.Promise.resolve(result));
+      }).returns('/foo/omega');
+      request.del.returns(global.Promise.resolve(result));
 
-      return update(id, updates, options).
+      return remove(id, options).
         then(_ => {
-          request.put.calledWithExactly({
-            uri: '/foo/bar',
-            body: updates
+          request.del.calledWithExactly({
+            uri: '/foo/omega'
           }).should.eql(true);
         });
     });
 
-    it('resolves when put resolves', () => {
-      const id = 'bar',
+    it('resolves when del resolves', () => {
+      const id = 'omega',
             options = {},
             result = 'foo';
 
-      request.put.returns(global.Promise.resolve(result));
+      request.del.returns(global.Promise.resolve(result));
 
-      return update(id, options).should.be.fulfilled(result);
+      return remove(id, options).should.be.fulfilled(result);
     });
 
-    it('rejects when put rejects', () => {
-      const id = 'bar',
+    it('rejects when del rejects', () => {
+      const id = 'omega',
             options = {},
             error = new Error('foo');
 
-      request.put.returns(global.Promise.reject(error));
+      request.del.returns(global.Promise.reject(error));
 
-      return update(id, options).should.be.rejectedWith(error);
+      return remove(id, options).should.be.rejectedWith(error);
     });
   });
 });
