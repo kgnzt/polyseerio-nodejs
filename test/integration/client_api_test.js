@@ -4,7 +4,18 @@ const should        = require('should'),
       { getClient } = require('./helper');
 
 describe('Client API is being defined correctly', () => {
-  const Client = getClient();
+  const Client = getClient(),
+        polyseerio = require('../../');
+
+  describe('polyseerio', () => {
+    it('exports Color', () => {
+      polyseerio.should.have.property('Color');
+    });
+
+    it('exports Icon', () => {
+      polyseerio.should.have.property('Icon');
+    });
+  });
 
   describe('Alert', () => {
     it('has the correct API', () => {
