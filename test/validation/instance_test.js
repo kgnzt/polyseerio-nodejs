@@ -3,13 +3,21 @@
 const should              = require('should'),
       co                  = require('co'),
       { DEFAULT_TIMEOUT } = require('./config'),
-      { getSDK,
+      { setup,
+        teardown,
         getUniqueName }   = require('./helper');
 
 describe('Instances', function () {
   this.timeout(DEFAULT_TIMEOUT);
 
-  const Instance = getSDK('Instance');
+  let Client = null,
+      Instance = null;
+
+  before(() => {
+    return setup().then(C => [Client, Instance] = [C, C.Instance]);
+  });
+
+  after(() => teardown(Client));
 
   it('can create an instance', () => {
     return co(function* () {
@@ -35,6 +43,7 @@ describe('Instances', function () {
     });
   });
 
+  /*
   it('can attach to an instance by id', () => {
     return co(function* () {
       let instance = yield Instance.create({ 
@@ -42,7 +51,7 @@ describe('Instances', function () {
       }).should.be.fulfilled();
 
       instance = yield Instance.attach(instance.id, {
-        strategy: Instance.attach.ID
+        strategy: 'id'
       }).should.be.fulfilled();
     });
   });
@@ -54,7 +63,7 @@ describe('Instances', function () {
       }).should.be.fulfilled();
 
       instance = yield Instance.attach(instance.name, {
-        strategy: Instance.attach.NAME
+        strategy: 'name'
       }).should.be.fulfilled();
     });
   });
@@ -62,10 +71,11 @@ describe('Instances', function () {
   it('can attach based on name fallback', () => {
     return co(function* () {
       const instance = yield Instance.attach(getUniqueName(), {
-        strategy: Instance.attach.FALLBACK
+        strategy: 'fallback'
       }).should.be.fulfilled();
     });
   });
+  */
 
   it('can delete an instance by id', () => {
     return co(function* () {

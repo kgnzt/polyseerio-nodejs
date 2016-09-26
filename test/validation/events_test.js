@@ -3,27 +3,21 @@
 const should              = require('should'),
       co                  = require('co'),
       { DEFAULT_TIMEOUT } = require('./config'),
-      { setupValidationEnvironment,
-        cleanupValidationEnvironment,
-        getClient }       = require('./helper');
+      { setup,
+        teardown }        = require('./helper');
 
 describe('Events', function () {
   this.timeout(DEFAULT_TIMEOUT);
 
-  const polyseerio = getClient();
-
-  const { Environment,
-          Event } = polyseerio;
+  let Client = null,
+      Event = null;
 
   before(() => {
-    return setupValidationEnvironment(polyseerio);
+    return setup().then(C => [Client, Event] = [C, C.Event]);
   });
 
-  after(() => {
-    return cleanupValidationEnvironment(polyseerio);
-  });
+  after(() => teardown(Client));
 
-/*
   it('can create an event', () => {
     return co(function* () {
       yield Event.create({ name: 'zoo' }).should.be.fulfilled();
@@ -35,7 +29,6 @@ describe('Events', function () {
       yield Event.find({}).should.be.fulfilled();
     });
   });
-  */
 
   it('can find an event by id', () => {
     return co(function* () {

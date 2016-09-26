@@ -3,13 +3,21 @@
 const should              = require('should'),
       co                  = require('co'),
       { DEFAULT_TIMEOUT } = require('./config'),
-      { getSDK,
+      { setup,
+        teardown,
         getUniqueName }   = require('./helper');
 
 describe('Task', function () {
   this.timeout(DEFAULT_TIMEOUT);
 
-  const Task = getSDK('Task');
+  let Client = null,
+      Task = null;
+
+  before(() => {
+    return setup().then(C => [Client, Task] = [C, C.Task]);
+  });
+
+  after(() => teardown(Client));
 
   it('can create an task', () => {
     return co(function* () {

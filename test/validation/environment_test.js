@@ -1,15 +1,23 @@
 'use strict';
 
-const should = require('should'),
-      co = require('co'),
+const should              = require('should'),
+      co                  = require('co'),
       { DEFAULT_TIMEOUT } = require('./config'),
-      { getSDK,
+      { setup,
+        teardown,
         getUniqueName }   = require('./helper');
 
 describe('Environment', function () {
   this.timeout(DEFAULT_TIMEOUT);
 
-  const Environment = getSDK('Environment');
+  let Client = null,
+      Environment = null;
+
+  before(() => {
+    return setup().then(C => [Client, Environment] = [C, C.Environment]);
+  });
+
+  after(() => teardown(Client));
 
   it('can create an environment', () => {
     return co(function* () {

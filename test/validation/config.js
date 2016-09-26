@@ -6,5 +6,5 @@ if (!('ROOT_KEY' in process.env)) {
 
 module.exports = {
   ROOT_KEY: process.env.ROOT_KEY,
-  DEFAULT_TIMEOUT: 300000 // 5 minutes
+  DEFAULT_TIMEOUT: 10000 // 10 seconds
 };

@@ -1,11 +1,89 @@
 'use strict';
 
-const polyseerio   = require('../../'),
+const lodash       = require('lodash'),
+      polyseerio   = require('../../'),
       { ROOT_KEY } = require('./config');
 
-const TESTING_ENVIRONMENT = {
+const TestEnvironment = {
   name: 'validation-testing',
   description: 'Create for polyseerio node-js validation testing.'
+};
+
+const DEFAULT_CLIENT_OPTIONS = {
+  deduce: false,
+  environment: TestEnvironment.name
+}
+
+/**
+ * Create an environment if it does not exist.
+ *
+ * @param {Client.Environment}
+ * @return {object}
+ */
+function ensureEnvironment (Environment, environment) {
+  return removeEnvironment(Environment, environment).
+    then(_ => {
+      return Environment.findByName(environment.name);
+    }).
+    then(_ => _, error => {
+      return Environment.create(environment);
+    });
+};
+
+/**
+ * Remove an environment if it does not exist.
+ *
+ * @param {Client.Environment}
+ * @return {object}
+ */
+function removeEnvironment (Environment, environment) {
+  return Environment.findByName(environment.name).
+    then(data => {
+      return Environment.remove(data.id);
+    }, error => {
+      return;
+    });
+};
+
+/**
+ * Create environments if they don't exist.
+ *
+ * @param {Client.Environment}
+ * @return {array[object]}
+ */
+function ensureEnvironments (Environment, environments) {
+  const ensure = lodash.curry(ensureEnvironment)(Environment),
+        ensures = environments.map(ensure);
+
+  return global.Promise.all(ensures);
+};
+
+/**
+ * Remove environments if they exist.
+ *
+ * @param {Client.Environment}
+ * @return {array[object]}
+ */
+function removeEnvironments (Environment, environments) {
+  const remove = lodash.curry(removeEnvironment)(Environment),
+        removes = environments.map(remove);
+
+  return global.Promise.all(removes);
+};
+
+/**
+ * Ensure a validation-testing environment exists.
+ *
+ * @param {object}
+ * @return {Promise}
+ */
+function setup (options) {
+  const Client = getClient(options);
+
+  return ensureEnvironments(Client.Environment, [TestEnvironment]).
+    then(_ => {
+      return global.Promise.resolve(Client);
+    });
 }
 
 /**
@@ -14,25 +92,8 @@ const TESTING_ENVIRONMENT = {
  * @param {polyseerio.Client}
  * @return {Promise}
  */
-function setupValidationEnvironment (Client) {
-  return Client.Environment.findByName(TESTING_ENVIRONMENT.name).
-    then(_ => _, error => {
-      return Client.Environment.create(TESTING_ENVIRONMENT);
-    }).
-    then(console.log);
-}
-
-/**
- * Perform clean up of the validation-testing environment.
- *
- * @param {polyseerio.Client}
- * @return {Promise}
- */
-function cleanupValidationEnvironment (Client) {
-  return Client.Environment.findByName(TESTING_ENVIRONMENT.name).
-    then(environment => {
-      Client.Environment.remove(environment.id);
-    });
+function teardown (Client) {
+  return removeEnvironments(Client.Environment, [TestEnvironment]);
 }
 
 /**
@@ -51,8 +112,10 @@ function getUniqueName () {
  *
  * @return {polyseerio}
  */
-function getClient () {
-  return polyseerio(ROOT_KEY, { deduce: false });
+function getClient (options = {}) {
+  options = Object.assign({}, DEFAULT_CLIENT_OPTIONS, options);
+
+  return polyseerio(ROOT_KEY, options);
 }
 
 /**
@@ -71,9 +134,12 @@ function getSDK (sdk) {
 }
 
 module.exports = {
+  TestEnvironment,
+  ensureEnvironments,
+  removeEnvironments,
   getClient,
   getSDK,
   getUniqueName,
-  setupValidationEnvironment,
-  cleanupValidationEnvironment
+  setup,
+  teardown
 };
