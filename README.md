@@ -76,7 +76,7 @@ instance, call the required polyseerio module with an access-token.
   * client
     * `.getCurrentEnvironment(options)` 
     
-      Resolves the current environment **if** it has been deduced.
+      Resolves the current environment **IF** it has been deduced.
 
 ### Alert
 
