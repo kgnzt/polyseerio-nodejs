@@ -244,7 +244,7 @@ Install node modules locally by running:
 
     npm install
 
-Then run a test command below based on what test suite you need to run.
+Then run a command below based on what test suite you need to run.
 
 ### Lint
 
