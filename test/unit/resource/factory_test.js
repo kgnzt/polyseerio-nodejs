@@ -128,6 +128,155 @@ describe('Resource Factory', () => {
     });
   });
 
+  describe('addMethod', () => {
+    const { addMethod } = factory;
+
+    it('attaches the method to the prototype with the given name', () => {
+      const Resource = {
+              prototype: {}
+            },
+            method = sinon.stub(),
+            name = 'alpha';
+
+      addMethod(Resource, method, name);
+
+      Resource.prototype.alpha.should.eql(method);
+    });
+
+    it('returns the Resource', () => {
+      const Resource = {
+              prototype: {}
+            },
+            method = sinon.stub(),
+            name = 'alpha';
+
+      const result = addMethod(Resource, method, name);
+
+      result.should.eql(Resource);
+    });
+  });
+
+  describe('addStatic', () => {
+    const { addStatic } = factory;
+
+    it('attaches method directly to object', () => {
+      const Resource = {},
+            method = sinon.stub(),
+            name = 'alpha';
+
+      addStatic(Resource, method, name);
+
+      Resource.alpha.should.eql(method);
+    });
+
+    it('returns the Resource', () => {
+      const Resource = {},
+            method = sinon.stub(),
+            name = 'alpha';
+
+      const result = addStatic(Resource, method, name);
+
+      result.should.eql(Resource);
+    });
+  });
+
+  describe('addStatics', () => {
+    const { addStatics } = factory;
+
+    it('attaches a collection of statics to the object', () => {
+      const Resource = {},
+            statics = {
+              alpha: sinon.stub(),
+              beta: sinon.stub()
+            };
+
+      addStatics(Resource, statics);
+
+      Resource.should.have.property('alpha');
+      Resource.alpha.should.eql(statics.alpha);
+      Resource.should.have.property('alpha');
+      Resource.beta.should.eql(statics.beta);
+    });
+
+    it('returns the Resource', () => {
+      const Resource = {},
+            statics = {
+              alpha: sinon.stub(),
+              beta: sinon.stub()
+            };
+
+      const result = addStatics(Resource, statics);
+
+      result.should.eql(Resource);
+    });
+  });
+
+  describe('addMethods', () => {
+    const { addMethods } = factory;
+
+    it('attaches a collection of instance methods to the object', () => {
+      const Resource = {
+              prototype: {}
+            },
+            request = sinon.stub(),
+            methods = {
+              alpha: sinon.stub(),
+              beta: sinon.stub()
+            };
+
+      addMethods(Resource, request, methods);
+
+      Resource.should.have.propertyByPath('prototype', 'alpha');
+      Resource.prototype.alpha.should.eql(methods.alpha);
+      Resource.should.have.propertyByPath('prototype', 'beta');
+      Resource.prototype.beta.should.eql(methods.beta);
+    });
+
+    it('attaches the request to the Resource prototype', () => {
+      const Resource = {
+              prototype: {}
+            },
+            request = sinon.stub(),
+            methods = {
+              alpha: sinon.stub(),
+              beta: sinon.stub()
+            };
+
+      addMethods(Resource, request, methods);
+
+      Resource.should.have.propertyByPath('prototype', '_request');
+      Resource.prototype._request.should.eql(request);
+    });
+
+    it('returns the Resource', () => {
+      const Resource = {
+              prototype: {}
+            },
+            request = sinon.stub(),
+            methods = {
+              alpha: sinon.stub(),
+              beta: sinon.stub()
+            };
+
+      const result = addMethods(Resource, request, methods);
+
+      result.should.eql(Resource);
+    });
+  });
+
+  describe('getMemoizeKey', () => {
+    const { getMemoizeKey } = factory;
+
+    it('returns the correct memoize complex key', () => {
+      const resource = 'alpha',
+            cid = 33;
+
+      const result = getMemoizeKey(resource, undefined, undefined, cid);
+
+      result.should.eql('alpha.33');
+    });
+  });
+
   describe('definesSingleton', () => {
     const { definesSingleton } = factory;
 
