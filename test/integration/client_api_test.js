@@ -29,6 +29,7 @@ describe('Client API is being defined correctly', () => {
       instance.should.have.property('save');
       instance.should.have.property('trigger');
       instance.should.have.property('remove');
+      instance.should.have.property('toJSON');
     });
   });
 
@@ -55,6 +56,7 @@ describe('Client API is being defined correctly', () => {
       instance.should.have.property('save');
       instance.should.have.property('message');
       instance.should.have.property('remove');
+      instance.should.have.property('toJSON');
     });
   });
 
@@ -81,6 +83,7 @@ describe('Client API is being defined correctly', () => {
       instance.should.have.property('save');
       instance.should.have.property('message');
       instance.should.have.property('remove');
+      instance.should.have.property('toJSON');
     });
   });
 
@@ -127,6 +130,7 @@ describe('Client API is being defined correctly', () => {
       instance.should.have.property('save');
       instance.should.have.property('remove');
       instance.should.have.property('check');
+      instance.should.have.property('toJSON');
     });
   });
 
@@ -153,6 +157,7 @@ describe('Client API is being defined correctly', () => {
       instance.should.have.property('save');
       instance.should.have.property('remove');
       instance.should.have.property('attach');
+      instance.should.have.property('toJSON');
     });
   });
 
@@ -179,6 +184,7 @@ describe('Client API is being defined correctly', () => {
       instance.should.have.property('save');
       instance.should.have.property('remove');
       instance.should.have.property('execute');
+      instance.should.have.property('toJSON');
     });
   });
 
@@ -202,6 +208,7 @@ describe('Client API is being defined correctly', () => {
 
       instance.should.have.property('save');
       instance.should.have.property('remove');
+      instance.should.have.property('toJSON');
     });
   });
 
@@ -213,6 +220,7 @@ describe('Client API is being defined correctly', () => {
 
       Settings.should.have.property('retrieve');
       Settings.should.have.property('update');
+      //Settings.should.have.property('toJSON'); // TODO: add toJSON to singleton / static
 
       // Settings is a singleton
       (function () {
@@ -241,6 +249,7 @@ describe('Client API is being defined correctly', () => {
 
       instance.should.have.property('save');
       instance.should.have.property('remove');
+      instance.should.have.property('toJSON');
     });
   });
 });

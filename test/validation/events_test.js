@@ -43,7 +43,6 @@ describe('Events', function () {
       let resource = yield Event.create({ name: 'zoo' });
 
       resource = yield resource.save();
-
     });
   });
 });
