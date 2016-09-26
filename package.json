@@ -1,7 +1,7 @@
 {
   "name": "polyseerio",
   "version": "0.0.0",
-  "description": "Official polyseer.io SDK for Node.Js.",
+  "description": "Official polyseer.io SDK for Node.js.",
   "main": "index.js",
   "scripts": {
     "test": "make test"
