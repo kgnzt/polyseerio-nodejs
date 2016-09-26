@@ -82,11 +82,9 @@ describe('SDK Factory', () => {
             resource = 'alpha',
             statics = ['ping'];
 
-      InstanceDouble.ping.returns('result');
-
       const response = instanceFactory(request, resource, statics);
 
-      response.ping.should.eql('result');
+      response.ping.should.eql(InstanceDouble.ping);
     });
 
     it('throws if the requested static does not exist', () => {

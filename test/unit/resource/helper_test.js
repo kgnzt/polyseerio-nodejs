@@ -7,45 +7,59 @@ const should = require('should'),
 describe('Helper', () => {
   function getResponse () {
     return {
-      data: {
-        id: 1,
-        type: 'foo',
-        attributes: {
-          ding: 'dong'
-        },
-        relationships: {
-          king: 'kong'
+      client: {
+        _httpMessage: {
+          path: '/v1/something',
         }
       },
-      meta: {
-        alpha: 'beta'
+      body: {
+        data: {
+          id: 1,
+          type: 'foo',
+          attributes: {
+            ding: 'dong'
+          },
+          relationships: {
+            king: 'kong'
+          }
+        },
+        meta: {
+          alpha: 'beta'
+        }
       }
     };
   }
 
   function getResourceCollectionResponse () {
     return {
-      data: [{
-        id: 1,
-        type: 'foo',
-        attributes: {
-          ding: 'dong'
-        },
-        relationships: {
-          king: 'kong'
+      client: {
+        _httpMessage: {
+          path: '/v1/something',
         }
-      }, {
-        id: 2,
-        type: 'foo',
-        attributes: {
-          ding: 'wing'
-        },
-        relationships: {
-          king: 'hello'
+      },
+      body: {
+        data: [{
+          id: 1,
+          type: 'foo',
+          attributes: {
+            ding: 'dong'
+          },
+          relationships: {
+            king: 'kong'
+          }
+        }, {
+          id: 2,
+          type: 'foo',
+          attributes: {
+            ding: 'wing'
+          },
+          relationships: {
+            king: 'hello'
+          }
+        }],
+        meta: {
+          alpha: 'beta'
         }
-      }],
-      meta: {
-        alpha: 'beta'
       }
     };
   }
@@ -60,6 +74,34 @@ describe('Helper', () => {
 
   beforeEach(() => {
     factoryDouble.reset();
+  });
+
+  describe('getEidFromRequestPath', () => {
+    const { getEidFromRequestPath } = Helper;
+
+    it('returns correct eid when available', () => {
+      const path = '/v1/something';
+
+      const result = getEidFromRequestPath(path);
+
+      (result === null).should.eql(true);
+    });
+
+    it('returns correct eid when available', () => {
+      const path = '/polyseer/v1/environments/validation-testing/events';
+
+      const result = getEidFromRequestPath(path);
+
+      result.should.eql('validation-testing');
+    });
+
+    it('returns null is non could be found', () => {
+      const path = '/polyseer/v1/members';
+
+      const result = getEidFromRequestPath(path);
+
+      (result === null).should.eql(true);
+    });
   });
 
   describe('isResourceCollection', () => {
@@ -85,9 +127,11 @@ describe('Helper', () => {
   describe('isResourceResponse', () => {
     const { isResourceResponse } = Helper;
 
-    it('returns true when data in response', () => {
+    it('returns true when body has data', () => {
       const response = {
-        data: {}
+        body: {
+          data: {}
+        }
       };
 
       const result = isResourceResponse(response);
@@ -95,9 +139,23 @@ describe('Helper', () => {
       result.should.eql(true);
     });
 
-    it('returns false when data not is passed', () => {
+    it('returns false when body has no data', () => {
       const response = {
-        foo: 'bar'
+        body: {
+          dork: 'a'
+        }
+      };
+
+      const result = isResourceResponse(response);
+
+      result.should.eql(false);
+    });
+
+    it('returns false when body.data is not an array or object', () => {
+      const response = {
+        body: {
+          data: 'do'
+        }
       };
 
       const result = isResourceResponse(response);
@@ -112,7 +170,7 @@ describe('Helper', () => {
     it('handles a resource collection', () => {
       const response = getResourceCollectionResponse();
 
-      factoryDouble.withArgs(response.data[0].type).returns(ResourceDouble);
+      factoryDouble.withArgs(response.body.data[0].type).returns(ResourceDouble);
 
       const result = parseResourceResponse(response);
 
@@ -122,7 +180,7 @@ describe('Helper', () => {
     it('when a collection each item is an instance of factory result', () => {
       const response = getResourceCollectionResponse();
 
-      factoryDouble.withArgs(response.data[0].type).returns(ResourceDouble);
+      factoryDouble.withArgs(response.body.data[0].type).returns(ResourceDouble);
 
       const result = parseResourceResponse(response);
 
@@ -134,7 +192,7 @@ describe('Helper', () => {
     it('handles a single resource', () => {
       const response = getResponse();
 
-      factoryDouble.withArgs(response.data.type).returns(ResourceDouble);
+      factoryDouble.withArgs(response.body.data.type).returns(ResourceDouble);
 
       const result = parseResourceResponse(response);
 
@@ -149,7 +207,7 @@ describe('Helper', () => {
       it('returns BaseResource instances', () => {
         const response = getResponse();
 
-        factoryDouble.withArgs(response.data.type).returns(ResourceDouble);
+        factoryDouble.withArgs(response.body.data.type).returns(ResourceDouble);
 
         const result = parseResponse(response);
 
@@ -160,7 +218,9 @@ describe('Helper', () => {
     describe('when not a resource based response', () => {
       it('returns the response object', () => {
         const response = {
-          foo: 'bar'
+          body: {
+            foo: 'bar'
+          }
         };
 
         const result = parseResponse(response);

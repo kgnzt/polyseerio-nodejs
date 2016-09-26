@@ -176,7 +176,7 @@ describe('Resource Factory', () => {
       }).should.not.throw();
     });
 
-    it('attaches the passed resource name to the instance', () => {
+    it('sets the passed resource name on the instance', () => {
       const resource = 'foo',
             Resource = createResource(resource);
 
@@ -192,6 +192,46 @@ describe('Resource Factory', () => {
       const instance = new Resource({ ding: 'dong' });
 
       instance.ding.should.eql('dong');
+    });
+
+    it('sets .isNew to true', () => {
+      const resource = 'foo',
+            Resource = createResource(resource);
+
+      const instance = new Resource({});
+
+      instance.should.have.property('isNew');
+      instance.isNew.should.eql(true);
+    });
+
+    it('defaults .eid to null', () => {
+      const resource = 'foo',
+            Resource = createResource(resource);
+
+      const instance = new Resource({});
+
+      (instance.eid === null).should.eql(true);
+    });
+
+    it('sets .eid if passed in attributes', () => {
+      const resource = 'foo',
+            Resource = createResource(resource);
+
+      const instance = new Resource({ eid: 'lala' });
+
+      instance.eid.should.eql('lala');
+    });
+
+    it('assigns attributes to _attributes', () => {
+      const resource = 'foo',
+            Resource = createResource(resource);
+
+      const instance = new Resource({ ding: 'dong' });
+
+      instance.should.have.property('_attributes');
+      instance._attributes.should.eql({
+        ding: 'dong'
+      });
     });
 
     it('will not assign reserved keywords', () => {

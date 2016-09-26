@@ -37,4 +37,13 @@ describe('Events', function () {
       yield Event.findById(resource.id).should.be.fulfilled();
     });
   });
+
+  it('instances can be saved', () => {
+    return co(function* () {
+      let resource = yield Event.create({ name: 'zoo' });
+
+      resource = yield resource.save();
+
+    });
+  });
 });
