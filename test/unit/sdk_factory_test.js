@@ -6,8 +6,8 @@ const should = require('should'),
 
 describe('SDK Factory', () => {
   const StaticDouble = {
-          foo: sinon.stub(),
-          bar: sinon.stub()
+          foo: function (a, b, c, d) { return [a, b, c, d]; },
+          bar: function (a, b, c, d) { return [a, b, c, d]; }
         },
         InstanceDouble = {
           ping: sinon.stub(),
@@ -20,8 +20,6 @@ describe('SDK Factory', () => {
   });
 
   beforeEach(() => {
-    StaticDouble.foo.reset();
-    StaticDouble.bar.reset();
     InstanceDouble.ping.reset();
     InstanceDouble.pong.reset();
   });
@@ -40,16 +38,14 @@ describe('SDK Factory', () => {
       response.should.have.property('bar');
     });
 
-    it('returns result of called requested static', () => {
+    it('correctly curries the first 3 arguments', () => {
       const request = sinon.spy(),
             resource = 'alpha',
             statics = ['foo'];
 
-      StaticDouble.foo.returns('result');
-
       const response = staticFactory(request, resource, statics);
 
-      response.foo.should.eql('result');
+      response.foo('arg').should.eql([request, resource, {}, 'arg']);
     });
 
     it('throws if the requested static does not exist', () => {

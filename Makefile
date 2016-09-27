@@ -1,6 +1,6 @@
 BUILD_ENV?=development
 
-all: authentication-broker
+all: install test
 
 install:
 	npm install

@@ -2,6 +2,20 @@
 
 const sinon = require('sinon');
 
+const resource = 'foo';
+
+function getCurryDefaults () {
+  return {
+    request: createRequestMock(),
+    resource,
+    copts: getDefaultCopts()
+  };
+}
+
+function getDefaultCopts() {
+  return {};
+}
+
 function createSDKHelperDouble () {
   return {
     resolveEid: sinon.stub(),
@@ -27,10 +41,9 @@ function createRequestMock () {
   };
 }
 
-const resourceDouble = 'foo';
-
 module.exports = {
-  resourceDouble,
+  resource,
+  getCurryDefaults,
   createRequestMock,
   createSDKHelperDouble,
   resetSDKHelperDouble
