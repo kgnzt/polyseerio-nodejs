@@ -71,6 +71,10 @@ instance, call the required polyseerio module with an access-token.
 ### polyseerio
 
   * polyseerio(token, options)
+    * `options`
+      - `.env` environment variable holding current environment
+      - `.version` api version to use
+      - `.deduce` if the environment should be deduced if not supplied
   * polyseerio
     * `.Color`
     * `.Icon`
