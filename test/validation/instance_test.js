@@ -43,7 +43,6 @@ describe('Instances', function () {
     });
   });
 
-  /*
   it('can attach to an instance by id', () => {
     return co(function* () {
       let instance = yield Instance.create({ 
@@ -56,18 +55,6 @@ describe('Instances', function () {
     });
   });
 
-  it('can attach to an instance by name', () => {
-    return co(function* () {
-      let instance = yield Instance.create({ 
-        name: getUniqueName()
-      }).should.be.fulfilled();
-
-      instance = yield Instance.attach(instance.name, {
-        strategy: 'name'
-      }).should.be.fulfilled();
-    });
-  });
-
   it('can attach based on name fallback', () => {
     return co(function* () {
       const instance = yield Instance.attach(getUniqueName(), {
@@ -75,7 +62,6 @@ describe('Instances', function () {
       }).should.be.fulfilled();
     });
   });
-  */
 
   it('can delete an instance by id', () => {
     return co(function* () {
