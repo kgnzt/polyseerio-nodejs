@@ -88,6 +88,15 @@ describe('UrlBuilder', () => {
       result.should.eql('https://api.foo/bar/v3');
     });
 
+    it('defaults the base correctly', () => {
+      const protocol = 'ws://',
+            version = 'v3';
+
+       const result = getBaseUrl(undefined, protocol, version);
+
+      result.should.eql('ws://api.polyseer.io/polyseer/v3');
+    });
+
     it('defaults the protocol correctly', () => {
       const base = 'api.foo/bar',
             version = 'v3';
