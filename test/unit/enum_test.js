@@ -144,4 +144,20 @@ describe('Enum', () => {
       (NONE === null).should.eql(true);
     });
   });
+
+  describe('Strategy', () => {
+    const { Strategy } = Enum;
+
+    it('correctly defines FALLBACK', () => {
+      const { FALLBACK } = Strategy;
+  
+      (typeof FALLBACK).should.eql('symbol');
+    });
+
+    it('correctly defines ID', () => {
+      const { ID } = Strategy;
+  
+      (typeof ID).should.eql('symbol');
+    });
+  });
 });

@@ -15,6 +15,10 @@ describe('Client API is being defined correctly', () => {
     it('exports Icon', () => {
       polyseerio.should.have.property('Icon');
     });
+
+    it('exports Strategy', () => {
+      polyseerio.should.have.property('Strategy');
+    });
   });
 
   describe('Client', () => {
@@ -24,6 +28,10 @@ describe('Client API is being defined correctly', () => {
 
     it('exports Icon', () => {
       Client.should.have.property('Icon');
+    });
+
+    it('exports Strategy', () => {
+      Client.should.have.property('Strategy');
     });
   });
 
