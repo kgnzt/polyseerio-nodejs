@@ -83,6 +83,8 @@ instance, call the required polyseerio module with an access-token.
 
   * client
     * `.getCurrentEnvironment(options)` 
+    * `.Color`
+    * `.Icon`
     
       Resolves the current environment **IF** it has been deduced.
 

@@ -17,6 +17,16 @@ describe('Client API is being defined correctly', () => {
     });
   });
 
+  describe('Client', () => {
+    it('exports Color', () => {
+      Client.should.have.property('Color');
+    });
+
+    it('exports Icon', () => {
+      Client.should.have.property('Icon');
+    });
+  });
+
   describe('Alert', () => {
     it('has the correct API', () => {
       const { Alert } = Client;
