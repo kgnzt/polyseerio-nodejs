@@ -79,13 +79,11 @@ instance, call the required polyseerio module with an access-token.
 ### client
 
   * client
-    * `.getCurrentEnvironment(options)` 
+    * `.getCurrentEnvironment(options)`  Resolves the current environment **IF** it has been deduced.
     * `.Color`
     * `.Icon`
     * `.Strategy`
     
-      Resolves the current environment **IF** it has been deduced.
-
 ### Alert
 
   * .Alert
