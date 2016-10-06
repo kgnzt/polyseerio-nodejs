@@ -57,6 +57,7 @@ Example:
   * Supports object-oriented style programming.
     * ORM style instances. E.g. environment.save(), alert.trigger();
   * A resources environment can be deduced or explicitly passed to SDK calls through the options param.
+  * API calls made using https:// protocol.
 
 
 ## Example
