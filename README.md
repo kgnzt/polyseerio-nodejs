@@ -2,7 +2,7 @@
 
 # Polyseer.io SDK for Node.js
 
-The official Polyseer.io SDK for Node.js. Detailed API information can be found at (http://polyseer.io/documentation).
+The official Polyseer.io SDK for Node.js. Detailed API information can be found at (https://polyseer.io/documentation).
 
 ## Requirements
   - Node.js

@@ -103,7 +103,7 @@ describe('UrlBuilder', () => {
 
        const result = getBaseUrl(base, undefined, version);
 
-      result.should.eql('http://api.foo/bar/v3');
+      result.should.eql('https://api.foo/bar/v3');
     });
 
     it('defaults the version correctly', () => {

@@ -20,7 +20,7 @@ describe('Constant', () => {
   it('correctly defines DEFAULT_API_PROTOCOL ', () => {
     const { DEFAULT_API_PROTOCOL } = Constant;
 
-    DEFAULT_API_PROTOCOL.should.eql('http://');
+    DEFAULT_API_PROTOCOL.should.eql('https://');
   });
 
   it('correctly defines DEFAULT_API_VERSION ', () => {

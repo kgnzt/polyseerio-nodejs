@@ -2,28 +2,30 @@
 
 const should = require('should'),
       sinon = require('sinon'),
-      proxyquire = require('proxyquire');
+      proxyquire = require('proxyquire'),
+      { STATIC,
+        METHOD } = require('../../../lib/resource/definition_constant');
 
 describe('Resource Factory', () => {
   const DefinitionDouble = {
           foo: {
-            instance: [
-              'ping'
-            ],
-            statics: [
+            [STATIC]: [
               'pong'
+            ],
+            [METHOD]: [
+              'ping'
             ]
           },
           bar: {
-            instance: [
-              'ping'
-            ],
-            statics: [
+            [STATIC]: [
               'pong'
+            ],
+            [METHOD]: [
+              'ping'
             ]
           },
           singleton: {
-            statics: [
+            [STATIC]: [
               'pong'
             ]
           }
@@ -92,7 +94,7 @@ describe('Resource Factory', () => {
             request = sinon.spy();
 
       factoryDouble.staticFactory.
-        withArgs(request, resource, DefinitionDouble.foo.statics, options).
+        withArgs(request, resource, DefinitionDouble.foo[STATIC], options).
         returns({
           'ping': 'pong'
         });
@@ -113,7 +115,7 @@ describe('Resource Factory', () => {
       factoryDouble.staticFactory.returns([]);
 
       factoryDouble.instanceFactory.
-        withArgs(request, resource, DefinitionDouble.foo.instance).
+        withArgs(request, resource, DefinitionDouble.foo[METHOD]).
         returns({
           'ping': 'pong'
         });
@@ -292,9 +294,9 @@ describe('Resource Factory', () => {
   describe('definesSingleton', () => {
     const { definesSingleton } = factory;
 
-    it('returns true if instances is not defined', () => {
+    it('returns true if Symbol("method") is not defined', () => {
       const definition = {
-              statics: ['alpha']
+              [STATIC]: ['alpha']
             };
 
       const result = definesSingleton(definition);
@@ -302,10 +304,10 @@ describe('Resource Factory', () => {
       result.should.eql(true);
     });
 
-    it('returns true if instance is empty', () => {
+    it('returns true if Symbol("method") is empty', () => {
       const definition = {
-              statics: ['alpha'],
-              instance: []
+              [STATIC]: ['alpha'],
+              [METHOD]: []
             };
 
       const result = definesSingleton(definition);
@@ -313,10 +315,10 @@ describe('Resource Factory', () => {
       result.should.eql(true);
     });
 
-    it('returns false is instances is defined and has items', () => {
+    it('returns false is Symbol("method") is defined and has items', () => {
       const definition = {
-              statics: ['alpha'],
-              instance: ['bar']
+              [STATIC]: ['alpha'],
+              [METHOD]: ['bar']
             };
 
       const result = definesSingleton(definition);
