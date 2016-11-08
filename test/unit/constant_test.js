@@ -34,4 +34,10 @@ describe('Constant', () => {
 
     DEFAULT_ENV.should.eql('NODE_ENV');
   });
+
+  it('correctly defines DEFAULT_TIMEOUT ', () => {
+    const { DEFAULT_TIMEOUT } = Constant;
+
+    DEFAULT_TIMEOUT.should.eql(10000);
+  });
 });
