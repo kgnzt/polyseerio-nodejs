@@ -75,6 +75,7 @@ instance, call the required polyseerio module with an access-token.
     * `options`
       - `.env` environment variable holding current environment
       - `.version` api version to use
+      - `.timeout` integer containing number of ms to wait for server responses
       - `.deduce` if the environment should be deduced if not supplied
 
 ### client

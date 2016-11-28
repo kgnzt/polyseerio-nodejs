@@ -49,6 +49,23 @@ describe('Environment', function () {
     });
   });
 
+  it('can find environments by name', () => {
+    return co(function* () {
+      const name = getUniqueName();
+
+      const resource = yield Environment.create({ 
+        name
+      }).should.be.fulfilled();
+
+      yield Environment.findByName(name).should.be.fulfilled().
+        then(found => {
+          found.name.should.eql(name);
+
+          return Environment.remove(found.id);
+        });
+    });
+  });
+
   it('can update environments by id', () => {
     return co(function* () {
       const resource = yield Environment.create({ 
@@ -75,6 +92,7 @@ describe('Environment', function () {
     });
   });
 
+  // need better cleanup
   it('can message an environment by id', () => {
     return co(function* () {
       const resource = yield Environment.create({ 

@@ -43,6 +43,21 @@ describe('Instances', function () {
     });
   });
 
+  it('can find instances by name', () => {
+    return co(function* () {
+      const name = getUniqueName();
+
+      const resource = yield Instance.create({ 
+        name
+      }).should.be.fulfilled();
+
+      yield Instance.findByName(name).should.be.fulfilled().
+        then(found => {
+          found.name.should.eql(name);
+        });
+    });
+  });
+
   it('can attach to an instance by id', () => {
     return co(function* () {
       let instance = yield Instance.create({ 

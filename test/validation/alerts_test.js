@@ -51,6 +51,26 @@ describe('Alert', function () {
     });
   });
 
+  it('can find alerts by name', () => {
+    return co(function* () {
+      const name = getUniqueName();
+
+      const resource = yield Alert.create({ 
+        name,
+        protocol: 'smtp',
+        recipients: ['foo@bar.com']
+      }).should.be.fulfilled();
+
+      yield Alert.findByName(name).should.be.fulfilled().
+        then(found => {
+          found.name.should.eql(name);
+
+          return Alert.remove(found.id);
+        });
+    });
+  });
+
+
 /*
   it('can trigger an alert by id', () => {
     return co(function* () {
