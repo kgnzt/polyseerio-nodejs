@@ -5,6 +5,12 @@ const should = require('should');
 describe('Resource', () => {
   const Resource = require('../../lib/resource');
 
+  it('correctly defines GAUGE', () => {
+    const { GAUGE } = Resource;
+
+    GAUGE.should.eql('gauges');
+  });
+
   it('correctly defines ALERT', () => {
     const { ALERT } = Resource;
 

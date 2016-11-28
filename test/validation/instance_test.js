@@ -87,4 +87,20 @@ describe('Instances', function () {
       yield Instance.remove(resource.id).should.be.fulfilled();
     });
   });
+
+  it('can send gauge metrics', () => {
+    return co(function* () {
+      let resource = yield Instance.create({ 
+        name: getUniqueName()
+      }).should.be.fulfilled();
+
+      const gauge = yield resource.gauge({
+        foo: 'bar'
+      }).should.be.fulfilled();
+
+      resource = yield Instance.findById(resource.id).should.be.fulfilled();
+
+      resource.gauges.foo[0][0].should.eql('bar');
+    });
+  });
 });
