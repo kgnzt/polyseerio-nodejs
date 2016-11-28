@@ -79,7 +79,15 @@ describe('Helper', () => {
   describe('getEidFromRequestPath', () => {
     const { getEidFromRequestPath } = Helper;
 
-    it('returns correct eid when available', () => {
+    it('returns correct eid when longer path used', () => {
+      const path = '/v1/environments/development/instances/10000/gauges';
+
+      const result = getEidFromRequestPath(path);
+
+      result.should.eql('development');
+    });
+
+    it('returns null when non resource path provided', () => {
       const path = '/v1/something';
 
       const result = getEidFromRequestPath(path);
