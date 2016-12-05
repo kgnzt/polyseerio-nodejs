@@ -1,0 +1,40 @@
+{
+  "token": "{{your-api-token}}",
+  "env": "production",
+  "token_env": "POLYSEERIO_TOKEN",
+  "version": "v1",
+  "timeout": 10000,
+  "deduce": true,
+  "agent": {
+    "attach": true,
+    "attach_strategy": 'fallback',
+    "name": "",
+    "description": "",
+    "group": "",
+    "direction": "inbound",
+    "subtype": "long_running",
+    "heartbeats_till_death": 3,
+    "heartbeat_ttl": 10000,
+    "expectation": {
+      "is_alive": true
+    },
+    "metric": {
+      "memory": true
+    },
+    "event": {
+      "start": true
+    },
+    "process_event": {
+      "exit": true,
+      "warning": true,
+      "uncaughtException": true,
+      "unhandledRejection": true,
+    },
+    "process_signal": {
+      "SIGHUP": true,
+      "SIGINT": true,
+      "SIGKILL": true,
+      "SIGTERM": true
+    }
+  }
+}

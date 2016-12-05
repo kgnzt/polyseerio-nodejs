@@ -22,12 +22,11 @@ that can be used for immediate integration.
 Example: (SDK with Agent)
 
     const polyseerio = require('polyseerio'),
-          token      = 'an-access-token',
-          poly       = require('./poly.json');
+          config     = require('./poly.json');
 
-    const client = polyseerio(token);
+    const client = polyseerio(config);
 
-    return client.startAgent(poly).
+    return client.startAgent().
       then(result => {
         console.log('Polyseer.io agent started.');
       })
@@ -39,7 +38,7 @@ Example: (SDK)
 
     const { Event, 
             Alert,
-            Instance } = polyseerio(token); 
+            Instance } = polyseerio({ token }); 
 
     return Instance.attach({
       name: 'my-example-instance',
@@ -100,7 +99,7 @@ instance, call the required polyseerio module with an access-token.
 
   * client
     * `.getCurrentEnvironment(options)`  Resolves the current environment **IF** it has been deduced.
-    * `.startAgent()`                    Starts the agent if in SDK and Agent mode.
+    * `.startAgent()`                    Starts the Polyseer.io agent.
     * `.Color`
     * `.Icon`
     * `.Strategy`
