@@ -230,7 +230,9 @@ describe('Helper', () => {
       pre.returns('fizzle');
       request.withArgs('fizzle').returns(global.Promise.resolve(resultDouble));
 
-      const wrap = wrapRequest(request, pre);
+      const wrap = wrapRequest(request, {
+        pre
+      });
 
       return wrap(options).
         then(result => {
@@ -248,7 +250,7 @@ describe('Helper', () => {
       post.returns(resultDouble);
       request.withArgs(options).returns(global.Promise.resolve('foo'));
 
-      const wrap = wrapRequest(request, undefined, post);
+      const wrap = wrapRequest(request, { post });
 
       return wrap(options).
         then(result => {
@@ -265,7 +267,7 @@ describe('Helper', () => {
       post.returns(resultDouble);
       request.withArgs(options).returns(global.Promise.resolve('foo'));
 
-      const wrap = wrapRequest(request, undefined, post);
+      const wrap = wrapRequest(request, { post });
 
       return wrap(options).
         then(result => {
@@ -273,9 +275,50 @@ describe('Helper', () => {
         });
     });
 
-    it('wraps api methods', () => {
+    it('when no reject middleware, rejection works as normal', () => {
       const request = sinon.stub(),
-            options = { foo: 'bar' };
+            options = { foo: 'bar' },
+            error = new Error('foo');
+
+      request.withArgs(options).returns(global.Promise.reject(error));
+
+      const wrap = wrapRequest(request);
+
+      return wrap(options).should.be.rejectedWith('foo');
+    });
+
+    it('allows for reject middleware', () => {
+      const request = sinon.stub(),
+            options = { foo: 'bar' },
+            reject = function () {
+              return global.Promise.reject(new Error('reject-reject'));
+            },
+            error = new Error('foo');
+
+      request.withArgs(options).returns(global.Promise.reject(error));
+
+      const wrap = wrapRequest(request, { reject });
+
+      return wrap(options).should.be.rejectedWith('reject-reject');
+    });
+
+    it('reject middleware could resolve if it needed to', () => {
+      const request = sinon.stub(),
+            options = { foo: 'bar' },
+            reject = function () {
+              return global.Promise.resolve('flower');
+            },
+            error = new Error('foo');
+
+      request.withArgs(options).returns(global.Promise.reject(error));
+
+      const wrap = wrapRequest(request, { reject });
+
+      return wrap(options).should.be.fulfilledWith('flower');
+    });
+
+    it('wraps api methods', () => {
+      const request = sinon.stub();
 
       const wrap = wrapRequest(request);
 

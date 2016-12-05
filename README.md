@@ -92,6 +92,7 @@ instance, call the required polyseerio module with an access-token.
       - `.token` environment variable holding current environment
       - `.token_env` if no token is provided this environment variable will be checked
       - `.agent` an object that will be used when starting the agent
+      - `.upsert_env` if an environment cannot be found it will be created
       - `.version` api version to use
       - `.timeout` integer containing number of ms to wait for server responses
       - `.deduce` if the environment should be deduced if not supplied
