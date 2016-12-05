@@ -28,7 +28,7 @@ Example: (SDK with Agent)
 
     return client.startAgent().
       then(result => {
-        console.log('Polyseer.io agent started.');
+        console.log('Polyseer.io agent has started.');
       })
 
 Example: (SDK)
@@ -86,11 +86,12 @@ instance, call the required polyseerio module with an access-token.
 
 ### polyseerio
 
-  * polyseerio(configuration) SDK and Agent
-
-  * polyseerio(token, options) SDK only
+  * polyseerio(config)
     * `options`
       - `.env` environment variable holding current environment
+      - `.token` environment variable holding current environment
+      - `.token_env` if no token is provided this environment variable will be checked
+      - `.agent` an object that will be used when starting the agent
       - `.version` api version to use
       - `.timeout` integer containing number of ms to wait for server responses
       - `.deduce` if the environment should be deduced if not supplied
@@ -99,7 +100,7 @@ instance, call the required polyseerio module with an access-token.
 
   * client
     * `.getCurrentEnvironment(options)`  Resolves the current environment **IF** it has been deduced.
-    * `.startAgent()`                    Starts the Polyseer.io agent.
+    * `.startAgent(config)`              Starts the Polyseer.io agent. Will use passed config or config.agent from client construction.
     * `.Color`
     * `.Icon`
     * `.Strategy`
