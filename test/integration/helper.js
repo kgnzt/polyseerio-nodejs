@@ -3,7 +3,7 @@
 const polyseerio = require('../../');
 
 function getClient () {
-  return polyseerio('alpha', { deduce: false });
+  return polyseerio({ token: 'alpha', deduce: false });
 }
 
 module.exports = {

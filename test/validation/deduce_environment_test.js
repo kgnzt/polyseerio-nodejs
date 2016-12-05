@@ -17,7 +17,8 @@ describe('Environment deduction', function () {
 
   const env = 'PING_PONG',
         polyseerio = require('../../'),
-        Client = polyseerio(ROOT_KEY, { 
+        Client = polyseerio({
+          token: ROOT_KEY,
           deduce: true,
           env
         });

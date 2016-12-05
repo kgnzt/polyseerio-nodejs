@@ -113,9 +113,9 @@ function getUniqueName () {
  * @return {polyseerio}
  */
 function getClient (options = {}) {
-  options = Object.assign({}, DEFAULT_CLIENT_OPTIONS, options);
+  options = Object.assign({ token: ROOT_KEY }, DEFAULT_CLIENT_OPTIONS, options);
 
-  return polyseerio(ROOT_KEY, options);
+  return polyseerio(options);
 }
 
 /**
