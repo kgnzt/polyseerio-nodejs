@@ -1,4 +1,4 @@
 module.exports = {
-  token: '{{an-api-token}}',
+  token: '{{your-api-token}}',
   env: 'NODE_ENV'
 };

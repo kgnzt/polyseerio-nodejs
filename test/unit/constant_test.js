@@ -35,6 +35,12 @@ describe('Constant', () => {
     DEFAULT_ENV.should.eql('NODE_ENV');
   });
 
+  it('correctly defines DEFAULT_ENVIRONMENT ', () => {
+    const { DEFAULT_ENVIRONMENT } = Constant;
+
+    DEFAULT_ENVIRONMENT.should.eql('production');
+  });
+
   it('correctly defines DEFAULT_TIMEOUT ', () => {
     const { DEFAULT_TIMEOUT } = Constant;
 

@@ -16,11 +16,32 @@ To install inside a project, run:
 
 ## Usage
 
-Example:
+The Polyseer.io can setup in an SDK mode to allow for free-form platform
+interactions, or in an configurable agent based mode. The agent based mode
+allow for instant integration.
+
+Example: (Agent mode)
 
     const polyseerio = require('polyseerio'),
           token      = 'an-access-token';
 
+    // Agent mode established by passing a single config object
+    const client = polyseerio({
+              token,
+              deduce: true
+            });
+
+    return client.agent.start().
+      then(result => {
+        console.log('Polyseer.io agent configured.');
+      })
+
+Example: (SDK mode)
+
+    const polyseerio = require('polyseerio'),
+          token      = 'an-access-token';
+
+    // SDK mode by passing a single token string and SDK options.
     const { Event, 
             Alert,
             Instance } = polyseerio(token, { deduce: true });
@@ -52,12 +73,13 @@ Example:
 
 ## Design
 
+  * Configuration based agent mode or free-form SDK mode available.
   * All client SDK calls return a Promise.
   * Supports functional style programming.
   * Supports object-oriented style programming.
     * ORM style instances. E.g. environment.save(), alert.trigger();
   * A resources environment can be deduced or explicitly passed to SDK calls through the options param.
-  * API calls made using https:// protocol.
+  * API calls made using the https:// protocol.
 
 
 ## Example

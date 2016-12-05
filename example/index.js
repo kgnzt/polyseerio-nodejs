@@ -1,4 +1,4 @@
-const polyseerio = require('polyseerio'),
+const polyseerio = require('../'),
       config     = require('./config'),
       co         = require('co');
 
@@ -13,32 +13,6 @@ const { Alert,
         Settings,
         Task } = polyseerio(config.token, { env: config.env });
 
-/**
- * Alert an uncaught expection.
- *
- * @param {Error} an error.
- */
-function onUncaughtError (error) {
-  return Alert.findByName('test-alert').
-    then(alert => {
-      return Alert.trigger(alert.id, {
-        name: error.name,
-        message: error.message
-      })
-    }).catch(console.log);
-};
-
-/**
- * When memory consumption is too high.
- *
- * @param {Error} an error.
- */
-function onExit (data) {
-  return Alert.findByName('test-alert').
-    then(alert => {
-      return Alert.trigger(alert.id, data)
-    }).catch(console.log);
-};
 
 co(function* () {
   /*
@@ -92,10 +66,4 @@ co(function* () {
     }).
     catch(console.log);
   */
-
-  try {
-    throw new TypeError('Invalid');
-  } catch (error) {
-    yield onUncaughtError(error);
-  }
 }).catch(e => console.log(e));

@@ -5,15 +5,6 @@ const should = require('should');
 describe('Factory', () => {
   const factory = require('../../lib');
 
-  it('increments static call count', () => {
-    factory('alpha');
-    const firstCall = factory._callCount;
-    factory('beta');
-    const secondCall = factory._callCount;
-
-    secondCall.should.eql(firstCall + 1);
-  });
-
   describe('RequiredResources', () => {
     const { RequiredResources } = factory;
 

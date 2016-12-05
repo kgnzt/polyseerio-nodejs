@@ -5,6 +5,54 @@ const should = require('should');
 describe('Enum', () => {
   const Enum = require('../../lib/enum');
 
+  describe('Determiner', () => {
+    const { Determiner } = Enum;
+
+    it('correctly defines ONE', () => {
+      const { ONE } = Determiner;
+  
+      ONE.should.eql('one');
+    });
+
+    it('correctly defines SOME', () => {
+      const { SOME } = Determiner;
+  
+      SOME.should.eql('some');
+    });
+  });
+
+  describe('Direction', () => {
+    const { Direction } = Enum;
+
+    it('correctly defines INBOUND', () => {
+      const { INBOUND } = Direction;
+  
+      INBOUND.should.eql('inbound');
+    });
+
+    it('correctly defines OUTBOUND', () => {
+      const { OUTBOUND } = Direction;
+  
+      OUTBOUND.should.eql('outbound');
+    });
+  });
+
+  describe('Subtype', () => {
+    const { Subtype } = Enum;
+
+    it('correctly defines INBOUND', () => {
+      const { LONG_RUNNING } = Subtype;
+  
+      LONG_RUNNING.should.eql('long_running');
+    });
+
+    it('correctly defines OUTBOUND', () => {
+      const { PERIODIC } = Subtype;
+  
+      PERIODIC.should.eql('periodic');
+    });
+  });
+
   describe('Color', () => {
     const { Color } = Enum;
 
