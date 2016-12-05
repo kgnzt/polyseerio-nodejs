@@ -16,11 +16,10 @@ To install inside a project, run:
 
 ## Usage
 
-The SDK can be setup in a an SDK only mode which allows for direct platform
-interactions or in a configurable SDK and Agent. Starting the agent will allow
-for instant platform integration and monitoring.
+The SDK allows for direct platform interactions as well as a configurable agent 
+that can be used for immediate integration.
 
-Example: (SDK and Agent)
+Example: (SDK with Agent)
 
     const polyseerio = require('polyseerio'),
           token      = 'an-access-token',
@@ -33,12 +32,11 @@ Example: (SDK and Agent)
         console.log('Polyseer.io agent started.');
       })
 
-Example: (SDK only)
+Example: (SDK)
 
     const polyseerio = require('polyseerio'),
           token      = 'an-access-token';
 
-    // SDK mode by passing a single token string and SDK options.
     const { Event, 
             Alert,
             Instance } = polyseerio(token); 
@@ -122,10 +120,6 @@ instance, call the required polyseerio module with an access-token.
       * `.remove()`
       * `.trigger(payload)`
 
-Example:
-
-    const { Alert } = client;
-
 ### Channel
 
   * .Channel
@@ -165,18 +159,6 @@ Example:
     * new **Event**(attributes)
       * `.save()`
 
-Example:
-
-    const { Event } = client;
-
-    return Event.find({
-      limit: 5
-    }).then(events => {
-      events.forEach(event => {
-        console.log(event.id);
-      });
-    });
-
 ### Expectation
 
   * .Expectation
@@ -206,16 +188,6 @@ Example:
       * `.save()`
       * `.remove()`
       * `.attach()`
-
-Example:
-
-    const { Instance } = client;
-
-    return Instance.attach({
-      strategy: Instance.attach.Strategy.FALLBACK
-    }).then(instance => {
-      console.log(`Attached as instance: ${instance.id}.`);
-    });
 
 ### Logic Block
 
