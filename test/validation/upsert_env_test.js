@@ -25,23 +25,19 @@ describe('Events', function () {
     const name = 'zoozoo';
 
     return co(function* () {
-      yield Event.create({ name: 'foofoo' }, {
+      const event = yield Event.create({ name: 'foofoo' }, {
         environment: name
-      }).should.be.fulfilled().
-      then(event => {
-        event.name.should.eql('foofoo');
+      });
 
-        return Event.findById(event.id, {
-          environment: name
-        });
-      }).should.be.fulfilled();
+      event.name.should.eql('foofoo');
 
+      const foundEvent = yield Event.findById(event.id, {
+        environment: name
+      });
 
-      // clean up
-      yield Client.Environment.findByName(name).
-        then(environment => {
-          return environment.remove();
-        });
+      const environment = yield Client.Environment.findByName(name);
+
+      const result = yield Client.Environment.remove(environment.id);
     });
   });
 });
