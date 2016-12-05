@@ -12,31 +12,28 @@ The official Polyseer.io SDK for Node.js. Detailed API information can be found 
 
 To install inside a project, run:
 
-    npm install polyseerio
+    npm install polyseerio --save
 
 ## Usage
 
-The Polyseer.io can setup in an SDK mode to allow for free-form platform
-interactions, or in an configurable agent based mode. The agent based mode
-allow for instant integration.
+The SDK can be setup in a an SDK only mode which allows for direct platform
+interactions or in a configurable SDK and Agent. Starting the agent will allow
+for instant platform integration and monitoring.
 
-Example: (Agent mode)
+Example: (SDK and Agent)
 
     const polyseerio = require('polyseerio'),
-          token      = 'an-access-token';
+          token      = 'an-access-token',
+          poly       = require('./poly.json');
 
-    // Agent mode established by passing a single config object
-    const client = polyseerio({
-              token,
-              deduce: true
-            });
+    const client = polyseerio(token);
 
-    return client.agent.start().
+    return client.startAgent(poly).
       then(result => {
-        console.log('Polyseer.io agent configured.');
+        console.log('Polyseer.io agent started.');
       })
 
-Example: (SDK mode)
+Example: (SDK only)
 
     const polyseerio = require('polyseerio'),
           token      = 'an-access-token';
@@ -44,7 +41,7 @@ Example: (SDK mode)
     // SDK mode by passing a single token string and SDK options.
     const { Event, 
             Alert,
-            Instance } = polyseerio(token, { deduce: true });
+            Instance } = polyseerio(token); 
 
     return Instance.attach({
       name: 'my-example-instance',
@@ -69,11 +66,10 @@ Example: (SDK mode)
         }
       });
     });
-  });
 
 ## Design
 
-  * Configuration based agent mode or free-form SDK mode available.
+  * Configurable agent mode or SDK only modes available.
   * All client SDK calls return a Promise.
   * Supports functional style programming.
   * Supports object-oriented style programming.
@@ -93,7 +89,9 @@ instance, call the required polyseerio module with an access-token.
 
 ### polyseerio
 
-  * polyseerio(token, options)
+  * polyseerio(configuration) SDK and Agent
+
+  * polyseerio(token, options) SDK only
     * `options`
       - `.env` environment variable holding current environment
       - `.version` api version to use
@@ -104,6 +102,7 @@ instance, call the required polyseerio module with an access-token.
 
   * client
     * `.getCurrentEnvironment(options)`  Resolves the current environment **IF** it has been deduced.
+    * `.startAgent()`                    Starts the agent if in SDK and Agent mode.
     * `.Color`
     * `.Icon`
     * `.Strategy`

@@ -46,4 +46,10 @@ describe('Constant', () => {
 
     DEFAULT_TIMEOUT.should.eql(10000);
   });
+
+  it('correctly defines DEFAULT_TOKEN_ENV ', () => {
+    const { DEFAULT_TOKEN_ENV } = Constant;
+
+    DEFAULT_TOKEN_ENV.should.eql('POLYSEERIO_TOKEN');
+  });
 });

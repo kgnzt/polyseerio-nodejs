@@ -1,6 +1,7 @@
 'use strict';
 
 const should = require('should'),
+      lodash = require('lodash'),
       sinon = require('sinon');
 
 /**
@@ -26,6 +27,22 @@ describe('Client', () => {
       (function () {
         new Client(1, {});
       }).should.throw('Cannot create an instance of Client without passing an instance of request to the options.');
+    });
+
+    it('defaults the agent to null', () => {
+      const client =new Client(1, {
+        request: createRequestMock()
+      });
+
+      lodash.isNull(client._agent).should.eql(true);
+    });
+  });
+
+  describe('startAgent', () => {
+    it('throws if agent has already been started', () => {
+    });
+
+    it('throws if agent has already been started', () => {
     });
   });
 });

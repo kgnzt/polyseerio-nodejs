@@ -20,7 +20,7 @@ describe('Helper', () => {
       return {
         on: sinon.stub()
       };
-    };
+    }
 
     it('currys up to 5 parameters', () => {
       const listeners = {},
@@ -31,7 +31,7 @@ describe('Helper', () => {
 
       const result = attachToProcess(listeners, event, client, instance);
 
-      (typeof result === 'function').should.eql(true)
+      (typeof result === 'function').should.eql(true);
     });
 
     it('attaches the listener result called with client and instance as a listner to the process', () => {
