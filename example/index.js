@@ -15,6 +15,7 @@ const { Alert,
 
 
 co(function* () {
+  yield global.Promise.resolve();
   /*
   const data = {
     instance: 'demo',

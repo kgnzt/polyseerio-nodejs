@@ -1,8 +1,9 @@
 'use strict';
 
-const should = require('should'),
-      lodash = require('lodash'),
-      sinon = require('sinon');
+const should     = require('should'),
+      lodash     = require('lodash'),
+      sinon      = require('sinon'),
+      proxyquire = require('proxyquire');
 
 /**
  * Returns a request mock.
@@ -13,8 +14,34 @@ function createRequestMock () {
   return sinon.stub();
 }
 
+/**
+ * Returns an Agent mock.
+ *
+ * @return {sinon.stub}
+ */
+function createAgentMock () {
+  return {
+    start: sinon.stub()
+  };
+}
+
+/**
+ * Agent double used as standin through proxyquire.
+ */
+class AgentDouble {
+  constructor (...args) {
+    this.args = args
+  }
+
+  start (...args) {
+    return global.Promise.resolve(args);
+  }
+};
+
 describe('Client', () => {
-  const Client = require('../../lib/client');
+  const Client = proxyquire('../../lib/client', {
+    './agent': AgentDouble
+  });
 
   describe('constructor', () => {
     it('throws a TypeError if a cid is not passed', () => {
@@ -40,9 +67,28 @@ describe('Client', () => {
 
   describe('startAgent', () => {
     it('throws if agent has already been started', () => {
+      const client = new Client(0, {
+        request: createRequestMock()
+      });
+
+      client._agent = createAgentMock();
+
+      return client.startAgent().should.be.
+        rejectedWith('Agent has already been started for this client.');
     });
 
-    it('throws if agent has already been started', () => {
+    it('creates an Agent instance, calls start and forwards arguments', () => {
+      const client = new Client(0, {
+        request: createRequestMock()
+      });
+
+      const agentArgs = ['a', 'foo', 'b'];
+
+      return client.startAgent(...agentArgs).should.be.fulfilled().
+        then(result => {
+          client._agent.args.should.eql([client]);
+          result.should.eql(agentArgs);
+        });
     });
   });
 });

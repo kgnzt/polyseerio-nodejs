@@ -64,11 +64,11 @@ describe('Resource Factory', () => {
       factoryDouble.staticFactory.returns([]);
       factoryDouble.instanceFactory.returns([]);
 
-      const result = factory(resource, request);
+      const Result = factory(resource, request);
 
       (function () {
-        new result();
-      }).should.throw('result is not a constructor');
+        new Result();
+      }).should.throw('Result is not a constructor');
     });
 
     it('memoizes between calls based on resource and request', () => {
