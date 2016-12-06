@@ -6,47 +6,6 @@ const should = require('should'),
 describe('Factory', () => {
   const factory = require('../../lib');
 
-  describe('resolveToken', () => {
-    const { resolveToken } = factory;
-
-    it('returns the token in the passed options if its not nil', () => {
-      const result = resolveToken({
-        token: 'something-special'
-      });
-
-      result.should.eql('something-special');
-    });
-
-    it('returns the env token if token nil but found in env vars', () => {
-      process.env.GOOGOO = 'dingo';
-
-      const result = resolveToken({
-        token: null,
-        token_env: 'GOOGOO'
-      });
-
-      result.should.eql('dingo');
-
-      delete process.env.GOOGOO;
-    });
-
-    it('returns null if the token in null', () => {
-      const result = resolveToken({
-        token: null
-      });
-
-      lodash.isNull(result).should.eql(true);
-    });
-
-    it('returns null if the token in undefined', () => {
-      const result = resolveToken({
-        token: undefined
-      });
-
-      lodash.isNull(result).should.eql(true);
-    });
-  });
-
   describe('RequiredResources', () => {
     const { RequiredResources } = factory;
 

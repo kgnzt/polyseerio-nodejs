@@ -16,8 +16,8 @@ To install inside a project, run:
 
 ## Usage
 
-The SDK allows for direct platform interactions as well as a configurable agent 
-that can be used for immediate integration.
+The SDK allows for direct platform interactions as well as the use of a 
+configurable agent that allows for immediate integration.
 
 Example: (SDK with Agent)
 
