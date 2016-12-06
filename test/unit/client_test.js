@@ -30,13 +30,13 @@ function createAgentMock () {
  */
 class AgentDouble {
   constructor (...args) {
-    this.args = args
+    this.args = args;
   }
 
   start (...args) {
     return global.Promise.resolve(args);
   }
-};
+}
 
 describe('Client', () => {
   const Client = proxyquire('../../lib/client', {

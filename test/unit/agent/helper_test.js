@@ -9,7 +9,7 @@ describe('Helper', () => {
   describe('generateName', () => {
     const { generateName } = Helper;
 
-    it('will stop looping', () => {
+    it('will generate a unique name', () => {
     });
   });
 
