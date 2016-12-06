@@ -16,8 +16,8 @@ To install inside a project, run:
 
 ## Usage
 
-The SDK allows for direct platform interactions as well as the use of a 
-configurable agent that allows for immediate integration.
+This SDK allows for direct platform interactions as well providing a
+configurable agent that enables immediate integration.
 
 Example: (SDK with Agent)
 
@@ -88,20 +88,20 @@ instance, call the required polyseerio module with an access-token.
 
   * polyseerio(config)
     * `options`
+      - `.agent` an agent config that will be used when startAgent is called
+      - `.deduce` if the environment should be deduced from the environment when not supplied
       - `.env` environment variable holding current environment
-      - `.token` environment variable holding current environment
-      - `.token_env` if no token is provided this environment variable will be checked
-      - `.agent` an object that will be used when starting the agent
-      - `.upsert_env` if an environment cannot be found it will be created
-      - `.version` api version to use
       - `.timeout` integer containing number of ms to wait for server responses
-      - `.deduce` if the environment should be deduced if not supplied
+      - `.token_env` if no token is provided this environment variable will be checked
+      - `.token` environment variable holding current environment
+      - `.upsert_env` if an environment is not found it will be created and the SDK call retried
+      - `.version` api version to use
 
 ### client
 
   * client
     * `.getCurrentEnvironment(options)`  Resolves the current environment **IF** it has been deduced.
-    * `.startAgent(config)`              Starts the Polyseer.io agent. Will use passed config or config.agent from client construction.
+    * `.startAgent(config)`              Starts the Polyseer.io agent. Will merge passed config with config.agent from client construction.
     * `.Color`
     * `.Icon`
     * `.Strategy`
