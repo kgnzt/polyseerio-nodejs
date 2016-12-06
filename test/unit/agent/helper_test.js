@@ -6,6 +6,92 @@ const should = require('should'),
 describe('Helper', () => {
   const Helper = require('../../../lib/agent/helper');
 
+  describe('resolveName', () => {
+    const { resolveName } = Helper;
+
+    it('returns the name in config when not nil', () => {
+      const config = {
+        name: 'blue-whale'
+      };
+
+      const result = resolveName(config);
+
+      result.should.eql('blue-whale');
+    });
+
+    it('returns a name even when config is nil', () => {
+      const config = {
+        name: null
+      };
+
+      const result = resolveName(config);
+
+      (typeof result === 'string').should.eql(true);
+      result.length.should.be.greaterThan(0);
+    });
+  });
+
+  describe('filterEnabledHandlers', () => {
+    const { filterEnabledHandlers } = Helper;
+
+    it('correctly returns only enabled handler items', () => {
+      const config = {
+        foo: true,
+        bar: false,
+        king: {
+          enabled: true,
+          a: 'b'
+        },
+        kong: {
+          enabled: false
+        },
+        alpha: 'beta'
+      };
+
+      const result = filterEnabledHandlers(config);
+
+      result.should.eql({
+        foo: true,
+        king: {
+          enabled: true,
+          a: 'b'
+        }
+      });
+    });
+  });
+
+  describe('shouldHandle', () => {
+    const { shouldHandle } = Helper;
+
+    it('returns true when value is an object enabled: true', () => {
+      const result = shouldHandle({
+        enabled: true
+      });
+
+      (result === true).should.eql(true);
+    });
+
+    it('returns false when value is an object enabled: false', () => {
+      const result = shouldHandle({
+        enabled: false
+      });
+
+      (result === false).should.eql(true);
+    });
+
+    it('returns true if the value passed is simply true', () => {
+      const result = shouldHandle(true);
+
+      (result === true).should.eql(true);
+    });
+
+    it('returns false if unknown or unreadable value', () => {
+      const result = shouldHandle('woofwoof');
+
+      (result === false).should.eql(true);
+    });
+  });
+
   describe('generateName', () => {
     const { generateName } = Helper;
 
