@@ -1,7 +1,8 @@
 {
   "token": null,
+  "name": "some-name",
   "env": "NODE_ENV",
-  "environment": "production",
+  "environment": "testing",
   "upsert_env": true,
   "token_env": "POLYSEERIO_TOKEN",
   "version": "v1",
