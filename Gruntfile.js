@@ -1,7 +1,7 @@
 'use strict';
 
 const jshintReporter = require('jshint-junit-reporter'),
-      lintableFiles  = ['test/**/*.js', 'lib/**/*.js'],
+      lintableFiles  = ['example/**/*.js', 'example/**/*.json', 'test/**/*.js', 'lib/**/*.js'],
       unitTestFiles  = ['test/unit/**/*_test.js'],
       integrationTestFiles  = ['test/integration/**/*_test.js'],
       validationTestFiles  = ['test/validation/**/*_test.js'];

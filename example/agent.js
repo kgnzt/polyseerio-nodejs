@@ -1,11 +1,10 @@
 const polyseerio = require('../'),
-      config     = require('./config'),
+      config     = require('./poly.json'),
       co         = require('co');
 
-const client = polyseerio(config.token);
+const client = polyseerio(config);
 
 return client.startAgent().
   then(_ => {
-    console.log('configured');
-    console.log(_);
+    console.log('Agent has started.');
   }).catch(console.log);

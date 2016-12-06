@@ -1,13 +1,15 @@
 {
-  "token": "{{your-api-token}}",
-  "env": "production",
+  "token": null,
+  "env": "NODE_ENV",
+  "environment": "production",
+  "upsert_env": true,
   "token_env": "POLYSEERIO_TOKEN",
   "version": "v1",
   "timeout": 10000,
   "deduce": true,
   "agent": {
     "attach": true,
-    "attach_strategy": 'fallback',
+    "attach_strategy": "fallback",
     "name": "",
     "description": "",
     "group": "",
@@ -28,7 +30,7 @@
       "exit": true,
       "warning": true,
       "uncaughtException": true,
-      "unhandledRejection": true,
+      "unhandledRejection": true
     },
     "process_signal": {
       "SIGHUP": true,
