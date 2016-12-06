@@ -16,10 +16,10 @@ To install inside a project, run:
 
 ## Usage
 
-This SDK allows for direct platform interactions as well providing a
-configurable agent that enables immediate integration.
+This SDK enables direct platform interactions and also provides a
+configurable agent that can be used for immediate integration.
 
-Example: (SDK with Agent)
+Example: (SDK using Agent)
 
     const polyseerio = require('polyseerio'),
           config     = require('./poly.json');
@@ -66,13 +66,14 @@ Example: (SDK)
 
 ## Design
 
-  * Configurable agent mode or SDK only modes available.
+  * Provides direct SDK calls as well as a Polyseer.io Node.JS agent.
   * All client SDK calls return a Promise.
   * Supports functional style programming.
   * Supports object-oriented style programming.
-    * ORM style instances. E.g. environment.save(), alert.trigger();
+    * ORM style instances. E.g. environment.save(), alert.trigger(), instance.gauge();
   * A resources environment can be deduced or explicitly passed to SDK calls through the options param.
-  * API calls made using the https:// protocol.
+  * Environment missing in Polyseer.io will be upserted by default.
+  * API calls are made using the https:// protocol.
 
 
 ## Example
@@ -82,17 +83,17 @@ Examples are available in /example
 ## SDK Resources
 
 Use of the SDK begins with construction of a client. To construct a client 
-instance, call the required polyseerio module with an access-token.
+instance, call the required polyseerio module.
 
 ### polyseerio
 
   * polyseerio(config)
-    * `options`
+    * `config`
       - `.agent` an agent config that will be used when startAgent is called
       - `.deduce` if the environment should be deduced from the environment when not supplied
       - `.env` environment variable holding current environment
       - `.timeout` integer containing number of ms to wait for server responses
-      - `.token_env` if no token is provided this environment variable will be checked
+      - `.token_env` if no token is provided this environment variable will be checked for one
       - `.token` environment variable holding current environment
       - `.upsert_env` if an environment is not found it will be created and the SDK call retried
       - `.version` api version to use
