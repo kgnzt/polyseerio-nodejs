@@ -2,7 +2,7 @@
 
 const should              = require('should'),
       co                  = require('co'),
-      { DEFAULT_TIMEOUT } = require('./config'),
+      { DEFAULT_TIMEOUT } = require('./config');
 
 describe('Alert', function () {
   const polyseerio = require('../../');
