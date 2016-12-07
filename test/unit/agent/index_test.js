@@ -6,7 +6,8 @@ const should     = require('should'),
 
 describe('Agent', () => {
   const ExecutorDouble = {
-    execute: sinon.stub()
+    execute: sinon.stub(),
+    teardown: sinon.stub()
   };
 
   const Agent = proxyquire('../../../lib/agent', {
@@ -15,6 +16,7 @@ describe('Agent', () => {
 
   beforeEach(() => {
     ExecutorDouble.execute.reset();
+    ExecutorDouble.teardown.reset();
   });
 
   describe('constructor', () => {
@@ -80,6 +82,25 @@ describe('Agent', () => {
           ExecutorDouble.execute.
             calledWithExactly(client, 'alpha', 'beta', 'gamma', 11).
             should.eql(true);
+        });
+    });
+  });
+
+  describe('stop', () => {
+    it('calls teardown correctly and returns the client', () => {
+      const client = sinon.stub(),
+            agent = new Agent(client),
+            instanceDouble = sinon.stub();
+
+      agent._instance = instanceDouble;
+
+      ExecutorDouble.teardown.returns(global.Promise.resolve());
+
+      return agent.start().
+        should.be.fulfilled().
+        then(result => {
+          ExecutorDouble.teardown.calledWithExactly(client, instanceDouble);
+          result.should.eql(client);
         });
     });
   });

@@ -24,8 +24,6 @@ describe('save', () => {
 
     return save(instance).should.be.fulfilled().
       then(_ => {
-        console.log(instance._request.post.args[0][0]);
-
         instance._request.post.calledWithExactly({
           uri: '/environments/waterworld/events',
           body: {

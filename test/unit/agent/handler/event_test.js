@@ -9,7 +9,7 @@ describe('Agent EventHandler', () => {
   describe('start', () => {
     const { start } = Handler;
 
-    it('creates an event regarding the instance being started', () => {
+    it('creates an event for the agent being started', () => {
       const client = {
               Event: {
                 create: sinon.stub()
@@ -22,11 +22,39 @@ describe('Agent EventHandler', () => {
       client.Event.create.withArgs({
         name: 'foo agent has started.',
         color: 'green',
-        icon: 'check'
+        icon: 'chain'
       }).returns(global.Promise.resolve('result_double'));
 
       return start(client, instance).should.be.fulfilled().
         then(result => {
+          result.should.eql('result_double');
+        });
+    });
+  });
+
+  describe('stop', () => {
+    const { stop } = Handler;
+
+    it('creates an event for the agent being stoped', () => {
+      const client = {
+              Event: {
+                create: sinon.stub()
+              }
+            },
+            instance = {
+              name: 'foo'
+            };
+
+      client.Event.create.returns(global.Promise.resolve('result_double'))
+
+      return stop(client, instance).should.be.fulfilled().
+        then(result => {
+          client.Event.create.calledWithExactly({
+            name: 'foo agent has stopped.',
+            color: 'orange',
+            icon: 'chain-broken'
+          }).should.eql(true);
+
           result.should.eql('result_double');
         });
     });

@@ -6,6 +6,8 @@ const should = require('should'),
 describe('Helper', () => {
   const Helper = require('../../../lib/agent/helper');
 
+  const Interface = require('../../../lib/agent/handler/interface');
+
   describe('resolveName', () => {
     const { resolveName } = Helper;
 
@@ -142,6 +144,31 @@ describe('Helper', () => {
     const { setupWithHandler } = Helper;
 
     it('currys up to arguments passed', () => {
+    });
+
+    it('alows for handler to be an object with a SETUP key / interface', () => {
+      const handler = {
+              foo: {
+                alpha: {
+                  [Interface.SETUP]: sinon.stub()
+                }
+              }
+            },
+            type = 'foo',
+            config = {
+              alpha: {
+                zoo: true
+              }
+            },
+            argOne = sinon.stub();
+
+      handler.foo.alpha[Interface.SETUP].withArgs(argOne).returns('foo_alpha_result');
+
+      return setupWithHandler(handler, type, config, argOne).
+        should.be.fulfilled().
+        then(result => {
+          handler.foo.alpha[Interface.SETUP].calledWithExactly(argOne).should.eql(true);
+        });
     });
 
     it('rejects when a handler type cannot be found', () => {

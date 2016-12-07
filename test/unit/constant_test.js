@@ -47,6 +47,12 @@ describe('Constant', () => {
     DEFAULT_HEARTBEAT_DELAY.should.eql(30000);
   });
 
+  it('correctly defines DEFAULT_LOG_LEVEL ', () => {
+    const { DEFAULT_LOG_LEVEL } = Constant;
+
+    DEFAULT_LOG_LEVEL.should.eql('error');
+  });
+
   it('correctly defines DEFAULT_TIMEOUT ', () => {
     const { DEFAULT_TIMEOUT } = Constant;
 
