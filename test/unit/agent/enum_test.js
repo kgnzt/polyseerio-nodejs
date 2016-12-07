@@ -23,6 +23,12 @@ describe('Enum', () => {
   
       START.should.eql('start');
     });
+
+    it('correctly defines STOP', () => {
+      const { STOP } = Event;
+  
+      STOP.should.eql('stop');
+    });
   });
 
   describe('Signal', () => {

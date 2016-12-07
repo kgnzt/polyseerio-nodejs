@@ -16,12 +16,12 @@ To install inside a project, run:
 
 ## Usage
 
-This SDK enables direct platform interactions and also provides a
+This SDK provides direct platform interactions as well as a
 configurable agent that can be used for immediate integration.
 
 Example: (Quick start agent)
 
-    // Assumes environment contains: POLYSEERIO_TOKEN
+    // Access-token defined in: POLYSEERIO_TOKEN
     // Environment deduced from NODE_ENV or development by default 
     return require('polyseerio').start().then(client => { console.log('ok') });
 
@@ -85,38 +85,6 @@ Example: (SDK)
 
 Examples are available in /example
 
-## Agent Configuration
-
-A Polyseer.io Node.JS agent can be started once a client has been created 
-(see SDK Resources). The agent has a default configuration that can be adjusted
-as needed.
-
-  * client.startAgent(config)
-    * `config`
-      - `.attach`
-      - `.attach_strategy`
-      - `.name`
-      - `.description`
-      - `.group`
-      - `.direction`
-      - `.subtype`
-      - `.expectation`
-        - `.is_alive`
-      - `.metric`
-        - `.cpu`
-        - `.memory`
-      - `.event`
-        - `.start`
-      - `.process_event`
-        - `.exit`
-        - `.warning`
-        - `.uncaughtException`
-        - `.unhandledRejection`
-      - `.process_signal`
-        - `.SIGHUP`
-        - `.SIGINT`
-        - `.SIGTERM`
-
 ## SDK Resources
 
 Use of the SDK begins with construction of a client. To construct a client 
@@ -124,8 +92,8 @@ instance, call the required polyseerio module.
 
 ### polyseerio
 
-  * polyseerio(config)
-    * `config`
+  * polyseerio
+    * `(config)`
       - `.agent` an agent config that will be used when startAgent is called
       - `.deduce` if the environment should be deduced from the environment when not supplied
       - `.env` environment variable holding current environment
@@ -134,12 +102,39 @@ instance, call the required polyseerio module.
       - `.token` environment variable holding current environment
       - `.upsert_env` if an environment is not found it will be created and the SDK call retried
       - `.version` api version to use
+    * `.start(config)` generate a client and start an agent
 
 ### client
 
   * client
     * `.getCurrentEnvironment(options)`  Resolves the current environment **IF** it has been deduced.
     * `.startAgent(config)`              Starts the Polyseer.io agent. Will merge passed config with config.agent from client construction.
+      * `config`
+        - `.attach`
+        - `.attach_strategy`
+        - `.name`
+        - `.description`
+        - `.group`
+        - `.direction`
+        - `.subtype`
+        - `.expectation`
+          - `.is_alive`
+        - `.metric`
+          - `.cpu`
+          - `.memory`
+          - `.usage`
+        - `.event`
+          - `.start`
+          - `.stop`
+        - `.process_event`
+          - `.exit`
+          - `.warning`
+          - `.uncaughtException`
+          - `.unhandledRejection`
+        - `.process_signal`
+          - `.SIGHUP`
+          - `.SIGINT`
+          - `.SIGTERM`
     * `.Color`
     * `.Icon`
     * `.Strategy`
@@ -225,6 +220,8 @@ instance, call the required polyseerio module.
     * `.update(id, updates, options)`
     * new **Instance**(attributes)
       * `.save()`
+      * `.gauge()`
+      * `.addGauge()`
       * `.remove()`
       * `.attach()`
 
