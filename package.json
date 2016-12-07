@@ -23,12 +23,13 @@
   },
   "homepage": "https://github.com/kgnzt/polyseerio-nodejs#readme",
   "dependencies": {
+    "co": "^4.6.0",
     "lodash": "^4.15.0",
     "request": "^2.74.0",
-    "request-promise": "^4.1.1"
+    "request-promise": "^4.1.1",
+    "winston": "^2.3.0"
   },
   "devDependencies": {
-    "co": "^4.6.0",
     "grunt": "^1.0.1",
     "grunt-contrib-jshint": "^1.0.0",
     "grunt-mocha-test": "^0.12.7",

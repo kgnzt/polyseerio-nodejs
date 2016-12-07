@@ -41,6 +41,12 @@ describe('Constant', () => {
     DEFAULT_ENVIRONMENT.should.eql('production');
   });
 
+  it('correctly defines DEFAULT_HEARTBEAT_DELAY ', () => {
+    const { DEFAULT_HEARTBEAT_DELAY } = Constant;
+
+    DEFAULT_HEARTBEAT_DELAY.should.eql(30000);
+  });
+
   it('correctly defines DEFAULT_TIMEOUT ', () => {
     const { DEFAULT_TIMEOUT } = Constant;
 

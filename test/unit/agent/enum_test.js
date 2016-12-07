@@ -78,10 +78,16 @@ describe('Enum', () => {
   describe('Metric', () => {
     const { Metric } = Enum;
 
-    it('correctly defines INBOUND', () => {
+    it('correctly defines MEMORY', () => {
       const { MEMORY } = Metric;
   
       MEMORY.should.eql('memory');
+    });
+
+    it('correctly defines CPU', () => {
+      const { CPU } = Metric;
+  
+      MEMORY.should.eql('cpu');
     });
   });
 });
