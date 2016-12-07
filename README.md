@@ -85,6 +85,13 @@ Example: (SDK)
 
 Examples are available in /example
 
+## Environment Variables
+
+Certain values can be set in environment variables:
+
+  * POLYSEERIO_TOKEN an access-token
+  * NODE_ENV         the current environment
+
 ## SDK Resources
 
 Use of the SDK begins with construction of a client. To construct a client 
@@ -94,14 +101,15 @@ instance, call the required polyseerio module.
 
   * polyseerio
     * `(config)`
-      - `.agent` an agent config that will be used when startAgent is called
-      - `.deduce` if the environment should be deduced from the environment when not supplied
-      - `.env` environment variable holding current environment
-      - `.timeout` integer containing number of ms to wait for server responses
-      - `.token_env` if no token is provided this environment variable will be checked for one
-      - `.token` environment variable holding current environment
-      - `.upsert_env` if an environment is not found it will be created and the SDK call retried
-      - `.version` api version to use
+      * `config`
+        - `.agent` an agent config that will be used when startAgent is called
+        - `.deduce` if the environment should be deduced from the environment when not supplied
+        - `.env` environment variable holding current environment
+        - `.timeout` integer containing number of ms to wait for server responses
+        - `.token_env` if no token is provided this environment variable will be checked for one
+        - `.token` environment variable holding current environment
+        - `.upsert_env` if an environment is not found it will be created and the SDK call retried
+        - `.version` api version to use
     * `.start(config)` generate a client and start an agent
 
 ### client
@@ -122,7 +130,7 @@ instance, call the required polyseerio module.
         - `.metric`
           - `.cpu`
           - `.memory`
-          - `.usage`
+          - `.uptime`
         - `.event`
           - `.start`
           - `.stop`
