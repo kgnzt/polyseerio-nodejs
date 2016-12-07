@@ -24,12 +24,10 @@ Example: (SDK using Agent)
     const polyseerio = require('polyseerio'),
           config     = require('./poly.json');
 
-    const client = polyseerio(config);
-
-    return client.startAgent().
-      then(result => {
+    return polyseerio(config).startAgent().
+      then(client => {
         console.log('Polyseer.io agent has started.');
-      })
+      });
 
 Example: (SDK)
 
@@ -83,7 +81,7 @@ Examples are available in /example
 ## Agent Configuration
 
 A Polyseer.io Node.JS agent can be started once a client has been created 
-(see SDK Resources). The agent has a default configuration that be adjusted
+(see SDK Resources). The agent has a default configuration that can be adjusted
 as needed.
 
   * client.startAgent(config)

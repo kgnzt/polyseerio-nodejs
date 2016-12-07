@@ -87,7 +87,13 @@ describe('Enum', () => {
     it('correctly defines CPU', () => {
       const { CPU } = Metric;
   
-      MEMORY.should.eql('cpu');
+      CPU.should.eql('cpu');
+    });
+
+    it('correctly defines UPTIME', () => {
+      const { UPTIME } = Metric;
+  
+      UPTIME.should.eql('uptime');
     });
   });
 });

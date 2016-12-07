@@ -1,7 +1,7 @@
 'use strict';
 
-const should = require('should'),
-      sinon = require('sinon'),
+const should     = require('should'),
+      sinon      = require('sinon'),
       proxyquire = require('proxyquire'),
       { STATIC,
         METHOD } = require('../../../lib/resource/definition_constant');
@@ -46,6 +46,14 @@ describe('Resource Factory', () => {
     factoryDouble.staticFactory.reset();
     factoryDouble.instanceFactory.reset();
   });
+
+  function createResourceDouble () {
+    return class ResourceDouble {
+      constructor () {
+        this.one = 'alpha';
+      }
+    };
+  }
 
   describe('function', () => {
     it('throws if there is no defintion', () => {
@@ -117,7 +125,7 @@ describe('Resource Factory', () => {
       factoryDouble.instanceFactory.
         withArgs(request, resource, DefinitionDouble.foo[METHOD]).
         returns({
-          'ping': 'pong'
+          'ping': function (_, a) { return a; }
         });
 
       const Result = factory(resource, request, options, memoizeId++);
@@ -126,7 +134,7 @@ describe('Resource Factory', () => {
 
       Result.should.not.have.property('ping');
       instance.should.have.property('ping');
-      instance.ping.should.eql('pong');
+      instance.ping('a').should.eql('a');
     });
   });
 
@@ -134,15 +142,29 @@ describe('Resource Factory', () => {
     const { addMethod } = factory;
 
     it('attaches the method to the prototype with the given name', () => {
-      const Resource = {
-              prototype: {}
+      const Resource = createResourceDouble(),
+            method = function () {
+              return this.one;
             },
-            method = sinon.stub(),
             name = 'alpha';
 
       addMethod(Resource, method, name);
 
-      Resource.prototype.alpha.should.eql(method);
+      Resource.prototype.should.have.property(name);
+    });
+
+    it('binds correct context to method attached to prototype', () => {
+      const Resource = createResourceDouble(),
+            method = function (intance) {
+              return intance.one;
+            },
+            name = 'alpha';
+
+      addMethod(Resource, method, name);
+
+      const resource = new Resource();
+
+      const result = resource.alpha().should.eql('alpha');
     });
 
     it('returns the Resource', () => {
@@ -234,16 +256,20 @@ describe('Resource Factory', () => {
             },
             request = sinon.stub(),
             methods = {
-              alpha: sinon.stub(),
-              beta: sinon.stub()
+              alpha: function (instance, ...args) {
+                return 'alpha';
+              },
+              beta: function (instance, ...args) {
+                return 'beta';
+              }
             };
 
       addMethods(Resource, request, methods);
 
       Resource.should.have.propertyByPath('prototype', 'alpha');
-      Resource.prototype.alpha.should.eql(methods.alpha);
+      Resource.prototype.alpha().should.eql('alpha');
       Resource.should.have.propertyByPath('prototype', 'beta');
-      Resource.prototype.beta.should.eql(methods.beta);
+      Resource.prototype.beta().should.eql('beta');
     });
 
     it('attaches the request to the Resource prototype', () => {

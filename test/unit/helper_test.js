@@ -7,6 +7,33 @@ const should = require('should'),
 describe('Helper', () => {
   const Helper = require('../../lib/helper');
 
+  describe('forwardThis', () => {
+    const { forwardThis } = Helper;
+
+    function createResourceDouble () {
+      return class ResourceDouble {
+        constructor () {
+          this.one = 'alpha';
+        }
+      };
+    }
+
+    it('correctly forwards context of function to passed method with args', () => {
+      const Resource = createResourceDouble();
+
+      const func = function (resource, two, three) {
+        return `${resource.one}.${two}.${three}`;
+      };
+
+      Resource.prototype.func = forwardThis(func);
+
+      const resource = new Resource(),
+            result = resource.func('beta', 'gamma');
+
+      result.should.eql('alpha.beta.gamma');
+    });
+  });
+
   describe('resolveToken', () => {
     const { resolveToken } = Helper;
 
