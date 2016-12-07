@@ -89,7 +89,7 @@ Example: (SDK)
   * Supports object-oriented style programming.
     * ORM style instances. E.g. environment.save(), alert.trigger(), instance.gauge();
   * A resources environment can be deduced or explicitly passed to SDK calls through the options param.
-  * Environment missing in Polyseer.io will be upserted by default.
+  * Missing environment's will be upserted by default.
   * API calls are made using the https:// protocol.
 
 
@@ -112,38 +112,39 @@ instance, call the required polyseerio module.
         - `.upsert_env` if an environment is not found it will be created and the SDK call retried
         - `.version` api version to use
     * `.start(config)` generate a client and start an agent
+      * `config` see above
 
 ### client
 
   * client
     * `.getCurrentEnvironment(options)`  Resolves the current environment **IF** it has been deduced.
-    * `.startAgent(config)`              Starts the Polyseer.io agent. Will merge passed config with config.agent from client construction.
+    * `.startAgent(config)`              Starts the Polyseer.io agent.
       * `config`
         - `.attach`
         - `.attach_strategy`
-        - `.name`
-        - `.description`
-        - `.group`
-        - `.direction`
-        - `.subtype`
-        - `.expectation`
-          - `.is_alive`
+        - `.name` instance name (will be used as a unique id)
+        - `.description` a description of this instance
+        - `.group` what group this instance belongs to
+        - `.direction` the monitoring direction (inbound) // force this
+        - `.subtype` the instance subtype: periodic or long_running.
+        - `.expectation` will be upserted for this instance
+          - `.is_alive` create an expectation that this process is alive
         - `.metric`
-          - `.cpu`
-          - `.memory`
-          - `.uptime`
+          - `.cpu` track user and system cpu usage
+          - `.memory` track memory usage
+          - `.uptime` track process uptime
         - `.event`
-          - `.start`
-          - `.stop`
+          - `.start` event notice when agent starts
+          - `.stop` event notice when agent stops
         - `.process_event`
-          - `.exit`
-          - `.warning`
-          - `.uncaughtException`
-          - `.unhandledRejection`
+          - `.exit` event notice on process exit
+          - `.warning` event notice on process warning
+          - `.uncaughtException` event notice on uncaught execptions
+          - `.unhandledRejection` event notice on unhandled promise rejections
         - `.process_signal`
-          - `.SIGHUP`
-          - `.SIGINT`
-          - `.SIGTERM`
+          - `.SIGHUP` event notice when process receives SIGHUP
+          - `.SIGINT` event notice when process receives SIGINT
+          - `.SIGTERM` event notice when process receives SIGTERM
     * `.Color`
     * `.Icon`
     * `.Strategy`
