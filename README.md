@@ -89,8 +89,9 @@ Examples are available in /example
 
 Certain values can be set in environment variables:
 
-  * POLYSEERIO_TOKEN an access-token
+  * POLYSEERIO_TOKEN access-token used for API calls
   * NODE_ENV         the current environment
+  * LOG_LEVEL        logging level for SDK
 
 ## SDK Resources
 
@@ -314,3 +315,8 @@ Requires the environment to have a root level access-token defined as:
 ### All
 
     make test
+
+## Debugging
+
+In order to debug an issue is can be helpful to enable debug logging. To do
+so set the environment variable: LOG_LEVEL to debug.
