@@ -8,6 +8,10 @@ describe('Client API is being defined correctly', () => {
         polyseerio = require('../../');
 
   describe('polyseerio', () => {
+    it('exports a start convenience method', () => {
+      polyseerio.should.have.property('start');
+    });
+
     it('exports Color', () => {
       polyseerio.should.have.property('Color');
     });

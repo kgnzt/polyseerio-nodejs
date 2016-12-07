@@ -19,8 +19,15 @@ To install inside a project, run:
 This SDK enables direct platform interactions and also provides a
 configurable agent that can be used for immediate integration.
 
+Example: (Quick start agent)
+
+    // Assumes environment contains: POLYSEERIO_TOKEN
+    // Environment deduced from NODE_ENV or development by default 
+    return require('polyseerio').start().then(client => { console.log('ok') });
+
 Example: (SDK using Agent)
 
+    // Provide a configuration object.
     const polyseerio = require('polyseerio'),
           config     = require('./poly.json');
 
