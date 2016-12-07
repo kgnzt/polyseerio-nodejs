@@ -80,6 +80,12 @@ describe('Helper', () => {
     const { clearLoop,
             loopPromise } = Helper;
 
+    it('throws without a number being passed', () => {
+      (function () {
+        clearLoop('poing-pong');
+      }).should.throw();
+    });
+
     it('will stop looping', (next) => {
       function f () {
         f._callCount = f._callCount || 0;
@@ -170,25 +176,6 @@ describe('Helper', () => {
         f._callCount.should.eql(1);
         next();
       }, 100);
-    });
-  });
-
-  describe('.getPromiseDelayer', () => {
-    const { getPromiseDelayer } = Helper;
-
-    it('returns true if the object has the value and the predicate returns true', () => {
-      const amount = 10,
-            start = Date.now(),
-            expected = 'alpha';
-
-      return global.Promise.resolve(expected).
-        then(getPromiseDelayer(amount + 100)).
-        then(result => {
-          const end = (Date.now() - start);
-
-          end.should.be.greaterThanOrEqual(amount);
-          result.should.eql(expected);
-        });
     });
   });
 

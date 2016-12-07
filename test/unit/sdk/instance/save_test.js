@@ -30,6 +30,6 @@ describe('save', () => {
             ding: 'dong'
           }
         }).should.eql(true);
-      })
+      });
   });
 });

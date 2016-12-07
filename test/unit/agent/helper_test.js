@@ -146,6 +146,25 @@ describe('Helper', () => {
     it('currys up to arguments passed', () => {
     });
 
+    it('simply resolves if handler exists but there is only a teardown', () => {
+      const handler = {
+              foo: {
+                alpha: {
+                  [Interface.TEARDOWN]: sinon.stub()
+                }
+              }
+            },
+            type = 'foo',
+            config = {
+              alpha: {
+                zoo: true
+              }
+            },
+            argOne = sinon.stub();
+
+      return setupWithHandler(handler, type, config, argOne).should.be.fulfilled();
+    });
+
     it('alows for handler to be an object with a SETUP key / interface', () => {
       const handler = {
               foo: {

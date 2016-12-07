@@ -4,6 +4,8 @@ const should = require('should'),
       sinon  = require('sinon');
 
 describe('Agent EventHandler', () => {
+  const Interface = require('../../../../lib/agent/handler/interface');
+
   const Handler = require('../../../../lib/agent/handler/event');
 
   describe('start', () => {
@@ -33,7 +35,7 @@ describe('Agent EventHandler', () => {
   });
 
   describe('stop', () => {
-    const { stop } = Handler;
+    const stop = Handler.stop[Interface.TEARDOWN];
 
     it('creates an event for the agent being stoped', () => {
       const client = {
@@ -45,7 +47,7 @@ describe('Agent EventHandler', () => {
               name: 'foo'
             };
 
-      client.Event.create.returns(global.Promise.resolve('result_double'))
+      client.Event.create.returns(global.Promise.resolve('result_double'));
 
       return stop(client, instance).should.be.fulfilled().
         then(result => {
