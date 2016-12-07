@@ -53,9 +53,11 @@ Example: (SDK)
     const polyseerio = require('polyseerio'),
           token      = 'an-access-token';
 
+    const client = polyseerio({ token }); 
+
     const { Event, 
             Alert,
-            Instance } = polyseerio({ token }); 
+            Instance } = client;
 
     return Instance.attach({
       name: 'my-example-instance',
