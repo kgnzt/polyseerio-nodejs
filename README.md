@@ -80,6 +80,34 @@ Example: (SDK)
 
 Examples are available in /example
 
+## Agent Configuration
+
+  * client.startAgent(config)
+    * `config`
+      - `.attach`
+      - `.attach_strategy`
+      - `.name`
+      - `.description`
+      - `.group`
+      - `.direction`
+      - `.subtype`
+      - `.expectation`
+        - `.is_alive`
+      - `.metric`
+        - `.cpu`
+        - `.memory`
+      - `.event`
+        - `.start`
+      - `.process_event`
+        - `.exit`
+        - `.warning`
+        - `.uncaughtException`
+        - `.unhandledRejection`
+      - `.process_signal`
+        - `.SIGHUP`
+        - `.SIGINT`
+        - `.SIGTERM`
+
 ## SDK Resources
 
 Use of the SDK begins with construction of a client. To construct a client 
