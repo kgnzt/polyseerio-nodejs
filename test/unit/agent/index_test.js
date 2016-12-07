@@ -31,9 +31,43 @@ describe('Agent', () => {
 
       agent._client.should.eql(client);
     });
+
+    it('defaults ._instance to null', () => {
+      const agent = new Agent(sinon.stub());
+
+      (agent._instance === null).should.eql(true);
+    });
   });
 
   describe('start', () => {
+    it('returns the client', () => {
+      const client = sinon.stub(),
+            agent = new Agent(client),
+            instanceDouble = sinon.stub();
+
+      ExecutorDouble.execute.returns(global.Promise.resolve(instanceDouble));
+
+      return agent.start().
+        should.be.fulfilled().
+        then(result => {
+          result.should.eql(client);
+        });
+    });
+
+    it('sets the internal instance of the agent', () => {
+      const client = sinon.stub(),
+            agent = new Agent(client),
+            instanceDouble = sinon.stub();
+
+      ExecutorDouble.execute.returns(global.Promise.resolve(instanceDouble));
+
+      return agent.start().
+        should.be.fulfilled().
+        then(result => {
+          agent._instance.should.eql(instanceDouble);
+        });
+    });
+
     it('calls execute from the Executor correctly passing client and forward args', () => {
       const client = sinon.stub(),
             agent = new Agent(client);
@@ -43,7 +77,6 @@ describe('Agent', () => {
       return agent.start('alpha', 'beta', 'gamma', 11).
         should.be.fulfilled().
         then(result => {
-          result.should.eql('foo');
           ExecutorDouble.execute.
             calledWithExactly(client, 'alpha', 'beta', 'gamma', 11).
             should.eql(true);
