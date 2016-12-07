@@ -14,6 +14,19 @@ To install inside a project, run:
 
     npm install polyseerio --save
 
+## Example
+
+Examples are available in /example
+
+## Environment Variables
+
+Certain values can be set in environment variables:
+
+  * POLYSEERIO_TOKEN access-token used for API calls
+  * NODE_ENV         the current environment
+  * LOG_LEVEL        logging level for SDK
+
+
 ## Usage
 
 This SDK provides direct platform interactions as well as a
@@ -21,19 +34,18 @@ configurable agent that can be used for immediate integration.
 
 Example: (Quick start agent)
 
-    // Access-token defined in: POLYSEERIO_TOKEN
-    // Environment deduced from NODE_ENV or development by default 
+    // Uses environment variables: POLYSEERIO_TOKEN, NODE_ENV.
     return require('polyseerio').start().then(client => { console.log('ok') });
 
-Example: (SDK using Agent)
+Example: (Configured quick start)
 
     // Provide a configuration object.
     const polyseerio = require('polyseerio'),
-          config     = require('./poly.json');
+          config     = require('./config.json');
 
-    return polyseerio(config).startAgent().
+    return polyseerio.start(config).
       then(client => {
-        console.log('Polyseer.io agent has started.');
+        console.log('ok');
       });
 
 Example: (SDK)
@@ -80,18 +92,6 @@ Example: (SDK)
   * Environment missing in Polyseer.io will be upserted by default.
   * API calls are made using the https:// protocol.
 
-
-## Example
-
-Examples are available in /example
-
-## Environment Variables
-
-Certain values can be set in environment variables:
-
-  * POLYSEERIO_TOKEN access-token used for API calls
-  * NODE_ENV         the current environment
-  * LOG_LEVEL        logging level for SDK
 
 ## SDK Resources
 
