@@ -82,6 +82,10 @@ Examples are available in /example
 
 ## Agent Configuration
 
+A Polyseer.io Node.JS agent can be started once a client has been created 
+(see SDK Resources). The agent has a default configuration that be adjusted
+as needed.
+
   * client.startAgent(config)
     * `config`
       - `.attach`
