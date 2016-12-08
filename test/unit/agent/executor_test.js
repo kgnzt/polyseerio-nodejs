@@ -5,10 +5,11 @@ const should = require('should');
 describe('Executor', () => {
   const Executor = require('../../../lib/agent/executor');
 
-  describe('execute', () => {
-    const { execute } = Executor;
+  describe('setup', () => {
+    const { setup } = Executor;
+  });
 
-    it('', () => {
-    });
+  describe('terdown', () => {
+    const { terdown } = Executor;
   });
 });

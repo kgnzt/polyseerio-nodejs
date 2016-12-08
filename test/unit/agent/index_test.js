@@ -6,7 +6,7 @@ const should     = require('should'),
 
 describe('Agent', () => {
   const ExecutorDouble = {
-    execute: sinon.stub(),
+    setup: sinon.stub(),
     teardown: sinon.stub()
   };
 
@@ -15,7 +15,7 @@ describe('Agent', () => {
   });
 
   beforeEach(() => {
-    ExecutorDouble.execute.reset();
+    ExecutorDouble.setup.reset();
     ExecutorDouble.teardown.reset();
   });
 
@@ -47,7 +47,7 @@ describe('Agent', () => {
             agent = new Agent(client),
             instanceDouble = sinon.stub();
 
-      ExecutorDouble.execute.returns(global.Promise.resolve(instanceDouble));
+      ExecutorDouble.setup.returns(global.Promise.resolve(instanceDouble));
 
       return agent.start().
         should.be.fulfilled().
@@ -61,7 +61,7 @@ describe('Agent', () => {
             agent = new Agent(client),
             instanceDouble = sinon.stub();
 
-      ExecutorDouble.execute.returns(global.Promise.resolve(instanceDouble));
+      ExecutorDouble.setup.returns(global.Promise.resolve(instanceDouble));
 
       return agent.start().
         should.be.fulfilled().
@@ -70,16 +70,16 @@ describe('Agent', () => {
         });
     });
 
-    it('calls execute from the Executor correctly passing client and forward args', () => {
+    it('calls setup from the Executor correctly passing client and forward args', () => {
       const client = sinon.stub(),
             agent = new Agent(client);
 
-      ExecutorDouble.execute.returns(global.Promise.resolve('foo'));
+      ExecutorDouble.setup.returns(global.Promise.resolve('foo'));
 
       return agent.start('alpha', 'beta', 'gamma', 11).
         should.be.fulfilled().
         then(result => {
-          ExecutorDouble.execute.
+          ExecutorDouble.setup.
             calledWithExactly(client, 'alpha', 'beta', 'gamma', 11).
             should.eql(true);
         });
