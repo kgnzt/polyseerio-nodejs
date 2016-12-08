@@ -165,7 +165,7 @@ describe('Helper', () => {
       return setupWithHandler(handler, type, config, argOne).should.be.fulfilled();
     });
 
-    it('alows for handler to be an object with a SETUP key / interface', () => {
+    it('allows for handler to be an object with a SETUP key / interface', () => {
       const handler = {
               foo: {
                 alpha: {

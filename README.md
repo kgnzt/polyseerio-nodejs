@@ -85,7 +85,7 @@ Example: (SDK)
 
 ## Design
 
-  * Provides direct SDK calls as well as a Polyseer.io Node.JS agent.
+  * Provides direct platform calls as well as a Polyseer.io Node.JS agent.
   * All client SDK calls return a Promise.
   * Supports functional style programming.
   * Supports object-oriented style programming.
@@ -281,6 +281,10 @@ instance, call the required polyseerio module.
     * new **Task**(attributes)
       * `.save()`
       * `.remove()`
+
+## Contributing
+
+Always welcome to add, just open a PR.
 
 ## Testing
 
