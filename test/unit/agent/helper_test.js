@@ -223,7 +223,7 @@ describe('Helper', () => {
             argOne = sinon.stub();
 
       return setupWithHandler(handler, type, config, argOne).
-        should.be.rejectedWith('Could not find a handler setup for type: zoo.');
+        should.be.rejectedWith('Handlers did not contain a type: zoo.');
     });
 
     it('calls each handler present in handler config for type', () => {
