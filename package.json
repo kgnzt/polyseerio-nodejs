@@ -30,10 +30,13 @@
     "winston": "^2.3.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.18.0",
     "grunt": "^1.0.1",
+    "grunt-babel": "^6.0.0",
     "grunt-contrib-jshint": "^1.0.0",
     "grunt-mocha-test": "^0.12.7",
     "jshint-junit-reporter": "^0.2.2",
+    "load-grunt-tasks": "^3.5.2",
     "mocha": "^3.0.2",
     "proxyquire": "^1.7.10",
     "should": "^11.1.0",

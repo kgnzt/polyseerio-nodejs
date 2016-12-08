@@ -1,5 +1,6 @@
 'use strict';
 
+
 const jshintReporter = require('jshint-junit-reporter'),
       lintableFiles  = ['example/**/*.js', 'example/**/*.json', 'test/**/*.js', 'lib/**/*.js'],
       unitTestFiles  = ['test/unit/**/*_test.js'],
@@ -7,7 +8,19 @@ const jshintReporter = require('jshint-junit-reporter'),
       validationTestFiles  = ['test/validation/**/*_test.js'];
 
 module.exports = function (grunt) {
+  require('load-grunt-tasks')(grunt);
+
   grunt.initConfig({
+    babel: {
+      options: {
+        sourceMap: true
+      },
+      dist: {
+        files: {
+          'dist/s': 'lib/**/*.js'
+        }
+      }
+    },
     mochaTest: {
       integration_stdout: {
         options: {
@@ -62,6 +75,7 @@ module.exports = function (grunt) {
     }
   });
 
+  grunt.registerTask('compile', ['babel']);
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-mocha-test');
 };
