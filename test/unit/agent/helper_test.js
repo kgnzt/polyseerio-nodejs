@@ -205,7 +205,7 @@ describe('Helper', () => {
             argOne = sinon.stub();
 
       return setupWithHandler(handler, type, config, argOne).
-        should.be.rejectedWith('Could not find a handler for type: ding.');
+        should.be.rejectedWith('Could not find handler type: ding.');
     });
 
     it('rejects when a handler does not have an item from config', () => {
@@ -223,7 +223,7 @@ describe('Helper', () => {
             argOne = sinon.stub();
 
       return setupWithHandler(handler, type, config, argOne).
-        should.be.rejectedWith('Handlers did not contain a type: zoo.');
+        should.be.rejectedWith('Could not find handler subtype: zoo.');
     });
 
     it('calls each handler present in handler config for type', () => {
