@@ -11,7 +11,8 @@ const TestEnvironment = {
 
 const DEFAULT_CLIENT_OPTIONS = {
   deduce: false,
-  environment: TestEnvironment.name
+  environment: TestEnvironment.name,
+  upsert_env: false
 };
 
 /**
