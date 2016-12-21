@@ -131,6 +131,16 @@ instance, call the required polyseerio module.
         - `.subtype` the instance subtype: periodic or long_running.
         - `.expectation` will be upserted for this instance
           - `.is_alive` create an expectation that this process is alive
+        - `.fact`
+          - `.architecture` the operating system architecture
+          - `.gid` the group if othe process is running under
+          - `.launch_arguments` command used to launch the instance
+          - `.node_version` the version of node being used
+          - `.pid` the id of the process
+          - `.platform` the operating platform of
+          - `.title` the title of the process
+          - `.uid` user id the process is running as
+          - `.v8_version` the version of v8
         - `.metric`
           - `.cpu` track user and system cpu usage
           - `.memory` track memory usage
