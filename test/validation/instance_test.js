@@ -95,12 +95,28 @@ describe('Instances', function () {
       }).should.be.fulfilled();
 
       const gauge = yield resource.gauge({
+        foo: 22
+      }).should.be.fulfilled();
+
+      resource = yield Instance.findById(resource.id).should.be.fulfilled();
+
+      resource.gauges.foo[0][0].should.eql(22);
+    });
+  });
+
+  it('can set instance facts', () => {
+    return co(function* () {
+      let resource = yield Instance.create({ 
+        name: getUniqueName()
+      }).should.be.fulfilled();
+
+      const fact = yield resource.fact({
         foo: 'bar'
       }).should.be.fulfilled();
 
       resource = yield Instance.findById(resource.id).should.be.fulfilled();
 
-      resource.gauges.foo[0][0].should.eql('bar');
+      resource.facts.foo.value.should.eql('bar');
     });
   });
 });

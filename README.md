@@ -231,11 +231,13 @@ instance, call the required polyseerio module.
     * `.remove(id, options)`
     * `.update(id, updates, options)`
     * new **Instance**(attributes)
-      * `.save()`
-      * `.gauge()`
+      * `.addFact()`
       * `.addGauge()`
-      * `.remove()`
       * `.attach()`
+      * `.fact()`
+      * `.gauge()`
+      * `.remove()`
+      * `.save()`
 
 ### Logic Block
 

@@ -191,6 +191,10 @@ describe('Client API is being defined correctly', () => {
       instance.should.have.property('remove');
       instance.should.have.property('attach');
       instance.should.have.property('toJSON');
+      instance.should.have.property('gauge');
+      instance.should.have.property('fact');
+      instance.should.have.property('addFact');
+      instance.should.have.property('addGauge');
     });
   });
 
