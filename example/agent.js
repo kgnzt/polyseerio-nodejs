@@ -12,5 +12,5 @@ return client.startAgent().
       name: 'User signed up.',
       color: 'green',
       icon: 'check'
-    })
+    });
   }).catch(console.log);

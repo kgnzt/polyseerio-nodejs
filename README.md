@@ -160,6 +160,10 @@ instance, call the required polyseerio module.
     * `.Color`
     * `.Icon`
     * `.Strategy`
+    * `.Determiner`
+    * `.Direction`
+    * `.Subtype`
+    * `.Protocol`
     
 ### Alert
 

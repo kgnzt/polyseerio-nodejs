@@ -11,18 +11,6 @@ describe('Client API is being defined correctly', () => {
     it('exports a start convenience method', () => {
       polyseerio.should.have.property('start');
     });
-
-    it('exports Color', () => {
-      polyseerio.should.have.property('Color');
-    });
-
-    it('exports Icon', () => {
-      polyseerio.should.have.property('Icon');
-    });
-
-    it('exports Strategy', () => {
-      polyseerio.should.have.property('Strategy');
-    });
   });
 
   describe('Client', () => {
@@ -36,6 +24,22 @@ describe('Client API is being defined correctly', () => {
 
     it('exports Strategy', () => {
       Client.should.have.property('Strategy');
+    });
+
+    it('exports Determiner', () => {
+      polyseerio.should.have.property('Determiner');
+    });
+
+    it('exports Direction', () => {
+      polyseerio.should.have.property('Direction');
+    });
+
+    it('exports Subtype', () => {
+      polyseerio.should.have.property('Subtype');
+    });
+
+    it('exports Protocol', () => {
+      polyseerio.should.have.property('Protocol');
     });
   });
 

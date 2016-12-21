@@ -5,6 +5,22 @@ const should = require('should');
 describe('Enum', () => {
   const Enum = require('../../lib/enum');
 
+  describe('Protocol', () => {
+    const { Protocol } = Enum;
+
+    it('correctly defines SMTP', () => {
+      const { SMTP } = Protocol;
+  
+      SMTP.should.eql('smtp');
+    });
+
+    it('correctly defines SMS', () => {
+      const { SMS } = Protocol;
+  
+      SMS.should.eql('sms');
+    });
+  });
+
   describe('Determiner', () => {
     const { Determiner } = Enum;
 
