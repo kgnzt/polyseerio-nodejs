@@ -5,6 +5,64 @@ const should = require('should');
 describe('Enum', () => {
   const Enum = require('../../../lib/agent/enum');
 
+  describe('Fact', () => {
+    const { Fact } = Enum;
+
+    it('correctly defines ARCHITECTURE', () => {
+      const { ARCHITECTURE } = Fact;
+  
+      ARCHITECTURE.should.eql('architecture');
+    });
+
+    it('correctly defines GID', () => {
+      const { GID } = Fact;
+  
+      GID.should.eql('gid');
+    });
+
+    it('correctly defines LAUNCH_ARGUMENTS', () => {
+      const { LAUNCH_ARGUMENTS } = Fact;
+  
+      LAUNCH_ARGUMENTS.should.eql('launch_arguments');
+    });
+
+    it('correctly defines NODE_VERSION', () => {
+      const { NODE_VERSION } = Fact;
+  
+      NODE_VERSION.should.eql('node_version');
+    });
+
+    it('correctly defines PID', () => {
+      const { PID } = Fact;
+  
+      PID.should.eql('pid');
+    });
+
+    it('correctly defines PLATFORM', () => {
+      const { PLATFORM } = Fact;
+  
+      PLATFORM.should.eql('platform');
+    });
+
+    it('correctly defines TITLE', () => {
+      const { TITLE } = Fact;
+  
+      TITLE.should.eql('title');
+    });
+
+    it('correctly defines UID', () => {
+      const { UID } = Fact;
+  
+      UID.should.eql('uid');
+    });
+
+    it('correctly defines V8_VERSION', () => {
+      const { V8_VERSION } = Fact;
+  
+      V8_VERSION.should.eql('v8_version');
+    });
+  });
+
   describe('Expectation', () => {
     const { Expectation } = Enum;
 
