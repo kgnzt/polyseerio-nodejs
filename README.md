@@ -103,8 +103,8 @@ instance, call the required polyseerio module.
 ### polyseerio
 
   * polyseerio
-    * `(config)`
-      * `config`
+    * `(options = {}) ⇒ Polyseerio::Client`
+      * `options`
         - `.agent` an agent config that will be used when startAgent is called
         - `.deduce` if the environment should be deduced from the environment when not supplied
         - `.env` environment variable holding current environment
@@ -113,15 +113,15 @@ instance, call the required polyseerio module.
         - `.token` environment variable holding current environment
         - `.upsert_env` if an environment is not found it will be created and the SDK call retried
         - `.version` api version to use
-    * `.start(config)` generate a client and start an agent
-      * `config` see above
+    * `.start(options = {}) ⇒ Polyseerio::Client` generate a client and start an agent
+      * `options` same as above
 
 ### client
 
   * client
-    * `.getCurrentEnvironment(options)`  Resolves the current environment **IF** it has been deduced.
-    * `.startAgent(config)`              Starts the Polyseer.io agent.
-      * `config`
+    * `.getCurrentEnvironment() ⇒ client.Environment`  Resolves the current environment **IF** it has been deduced.
+    * `.startAgent(options = {}) ⇒ Polyseerio::Client`             Starts the Polyseer.io agent.
+      * `options`
         - `.attach`
         - `.attach_strategy`
         - `.name` instance name (will be used as a unique id)
@@ -164,29 +164,29 @@ instance, call the required polyseerio module.
 ### Alert
 
   * .Alert
-    * `.create(attributes, options)`
-    * `.find(query, options)`
-    * `.findById(id, options)`
-    * `.findByName(name, options)`
-    * `.remove(id, options)`
-    * `.trigger(id, payload, options)`
-    * `.update(id, updates, options)`
-    * new **Alert**(attributes)
+    * `.create(attributes = {}, options = {})`
+    * `.find(query = {}, options = {})`
+    * `.findById(id, options = {})`
+    * `.findByName(name, options = {})`
+    * `.remove(id, options = {})`
+    * `.trigger(id, payload = {}, options = {})`
+    * `.update(id, updates = {}, options = {})`
+    * new **Alert**(attributes = {})
       * `.save()`
       * `.remove()`
-      * `.trigger(payload)`
+      * `.trigger(payload = {})`
 
 ### Channel
 
   * .Channel
-    * `.create(attributes, options)`
-    * `.find(query, options)`
-    * `.findById(id, options)`
-    * `.findByName(name, options)`
-    * `.message(id, content, options)`
-    * `.remove(id, options)`
-    * `.update(id, updates, options)`
-    * new **Channel**(attributes)
+    * `.create(attributes = {}, options = {})`
+    * `.find(query = {}, options = {})`
+    * `.findById(id, options = {})`
+    * `.findByName(name, options = {})`
+    * `.message(id, content, options = {})`
+    * `.remove(id, options = {})`
+    * `.update(id, updates = {}, options = {})`
+    * new **Channel**(attributes = {})
       * `.save()`
       * `.remove()`
       * `.message(content)`
@@ -194,14 +194,14 @@ instance, call the required polyseerio module.
 ### Environment
 
   * .Environment
-    * `.create(attributes, options)`
-    * `.find(query, options)`
-    * `.findById(id, options)`
-    * `.findByName(name, options)`
-    * `.message(id, content, options)`
-    * `.remove(id, options)`
-    * `.update(id, payload, options)`
-    * new **Environment**(attributes)
+    * `.create(attributes = {}, options = {})`
+    * `.find(query = {}, options = {})`
+    * `.findById(id, options = {})`
+    * `.findByName(name, options = {})`
+    * `.message(id, content, options = {})`
+    * `.remove(id, options = {})`
+    * `.update(id, payload = {}, options = {})`
+    * new **Environment**(attributes = {})
       * `.save()`
       * `.remove()`
       * `.message(content)`
@@ -209,23 +209,23 @@ instance, call the required polyseerio module.
 ### Event
 
   * .Event
-    * `.create(attributes, options)`
-    * `.find(query, options)`
-    * `.findById(id, options)`
-    * new **Event**(attributes)
+    * `.create(attributes = {}, options = {})`
+    * `.find(query = {}, options = {})`
+    * `.findById(id, options = {})`
+    * new **Event**(attributes = {})
       * `.save()`
 
 ### Expectation
 
   * .Expectation
-    * `.check(id, options)`
-    * `.create(attributes, options)`
-    * `.find(query, options)`
-    * `.findById(id, options)`
-    * `.findByName(name, options)`
-    * `.remove(id, options)`
-    * `.update(id, updates, options)`
-    * new **Expectation**(attributes)
+    * `.check(id, options = {})`
+    * `.create(attributes = {}, options = {})`
+    * `.find(query = {}, options = {})`
+    * `.findById(id, options = {})`
+    * `.findByName(name, options = {})`
+    * `.remove(id, options = {})`
+    * `.update(id, updates = {}, options = {})`
+    * new **Expectation**(attributes = {})
       * `.save()`
       * `.remove()`
       * `.check()`
@@ -233,14 +233,14 @@ instance, call the required polyseerio module.
 ### Instance
 
   * .Instance
-    * `.attach(options)`
-    * `.create(attributes, options)`
-    * `.find(query, options)`
-    * `.findById(id, options)`
-    * `.findByName(name, options)`
-    * `.remove(id, options)`
-    * `.update(id, updates, options)`
-    * new **Instance**(attributes)
+    * `.attach(options = {})`
+    * `.create(attributes = {}, options = {})`
+    * `.find(query = {}, options = {})`
+    * `.findById(id, options = {})`
+    * `.findByName(name, options = {})`
+    * `.remove(id, options = {})`
+    * `.update(id, updates = {}, options = {})`
+    * new **Instance**(attributes = {})
       * `.addFact()`
       * `.addGauge()`
       * `.attach()`
@@ -252,14 +252,14 @@ instance, call the required polyseerio module.
 ### Logic Block
 
   * .LogicBlock
-    * `.create(attributes, options)`
-    * `.execute(id, options)`
-    * `.find(query, options)`
-    * `.findById(id, options)`
-    * `.findByName(name, options)`
-    * `.remove(id, options)`
-    * `.update(id, updates, options)`
-    * new **LogicBlock**(attributes)
+    * `.create(attributes = {}, options = {})`
+    * `.execute(id, options = {})`
+    * `.find(query = {}, options = {})`
+    * `.findById(id, options = {})`
+    * `.findByName(name, options = {})`
+    * `.remove(id, options = {})`
+    * `.update(id, updates = {}, options = {})`
+    * new **LogicBlock**(attributes = {})
       * `.save()`
       * `.remove()`
       * `.execute()`
@@ -267,30 +267,30 @@ instance, call the required polyseerio module.
 ### Member
 
   * .Member
-    * `.create(attributes, options)`
-    * `.find(query, options)`
-    * `.findById(id, options)`
-    * `.remove(id, options)`
-    * `.update(id, updates, options)`
-    * new **Member**(attributes)
+    * `.create(attributes = {}, options = {})`
+    * `.find(query = {}, options = {})`
+    * `.findById(id, options = {})`
+    * `.remove(id, options = {})`
+    * `.update(id, updates = {}, options = {})`
+    * new **Member**(attributes = {})
       * `.save()`
       * `.remove()`
 
 ### Settings
 
   * .Settings
-    * `.retrieve(options)`
-    * `.update(updates, options)`
+    * `.retrieve()`
+    * `.update(updates = {})`
 
 ### Task
 
   * .Task
-    * `.create(attributes, options)`
-    * `.find(query, options)`
-    * `.findById(id, options)`
-    * `.remove(id, options)`
-    * `.update(id, updates, options)`
-    * new **Task**(attributes)
+    * `.create(attributes = {}, options = {})`
+    * `.find(query = {}, options = {})`
+    * `.findById(id, options = {})`
+    * `.remove(id, options = {})`
+    * `.update(id, updates = {}, options = {})`
+    * new **Task**(attributes = {})
       * `.save()`
       * `.remove()`
 
