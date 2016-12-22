@@ -13,16 +13,16 @@ describe('Agent ExpectationHandler', () => {
       const client = {
               Expectation: {
                 create: sinon.stub()
+              },
+              instance: {
+                id: 100,
+                name: 'foo'
               }
-            },
-            instance = {
-              id: 100,
-              name: 'foo'
             };
 
       client.Expectation.create.returns(global.Promise.resolve('result_double'));
 
-      return is_alive(client, instance).should.be.fulfilled().
+      return is_alive({}, client).should.be.fulfilled().
         then(result => {
           const data = client.Expectation.create.args[0][0];
 
@@ -31,7 +31,7 @@ describe('Agent ExpectationHandler', () => {
           data.is_on.should.eql(true);
           data.determiner.should.eql('one');
           data.subject.should.eql('instance');
-          data.subjects.should.eql([instance.id]);
+          data.subjects.should.eql([client.instance.id]);
           data.is_expected.should.eql(true);
           data.logic.should.eql({
             "===": [

@@ -15,10 +15,10 @@ describe('Agent EventHandler', () => {
       const client = {
               Event: {
                 create: sinon.stub()
+              },
+              instance: {
+                name: 'foo'
               }
-            },
-            instance = {
-              name: 'foo'
             };
 
       client.Event.create.withArgs({
@@ -27,7 +27,7 @@ describe('Agent EventHandler', () => {
         icon: 'chain'
       }).returns(global.Promise.resolve('result_double'));
 
-      return start(client, instance).should.be.fulfilled().
+      return start({}, client).should.be.fulfilled().
         then(result => {
           result.should.eql('result_double');
         });
@@ -41,15 +41,15 @@ describe('Agent EventHandler', () => {
       const client = {
               Event: {
                 create: sinon.stub()
+              },
+              instance: {
+                name: 'foo'
               }
-            },
-            instance = {
-              name: 'foo'
             };
 
       client.Event.create.returns(global.Promise.resolve('result_double'));
 
-      return stop(client, instance).should.be.fulfilled().
+      return stop({}, client).should.be.fulfilled().
         then(result => {
           client.Event.create.calledWithExactly({
             name: 'foo agent has stopped.',

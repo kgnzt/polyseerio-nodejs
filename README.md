@@ -104,8 +104,7 @@ instance, call the required polyseerio module.
 
   * polyseerio
     * `(options = {}) ⇒ Polyseerio::Client`
-      * `options`
-        - `.agent` an agent config that will be used when startAgent is called
+      * `options (Object)`
         - `.deduce` if the environment should be deduced from the environment when not supplied
         - `.env` environment variable holding current environment
         - `.timeout` integer containing number of ms to wait for server responses
@@ -114,7 +113,15 @@ instance, call the required polyseerio module.
         - `.upsert_env` if an environment is not found it will be created and the SDK call retried
         - `.version` api version to use
     * `.start(options = {}) ⇒ Polyseerio::Client` generate a client and start an agent
-      * `options` same as above
+      * `options (Object)` see () options, plus the additional below can be passed
+        - `.agent` agent options that will be used for agent
+    * `.Color`
+    * `.Icon`
+    * `.Strategy`
+    * `.Determiner`
+    * `.Direction`
+    * `.Subtype`
+    * `.Protocol`
 
 ### client
 
@@ -157,13 +164,6 @@ instance, call the required polyseerio module.
           - `.SIGHUP` event notice when process receives SIGHUP
           - `.SIGINT` event notice when process receives SIGINT
           - `.SIGTERM` event notice when process receives SIGTERM
-    * `.Color`
-    * `.Icon`
-    * `.Strategy`
-    * `.Determiner`
-    * `.Direction`
-    * `.Subtype`
-    * `.Protocol`
     
 ### Alert
 

@@ -11,7 +11,7 @@ describe('Alert', function () {
 
   it('can create an alert', () => {
     return co(function* () {
-      const client = yield polyseerio.start();
+      const client = yield polyseerio.start().should.be.fulfilled();
 
       // go and assert quick start is working...
     });

@@ -8,6 +8,114 @@ describe('Helper', () => {
 
   const Interface = require('../../../lib/agent/handler/interface');
 
+  describe('reduceHandlerSubtypOption', () => {
+    const { reduceHandlerSubtypeOption } = Helper;
+
+    it('correctly adds to accumulator if it is enabled', () => {
+      const acc = {},
+            config = true,
+            key = 'alpha';
+
+      const result = reduceHandlerSubtypeOption(acc, config, key);
+
+      result.should.eql({
+        alpha: true
+      });
+    });
+
+    it('handles the case of enabled options', () => {
+      const acc = {},
+            config = {
+              enabled: true,
+              foo: 'bar'
+            },
+            key = 'alpha';
+
+      const result = reduceHandlerSubtypeOption(acc, config, key);
+
+      result.should.eql({
+        alpha: {
+          enabled: true,
+          foo: 'bar'
+        }
+      });
+    });
+  });
+
+  describe('filterEnabledSubtypeOptions', () => {
+    const { filterEnabledSubtypeOptions } = Helper;
+
+    it('correctly filters out handlers that are not enabled', () => {
+      const subtypeOptions = {
+        foo: true,
+        bar: {
+          enabled: true,
+          cork: 'screw'
+        },
+        king: {
+          enabled: false
+        },
+        dork: false
+      };
+
+      const result = filterEnabledSubtypeOptions(subtypeOptions);
+
+      result.should.eql({
+        foo: true,
+        bar: {
+          enabled: true,
+          cork: 'screw'
+        }
+      });
+    });
+  });
+
+  describe('filterHandlers', () => {
+    const { filterHandlers } = Helper;
+
+    it('correctly filters handlers and their subtypes', () => {
+      const options = {
+        foo: {
+          alpha: true,
+          beta: {
+            enabled: false
+          },
+          ding: {
+            enabled: true,
+            cork: 'screw'
+          }
+        },
+        bar: {
+          zing: false,
+          zang: true,
+          king: {
+            enabled: true,
+            value: 'kong'
+          }
+        }
+      };
+
+      const result = filterHandlers(options);
+
+      result.should.eql({
+        foo: {
+          alpha: true,
+          ding: {
+            enabled: true,
+            cork: 'screw'
+          }
+        },
+        bar: {
+          zang: true,
+          king: {
+            enabled: true,
+            value: 'kong'
+          }
+        }
+      });
+    });
+  });
+
   describe('resolveName', () => {
     const { resolveName } = Helper;
 
@@ -143,115 +251,131 @@ describe('Helper', () => {
   describe('setupWithHandler', () => {
     const { setupWithHandler } = Helper;
 
-    it('currys up to arguments passed', () => {
-    });
-
     it('simply resolves if handler exists but there is only a teardown', () => {
-      const handler = {
+      const map = {
               foo: {
                 alpha: {
                   [Interface.TEARDOWN]: sinon.stub()
                 }
               }
             },
-            type = 'foo',
+            client = sinon.stub(),
             config = {
               alpha: {
                 zoo: true
               }
             },
+            type = 'foo',
             argOne = sinon.stub();
 
-      return setupWithHandler(handler, type, config, argOne).should.be.fulfilled();
+      return setupWithHandler(map, client, config, type, argOne).
+        should.be.fulfilled();
     });
 
     it('allows for handler to be an object with a SETUP key / interface', () => {
-      const handler = {
+      const map = {
               foo: {
                 alpha: {
                   [Interface.SETUP]: sinon.stub()
                 }
               }
             },
-            type = 'foo',
+            client = sinon.stub(),
             config = {
-              alpha: {
-                zoo: true
+              foo: {
+                alpha: {
+                  zoo: true
+                }
               }
             },
+            type = 'foo',
             argOne = sinon.stub();
 
-      handler.foo.alpha[Interface.SETUP].withArgs(argOne).returns('foo_alpha_result');
+      map.foo.alpha[Interface.SETUP].withArgs(argOne).returns('foo_alpha_result');
 
-      return setupWithHandler(handler, type, config, argOne).
+      return setupWithHandler(map, client, config, type, argOne).
         should.be.fulfilled().
         then(result => {
-          handler.foo.alpha[Interface.SETUP].calledWithExactly(argOne).should.eql(true);
+          map.foo.alpha[Interface.SETUP].
+            calledWithExactly(config.foo.alpha, client, argOne).
+            should.eql(true);
         });
     });
 
     it('rejects when a handler type cannot be found', () => {
-      const handler = {
+      const map = {
               foo: {
                 alpha: sinon.stub()
               }
             },
-            type = 'ding',
+            client = sinon.stub(),
             config = {
-              alpha: {
-                zoo: true
+              foo: {
+                alpha: {
+                  zoo: true
+                }
               }
             },
+            type = 'ding',
             argOne = sinon.stub();
 
-      return setupWithHandler(handler, type, config, argOne).
+      return setupWithHandler(map, client, config, type, argOne).
         should.be.rejectedWith('Could not find handler type: ding.');
     });
 
     it('rejects when a handler does not have an item from config', () => {
-      const handler = {
+      const map = {
               foo: {
                 alpha: sinon.stub()
               }
             },
-            type = 'foo',
+            client = sinon.stub(),
             config = {
-              zoo: { // there is no foo.zoo handler
-                zoo: true
+              foo: {
+                zoo: { // there is no foo.zoo handler
+                  zoo: true
+                }
               }
             },
+            type = 'foo',
             argOne = sinon.stub();
 
-      return setupWithHandler(handler, type, config, argOne).
+      return setupWithHandler(map, client, config, type, argOne).
         should.be.rejectedWith('Could not find handler subtype: zoo.');
     });
 
     it('calls each handler present in handler config for type', () => {
-      const handler = {
+      const map = {
               foo: {
-                alpha: sinon.stub()
+                alpha: sinon.stub(),
               },
               bar: {
                 beta: sinon.stub()
               }
             },
-            type = 'foo',
+            client = sinon.stub(),
             config = {
-              alpha: {
-                zoo: true
+              foo: {
+                alpha: true,
+              },
+              bar: {
+                beta: true
               }
             },
+            type = 'foo',
             argOne = sinon.stub(),
             argTwo = sinon.stub();
 
-      handler.foo.alpha.withArgs(argOne, argTwo).returns('foo_alpha_result');
-      handler.bar.beta.withArgs(argOne, argTwo).returns('bar_beta_result');
+      map.foo.alpha.withArgs(argOne, argTwo).returns('foo_alpha_result');
+      map.bar.beta.withArgs(argOne, argTwo).returns('bar_beta_result');
 
-      return setupWithHandler(handler, type, config, argOne, argTwo).
+      return setupWithHandler(map, client, config, type, argOne, argTwo).
         should.be.fulfilled().
         then(result => {
-          handler.foo.alpha.calledWithExactly(argOne, argTwo).should.eql(true);
-          handler.bar.beta.called.should.eql(false);
+          map.foo.alpha.
+            calledWithExactly(config.foo.alpha, client, argOne, argTwo).
+            should.eql(true);
+          map.bar.beta.called.should.eql(false);
         });
     });
   });

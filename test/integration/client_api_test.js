@@ -11,19 +11,17 @@ describe('Client API is being defined correctly', () => {
     it('exports a start convenience method', () => {
       polyseerio.should.have.property('start');
     });
-  });
 
-  describe('Client', () => {
     it('exports Color', () => {
-      Client.should.have.property('Color');
+      polyseerio.should.have.property('Color');
     });
 
     it('exports Icon', () => {
-      Client.should.have.property('Icon');
+      polyseerio.should.have.property('Icon');
     });
 
     it('exports Strategy', () => {
-      Client.should.have.property('Strategy');
+      polyseerio.should.have.property('Strategy');
     });
 
     it('exports Determiner', () => {
