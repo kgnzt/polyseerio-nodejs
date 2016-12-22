@@ -218,14 +218,14 @@ describe('Helper', () => {
       };
     }
 
-    it('currys up to 5 parameters', () => {
+    it('currys up to 3 parameters', () => {
       const listeners = {},
             event = 'foo',
+            config = sinon.stub(),
             client = sinon.stub(),
-            instance = sinon.stub(),
             proc = createProcessMock();
 
-      const result = attachToProcess(listeners, event, client, instance);
+      const result = attachToProcess(listeners, proc, event);
 
       (typeof result === 'function').should.eql(true);
     });
@@ -236,13 +236,13 @@ describe('Helper', () => {
             },
             fooResult = sinon.stub(),
             event = 'foo',
+            config = sinon.stub(),
             client = sinon.stub(),
-            instance = sinon.stub(),
             proc = createProcessMock();
 
-      listeners.foo.withArgs(client, instance).returns(fooResult);
+      listeners.foo.withArgs(config, client).returns(fooResult);
 
-      attachToProcess(listeners, event, client, instance, proc);
+      attachToProcess(listeners, proc, event, config, client);
 
       proc.on.calledWithExactly(event, fooResult).should.eql(true);
     });

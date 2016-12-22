@@ -8,5 +8,5 @@ const polyseerio = require('../');
  */
 return polyseerio.start().
   then(client => { 
-    const { instance } = client.agent;
+    console.log('ok, agent started.')
   });
