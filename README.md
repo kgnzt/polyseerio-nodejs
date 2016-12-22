@@ -40,10 +40,15 @@ Example: (Quick start agent)
 Example: (Configured quick start)
 
     // Provide a configuration object.
-    const polyseerio = require('polyseerio'),
-          config     = require('./config.json');
+    const polyseerio = require('polyseerio');
 
-    return polyseerio.start(config).
+    return polyseerio.start({
+        env: 'APP_ENV',
+        agent: {
+          id: 'my-instance-id',
+          attach_strategy: polyseerio.Strategy.ID
+        }
+      }).
       then(client => {
         console.log('ok');
       });
