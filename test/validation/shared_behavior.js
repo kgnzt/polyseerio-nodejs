@@ -33,7 +33,7 @@ exports.creatable = function () {
         }
       }).should.be.fulfilled();
   });
-}
+};
 
 /**
  * Ensure that a resource is findable.
@@ -50,7 +50,7 @@ exports.findable = function () {
         }
       }).should.be.fulfilled();
   });
-}
+};
 
 /**
  * Ensure that a resource is findable by name.
@@ -67,7 +67,7 @@ exports.uniquelyNameable = function () {
         }
       }).should.be.fulfilled();
   });
-}
+};
 
 /**
  * Ensure that a resource is removable.
@@ -102,7 +102,7 @@ exports.removable = function () {
         return this.Resource.findById(id).should.be.rejected();
       });
   });
-}
+};
 
 /**
  * Ensure that a resource is updatable.
@@ -149,7 +149,7 @@ exports.updatable = function () {
         }
       }).should.be.fulfilled();
   });
-}
+};
 
 /**
  * Ensure that a resource is triggerable.
@@ -166,7 +166,7 @@ exports.triggerable = function () {
         }
       }).should.be.fulfilled();
   });
-}
+};
 
 /**
  * Ensure that a resource is messagable.
@@ -178,7 +178,7 @@ exports.messageable = function () {
       then(instance => {
         return this.Resource.message(instance.get('id'), 'hello world').
           then(_ => {
-            return instance.id
+            return instance.id;
           });
       }).should.be.fulfilled().
       then(id => {
@@ -187,4 +187,4 @@ exports.messageable = function () {
         }
       }).should.be.fulfilled();
   });
-}
+};
