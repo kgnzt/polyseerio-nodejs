@@ -89,51 +89,47 @@ describe('Enum', () => {
     });
   });
 
-  describe('Signal', () => {
-    const { Signal } = Enum;
+  describe('Process', () => {
+    const { Process } = Enum;
 
     it('correctly defines SIGHUP', () => {
-      const { SIGHUP } = Signal;
+      const { SIGHUP } = Process;
   
       SIGHUP.should.eql('SIGHUP');
     });
 
     it('correctly defines SIGINT', () => {
-      const { SIGINT } = Signal;
+      const { SIGINT } = Process;
   
       SIGINT.should.eql('SIGINT');
     });
 
     it('correctly defines SIGTERM', () => {
-      const { SIGTERM } = Signal;
+      const { SIGTERM } = Process;
   
       SIGTERM.should.eql('SIGTERM');
     });
-  });
-
-  describe('ProcessEvent', () => {
-    const { ProcessEvent } = Enum;
 
     it('correctly defines EXIT', () => {
-      const { EXIT } = ProcessEvent;
+      const { EXIT } = Process;
   
       EXIT.should.eql('exit');
     });
 
     it('correctly defines UNCAUGHT_EXCEPTION', () => {
-      const { UNCAUGHT_EXCEPTION } = ProcessEvent;
+      const { UNCAUGHT_EXCEPTION } = Process;
   
       UNCAUGHT_EXCEPTION.should.eql('uncaughtException');
     });
 
     it('correctly defines UNHANDLED_REJECTION', () => {
-      const { UNHANDLED_REJECTION } = ProcessEvent;
+      const { UNHANDLED_REJECTION } = Process;
   
       UNHANDLED_REJECTION.should.eql('unhandledRejection');
     });
 
     it('correctly defines WARNING', () => {
-      const { WARNING } = ProcessEvent;
+      const { WARNING } = Process;
   
       WARNING.should.eql('warning');
     });

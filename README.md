@@ -155,15 +155,14 @@ instance, call the required polyseerio module.
         - `.event`
           - `.start` event notice when agent starts
           - `.stop` event notice when agent stops
-        - `.process_event`
-          - `.exit` event notice on process exit
-          - `.warning` event notice on process warning
-          - `.uncaughtException` event notice on uncaught execptions
-          - `.unhandledRejection` event notice on unhandled promise rejections
-        - `.process_signal`
+        - `.process`
           - `.SIGHUP` event notice when process receives SIGHUP
           - `.SIGINT` event notice when process receives SIGINT
           - `.SIGTERM` event notice when process receives SIGTERM
+          - `.exit` event notice on process exit
+          - `.uncaughtException` event notice on uncaught execptions
+          - `.unhandledRejection` event notice on unhandled promise rejections
+          - `.warning` event notice on process warning
     
 ### Alert
 
