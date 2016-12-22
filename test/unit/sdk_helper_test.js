@@ -1,9 +1,31 @@
 'use strict';
 
-const should = require('should');
+const should = require('should'),
+      sinon  = require('sinon');
 
 describe('SDKHelper', () => {
   const Helper = require('../../lib/sdk/helper');
+
+  describe('removeNonResolvingValues', () => {
+    const { removeNonResolvingValues } = Helper;
+
+    it('correctly removes values that don\'t resolve', () => {
+      const map = new Map();
+
+      const callable = sinon.spy();
+
+      map.set('foo', 'bar');
+      map.set('length', 200);
+      map.set('good', true);
+      map.set('callable', callable);
+
+      const result = removeNonResolvingValues(map);
+
+      result.size.should.eql(1);
+      result.has('callable').should.eql(true);
+      result.get('callable').should.eql(callable);
+    });
+  });
 
   describe('reduceOptions', () => {
     const { reduceOptions } = Helper;
