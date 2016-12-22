@@ -56,6 +56,12 @@ describe('Enum', () => {
       UID.should.eql('uid');
     });
 
+    it('correctly defines UPTIME', () => {
+      const { UPTIME } = Fact;
+  
+      V8_VERSION.should.eql('uptime');
+    });
+
     it('correctly defines V8_VERSION', () => {
       const { V8_VERSION } = Fact;
   

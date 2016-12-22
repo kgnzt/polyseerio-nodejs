@@ -152,6 +152,7 @@ instance, call the required polyseerio module.
           - `.platform` the operating platform of
           - `.title` the title of the process
           - `.uid` user id the process is running as
+          - `.uptime` the uptime of the process
           - `.v8_version` the version of v8
         - `.metric`
           - `.cpu` track user and system cpu usage

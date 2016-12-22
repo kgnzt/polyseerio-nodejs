@@ -415,7 +415,10 @@ describe('Resource Factory', () => {
       const resource = 'foo',
             Resource = createResource(resource);
 
-      const instance = new Resource({ ding: 'dong' });
+      const instance = new Resource({ 
+        ding: 'dong',
+        eid: 'foo'
+      });
 
       instance.should.have.property('_attributes');
       instance._attributes.should.eql({
@@ -429,7 +432,8 @@ describe('Resource Factory', () => {
 
       const instance = new Resource({ 
         meta: 'alpha',
-        relationships: 'alpha'
+        relationships: 'alpha',
+        eid: 'foo'
       });
 
       if ('meta' in instance) {
