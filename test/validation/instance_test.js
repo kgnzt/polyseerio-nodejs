@@ -2,6 +2,7 @@
 
 const should              = require('should'),
       co                  = require('co'),
+      behavior            = require('./shared_behavior'),
       { DEFAULT_TIMEOUT } = require('./config'),
       { setup,
         teardown,
@@ -10,85 +11,58 @@ const should              = require('should'),
 describe('Instances', function () {
   this.timeout(DEFAULT_TIMEOUT);
 
-  let Client = null,
-      Instance = null;
-
-  before(() => {
-    return setup().then(C => [Client, Instance] = [C, C.Instance]);
+  before(function () {
+    return setup(this).
+      then(_ => {
+        this.Resource = this.client.Instance;
+      });
   });
 
-  after(() => teardown(Client));
+  after(function () { teardown(this); });
 
-  it('can create an instance', () => {
-    return co(function* () {
-      yield Instance.create({ 
-        name: getUniqueName()
-      }).should.be.fulfilled();
-    });
+  beforeEach(function () {
+    this.attributes = {
+      name: getUniqueName()
+    };
   });
 
-  it('can find instances', () => {
-    return co(function* () {
-      yield Instance.find({}).should.be.fulfilled();
-    });
-  });
+  behavior.creatable();
+  behavior.findable();
+  behavior.uniquelyNameable();
+  behavior.updatable();
+  behavior.removable();
 
-  it('can find instances by id', () => {
-    return co(function* () {
-      const resource = yield Instance.create({ 
-        name: getUniqueName()
-      }).should.be.fulfilled();
+  // Consider attachable behavior.
 
-      yield Instance.findById(resource.id).should.be.fulfilled();
-    });
-  });
+  it('can attach to an instance by id', function () {
+    const Instance = this.Resource,
+          client = this.client;
 
-  it('can find instances by name', () => {
-    return co(function* () {
-      const name = getUniqueName();
-
-      const resource = yield Instance.create({ 
-        name
-      }).should.be.fulfilled();
-
-      yield Instance.findByName(name).should.be.fulfilled().
-        then(found => {
-          found.name.should.eql(name);
-        });
-    });
-  });
-
-  it('can attach to an instance by id', () => {
     return co(function* () {
       let instance = yield Instance.create({ 
         name: getUniqueName()
       }).should.be.fulfilled();
 
       instance = yield Instance.attach(instance.id, {
-        strategy: 'id'
+        strategy: client.Strategy.ID
       }).should.be.fulfilled();
     });
   });
 
-  it('can attach based on name fallback', () => {
+  it('can attach based on name fallback', function () {
+    const Instance = this.Resource,
+          client = this.client;
+
     return co(function* () {
       const instance = yield Instance.attach(getUniqueName(), {
-        strategy: 'fallback'
+        strategy: client.Strategy.FALLBACK
       }).should.be.fulfilled();
     });
   });
 
-  it('can delete an instance by id', () => {
-    return co(function* () {
-      const resource = yield Instance.create({ 
-        name: getUniqueName()
-      }).should.be.fulfilled();
+  it('can send gauge metrics', function () {
+    const Instance = this.Resource;
 
-      yield Instance.remove(resource.id).should.be.fulfilled();
-    });
-  });
-
-  it('can send gauge metrics', () => {
     return co(function* () {
       let resource = yield Instance.create({ 
         name: getUniqueName()
@@ -104,7 +78,9 @@ describe('Instances', function () {
     });
   });
 
-  it('can set instance facts', () => {
+  it('can set instance facts', function () {
+    const Instance = this.Resource;
+
     return co(function* () {
       let resource = yield Instance.create({ 
         name: getUniqueName()

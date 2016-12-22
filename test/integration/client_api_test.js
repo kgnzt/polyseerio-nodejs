@@ -7,6 +7,36 @@ describe('Client API is being defined correctly', () => {
   const Client = getClient(),
         polyseerio = require('../../');
 
+  describe('client', () => {
+    it('exports Color', () => {
+      Client.should.have.property('Color');
+    });
+
+    it('exports Icon', () => {
+      Client.should.have.property('Icon');
+    });
+
+    it('exports Strategy', () => {
+      Client.should.have.property('Strategy');
+    });
+
+    it('exports Determiner', () => {
+      Client.should.have.property('Determiner');
+    });
+
+    it('exports Direction', () => {
+      Client.should.have.property('Direction');
+    });
+
+    it('exports Subtype', () => {
+      Client.should.have.property('Subtype');
+    });
+
+    it('exports Protocol', () => {
+      Client.should.have.property('Protocol');
+    });
+  });
+
   describe('polyseerio', () => {
     it('exports a start convenience method', () => {
       polyseerio.should.have.property('start');

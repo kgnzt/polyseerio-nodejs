@@ -2,6 +2,7 @@
 
 const should              = require('should'),
       co                  = require('co'),
+      behavior            = require('./shared_behavior'),
       { DEFAULT_TIMEOUT } = require('./config'),
       { setup,
         teardown,
@@ -10,70 +11,23 @@ const should              = require('should'),
 describe('Task', function () {
   this.timeout(DEFAULT_TIMEOUT);
 
-  let Client = null,
-      Task = null;
-
-  before(() => {
-    return setup().then(C => [Client, Task] = [C, C.Task]);
+  before(function () {
+    return setup(this).
+      then(_ => {
+        this.Resource = this.client.Task;
+      });
   });
 
-  after(() => teardown(Client));
+  after(function () { teardown(this); });
 
-  it('can create an task', () => {
-    return co(function* () {
-      const resource = yield Task.create({ 
-        name: getUniqueName(),
-        protocol: 'smtp',
-        recipients: ['foo@bar.com']
-      }).should.be.fulfilled();
-
-      yield Task.remove(resource.id);
-    });
+  beforeEach(function () {
+    this.attributes = {
+      name: getUniqueName()
+    };
   });
 
-  it('can find tasks', () => {
-    return co(function* () {
-      yield Task.find({}).should.be.fulfilled();
-    });
-  });
-
-  it('can find tasks by id', () => {
-    return co(function* () {
-      const resource = yield Task.create({ 
-        name: getUniqueName(),
-        protocol: 'smtp',
-        recipients: ['foo@bar.com']
-      }).should.be.fulfilled();
-
-      yield Task.findById(resource.id).should.be.fulfilled();
-
-      yield Task.remove(resource.id);
-    });
-  });
-
-  it('can update tasks by id', () => {
-    return co(function* () {
-      const resource = yield Task.create({ 
-        name: getUniqueName()
-      }).should.be.fulfilled();
-
-      yield Task.update(resource.id, {
-        name: getUniqueName()
-      }).should.be.fulfilled();
-
-      yield Task.remove(resource.id);
-    });
-  });
-
-  it('can delete an task by id', () => {
-    return co(function* () {
-      const resource = yield Task.create({ 
-        name: getUniqueName(),
-        protocol: 'smtp',
-        recipients: ['foo@bar.com']
-      }).should.be.fulfilled();
-
-      yield Task.remove(resource.id).should.be.fulfilled();
-    });
-  });
+  behavior.creatable();
+  behavior.findable();
+  behavior.removable();
+  behavior.updatable();
 });

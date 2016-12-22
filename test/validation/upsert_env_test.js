@@ -6,23 +6,24 @@ const should              = require('should'),
       { setup,
         teardown }        = require('./helper');
 
-describe('Events', function () {
+describe('Upsert Environment', function () {
   this.timeout(DEFAULT_TIMEOUT);
 
-  let Client = null,
-      Event = null,
-      Environment = null;
-
-  before(() => {
-    return setup({
+  before(function () {
+    return setup(this, {
       upsert_env: true
-    }).then(C => [Client, Event] = [C, C.Event]);
+    }).
+    then(_ => {
+      this.Event = this.client.Event;
+    });
   });
 
-  after(() => teardown(Client));
+  after(function () { teardown(this); });
 
-  it('when upsert_env is on and a resource is created in a non-existent environment it will create the environment and the resource', () => {
-    const name = 'zoozoo';
+  it('when upsert_env is on and a resource is created in a non-existent environment it will create the environment and the resource', function() {
+    const client = this.client,
+          Event = this.Event,
+          name = 'zoozoo';
 
     return co(function* () {
       const event = yield Event.create({ name: 'foofoo' }, {
@@ -35,9 +36,9 @@ describe('Events', function () {
         environment: name
       });
 
-      const environment = yield Client.Environment.findByName(name);
+      const environment = yield client.Environment.findByName(name);
 
-      const result = yield Client.Environment.remove(environment.id);
+      const result = yield client.Environment.remove(environment.id);
     });
   });
 });

@@ -78,12 +78,14 @@ function removeEnvironments (Environment, environments) {
  * @param {object}
  * @return {Promise}
  */
-function setup (options) {
-  const Client = getClient(options);
+function setup (context, options) {
+  const client = getClient(options);
 
-  return ensureEnvironments(Client.Environment, [TestEnvironment]).
+  return ensureEnvironments(client.Environment, [TestEnvironment]).
     then(_ => {
-      return global.Promise.resolve(Client);
+      context.client = client;
+
+      return global.Promise.resolve(client);
     });
 }
 
@@ -93,8 +95,8 @@ function setup (options) {
  * @param {polyseerio.Client}
  * @return {Promise}
  */
-function teardown (Client) {
-  return removeEnvironments(Client.Environment, [TestEnvironment]);
+function teardown (context) {
+  return removeEnvironments(context.client.Environment, [TestEnvironment]);
 }
 
 /**
