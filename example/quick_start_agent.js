@@ -8,5 +8,5 @@ const polyseerio = require('../');
  */
 return polyseerio.start().
   then(client => { 
-    console.log('ok, agent started.')
+    console.log('ok, agent started.');
   });
