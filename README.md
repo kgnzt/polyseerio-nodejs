@@ -4,10 +4,10 @@
 
 The official Polyseer.io SDK for Node.js. Detailed API information can be found at (https://polyseer.io/documentation).
 
-# About
+## About
 
-Polyseer.io is an Integrated Development Platform (IDP) that gives developer's
-access to all the tools they need to build, support, and maintain world 
+Polyseer.io is an Integrated Development Platform that instantly
+provides teams with the resources needed to build, support, and maintain world 
 class software products.
 
 ## Requirements
