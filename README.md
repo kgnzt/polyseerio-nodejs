@@ -120,14 +120,14 @@ instance, call the required polyseerio module.
     * `.start(options = {}) ⇒ Polyseerio::Client` generate a client and start an agent
       * `options (Object)` see () options, plus the additional below can be passed
         - `.agent` agent options that will be used for agent
-    * `.Color`
-    * `.Determiner`
-    * `.Direction`
-    * `.Icon`
-    * `.Protocol`
-    * `.Strategy`
-    * `.Subtype`
-    * `.Type`
+    * `.Color (Object)` platform color types
+    * `.Determiner (Object)` expectation determiner types
+    * `.Direction (Object)` instance direction types
+    * `.Icon (Object)`  platform icon types
+    * `.Protocol (Object)` alert protocol types
+    * `.Strategy (Object)` instance attachment strategies
+    * `.Subtype (Object)` instance subtypes
+    * `.Type (Object)` resource types
 
 ### client
 
