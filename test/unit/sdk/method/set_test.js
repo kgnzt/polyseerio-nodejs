@@ -3,7 +3,7 @@
 const should = require('should');
 
 describe('set', () => {
-  const method = require('../../../../lib/sdk/instance/set');
+  const method = require('../../../../lib/sdk/method/set');
 
   it('updates the attribute', () => {
     const instance = {

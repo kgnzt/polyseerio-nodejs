@@ -4,7 +4,7 @@ const should = require('should'),
       sinon = require('sinon');
 
 describe('set', () => {
-  const method = require('../../../../lib/sdk/instance/setProperties');
+  const method = require('../../../../lib/sdk/method/setProperties');
 
   function createInstance () {
     return {

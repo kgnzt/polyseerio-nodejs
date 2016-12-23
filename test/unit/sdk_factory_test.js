@@ -16,7 +16,7 @@ describe('SDK Factory', () => {
 
   const factory = proxyquire('../../lib/sdk/factory', {
     './static': StaticDouble,
-    './instance': InstanceDouble
+    './method': InstanceDouble
   });
 
   beforeEach(() => {
@@ -59,37 +59,37 @@ describe('SDK Factory', () => {
     });
   });
 
-  describe('instanceFactory', () => {
-    const { instanceFactory } = factory;
+  describe('methodFactory', () => {
+    const { methodFactory } = factory;
 
-    it('returns requested instance methods', () => {
+    it('returns requested methods', () => {
       const request = sinon.spy(),
             resource = 'alpha',
             statics = ['ping', 'pong'];
 
-      const response = instanceFactory(request, resource, statics);
+      const response = methodFactory(request, resource, statics);
 
       response.should.have.property('ping');
       response.should.have.property('pong');
     });
 
-    it('returns result of called requested instance', () => {
+    it('returns result of called requested method', () => {
       const request = sinon.spy(),
             resource = 'alpha',
             statics = ['ping'];
 
-      const response = instanceFactory(request, resource, statics);
+      const response = methodFactory(request, resource, statics);
 
       response.ping.should.eql(InstanceDouble.ping);
     });
 
-    it('throws if the requested static does not exist', () => {
+    it('throws if the requested method does not exist', () => {
       const request = sinon.spy(),
             resource = 'alpha',
             statics = ['unknown'];
 
       (function () {
-        instanceFactory(request, resource, statics);
+        methodFactory(request, resource, statics);
       }).should.throw(/asked to generate a 'unknown' instance method/);
     });
   });

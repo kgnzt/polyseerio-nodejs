@@ -3,7 +3,7 @@
 const should = require('should');
 
 describe('toJSON', () => {
-  const method = require('../../../../lib/sdk/instance/toJSON');
+  const method = require('../../../../lib/sdk/method/toJSON');
 
   it('returns attributes', () => {
     const instance = {

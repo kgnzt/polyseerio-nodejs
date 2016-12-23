@@ -3,7 +3,7 @@
 const should = require('should');
 
 describe('get', () => {
-  const method = require('../../../../lib/sdk/instance/get');
+  const method = require('../../../../lib/sdk/method/get');
 
   it('returns the attribute', () => {
     const result = method({

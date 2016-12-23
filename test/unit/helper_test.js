@@ -113,7 +113,7 @@ describe('Helper', () => {
       }
 
       const loopId = loopPromise(f, {
-        delay: 1
+        delay: 10
       });
 
       setTimeout(_ => {

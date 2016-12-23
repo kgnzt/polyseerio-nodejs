@@ -32,7 +32,7 @@ describe('Resource Factory', () => {
         },
         factoryDouble = {
           staticFactory: sinon.stub(),
-          instanceFactory: sinon.stub()
+          methodFactory: sinon.stub()
         };
 
   const factory = proxyquire('../../../lib/resource/factory', {
@@ -44,7 +44,7 @@ describe('Resource Factory', () => {
 
   beforeEach(() => {
     factoryDouble.staticFactory.reset();
-    factoryDouble.instanceFactory.reset();
+    factoryDouble.methodFactory.reset();
   });
 
   function createResourceDouble () {
@@ -70,7 +70,7 @@ describe('Resource Factory', () => {
             request = sinon.spy();
 
       factoryDouble.staticFactory.returns([]);
-      factoryDouble.instanceFactory.returns([]);
+      factoryDouble.methodFactory.returns([]);
 
       const Result = factory(resource, request);
 
@@ -85,7 +85,7 @@ describe('Resource Factory', () => {
             request = sinon.spy();
 
       factoryDouble.staticFactory.returns([]);
-      factoryDouble.instanceFactory.returns([]);
+      factoryDouble.methodFactory.returns([]);
 
       const firstResult = factory(resourceOne, request),
             secondResult = factory(resourceTwo, request),
@@ -93,7 +93,7 @@ describe('Resource Factory', () => {
 
       // we should not be regenerating.
       factoryDouble.staticFactory.callCount.should.eql(2);
-      factoryDouble.instanceFactory.callCount.should.eql(2);
+      factoryDouble.methodFactory.callCount.should.eql(2);
     });
 
     it('adds static methods to resource', () => {
@@ -107,7 +107,7 @@ describe('Resource Factory', () => {
           'ping': 'pong'
         });
 
-      factoryDouble.instanceFactory.returns([]);
+      factoryDouble.methodFactory.returns([]);
 
       const result = factory(resource, request, options, memoizeId++);
 
@@ -115,14 +115,14 @@ describe('Resource Factory', () => {
       result.ping.should.eql('pong');
     });
 
-    it('adds instance methods to prototype', () => {
+    it('adds methods to prototype', () => {
       const resource = 'foo',
             options = sinon.spy(),
             request = sinon.spy();
 
       factoryDouble.staticFactory.returns([]);
 
-      factoryDouble.instanceFactory.
+      factoryDouble.methodFactory.
         withArgs(request, resource, DefinitionDouble.foo[METHOD]).
         returns({
           'ping': function (_, a) { return a; }
