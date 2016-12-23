@@ -7,6 +7,22 @@ const should = require('should'),
 describe('Helper', () => {
   const Helper = require('../../lib/helper');
 
+  describe('resourceToType', () => {
+    const { resourceToType } = Helper;
+
+    it('correctly converts resource to type', () => {
+      const result = resourceToType('events');
+
+      result.should.eql('event');
+    });
+
+    it('handles dashes correctly', () => {
+      const result = resourceToType('logic-blocks');
+
+      result.should.eql('logic-block');
+    });
+  });
+
   describe('forwardThis', () => {
     const { forwardThis } = Helper;
 

@@ -24,6 +24,7 @@
   "homepage": "https://github.com/kgnzt/polyseerio-nodejs#readme",
   "dependencies": {
     "co": "^4.6.0",
+    "inflection": "^1.10.0",
     "lodash": "^4.15.0",
     "request": "^2.74.0",
     "request-promise": "^4.1.1",

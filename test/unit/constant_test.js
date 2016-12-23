@@ -38,7 +38,7 @@ describe('Constant', () => {
   it('correctly defines DEFAULT_ENVIRONMENT ', () => {
     const { DEFAULT_ENVIRONMENT } = Constant;
 
-    DEFAULT_ENVIRONMENT.should.eql('production');
+    DEFAULT_ENVIRONMENT.should.eql('development');
   });
 
   it('correctly defines DEFAULT_HEARTBEAT_DELAY ', () => {

@@ -121,12 +121,13 @@ instance, call the required polyseerio module.
       * `options (Object)` see () options, plus the additional below can be passed
         - `.agent` agent options that will be used for agent
     * `.Color`
-    * `.Icon`
-    * `.Strategy`
     * `.Determiner`
     * `.Direction`
-    * `.Subtype`
+    * `.Icon`
     * `.Protocol`
+    * `.Strategy`
+    * `.Subtype`
+    * `.Type`
 
 ### client
 
@@ -169,6 +170,7 @@ instance, call the required polyseerio module.
           - `.uncaughtException` event notice on uncaught execptions
           - `.unhandledRejection` event notice on unhandled promise rejections
           - `.warning` event notice on process warning
+    * Contains all of the enum values exported on polyseerio as well.
     
 ### Alert
 
