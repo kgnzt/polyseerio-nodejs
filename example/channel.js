@@ -5,7 +5,7 @@ const polyseerio = require('../'),
 return co(function* () {
   yield client.getCurrentEnvironment().message('Hello deduced environment.');
 
-  const testing = yield client.Environment.find_by_name('testing');
+  const testing = yield client.Environment.findByName('testing');
 
   testing.message('Hello testing environment.');
 }).

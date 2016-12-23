@@ -22,7 +22,7 @@ To install inside a project, run:
 
 ## Example
 
-Examples are available in /example
+Be sure to check out the examples are available in /example.
 
 ## Environment Variables
 
@@ -32,7 +32,6 @@ Certain values can be set in environment variables:
   * NODE_ENV         the current environment
   * LOG_LEVEL        logging level for SDK
 
-
 ## Usage
 
 This SDK provides direct platform interactions as well as a
@@ -40,16 +39,15 @@ configurable agent that can be used for immediate integration.
 
 Example: (Quick start agent)
 
-    // Uses environment variables: POLYSEERIO_TOKEN, NODE_ENV.
     return require('polyseerio').start().then(client ⇒ { console.log('ok') });
 
 Example: (Configured quick start)
 
-    // Provide a configuration object.
     const polyseerio = require('polyseerio');
 
     return polyseerio.start({
         env: 'APP_ENV',
+        environment: 'testing',
         agent: {
           id: 'my-instance-id',
           attach_strategy: polyseerio.Strategy.ID
@@ -59,12 +57,11 @@ Example: (Configured quick start)
         console.log('ok');
       });
 
-Example: (SDK)
+Example: (SDK only)
 
-    const polyseerio = require('polyseerio'),
-          token      = 'an-access-token';
+    const polyseerio = require('polyseerio');
 
-    const client = polyseerio({ token }); 
+    const client = polyseerio({ token: 'my-access-token' }); 
 
     const { Event, 
             Alert,
@@ -74,37 +71,35 @@ Example: (SDK)
       name: 'my-example-instance',
       strategy: Instance.attach.Strategy.FALLBACK
     }).then(instance ⇒ {
-      console.log(`Instance attach as: ${instance.id}.`);
+      console.log(`Manual instance attached as: ${instance.get('id')}.`);
 
       return Event.create({
-        name: `Attached ${instance.name}.`,
+        name: `Attached ${instance.get('name')}.`,
         color: polyseerio.Color.GREEN,
         icon: polyseerio.Icon.CHECK,
-        description: `ID: ${instance.id}`
+        description: `ID: ${instance.get('id')}`
       });
     }).then(event ⇒ {
-      console.log(`Event: ${event.id}, was triggered.`);
+      console.log(`Event: ${event.get('id')}, was triggered.`);
 
       return Alert.findByName('instance-attached');
     }).then(alert ⇒ {
       return alert.trigger({
         meta: {
-          instance_name: 'my-example-instance'
+          notice: 'Just wanted to alert you to this.'
         }
       });
-    });
+    }).catch(console.log);
 
 ## Design
 
-  * Provides direct platform calls as well as a Polyseer.io Node.JS agent.
+  * Provides direct platform calls via client a well as a Polyseer.io Node.JS agent.
   * All client SDK calls return a Promise.
-  * Supports functional style programming.
   * Supports object-oriented style programming.
     * ORM style instances. E.g. environment.save(), alert.trigger(), instance.gauge();
   * A resources environment can be deduced or explicitly passed to SDK calls through the options param.
   * Missing environment's will be upserted by default.
   * API calls are made using the https:// protocol.
-
 
 ## SDK Resources
 
