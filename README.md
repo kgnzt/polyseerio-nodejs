@@ -4,6 +4,12 @@
 
 The official Polyseer.io SDK for Node.js. Detailed API information can be found at (https://polyseer.io/documentation).
 
+# About
+
+Polyseer.io is an Integrated Development Platform (IDP) that gives developer's
+access to all the tools they need to build, support, and maintain world 
+class software products.
+
 ## Requirements
   - Node.js
   - NPM
@@ -35,7 +41,7 @@ configurable agent that can be used for immediate integration.
 Example: (Quick start agent)
 
     // Uses environment variables: POLYSEERIO_TOKEN, NODE_ENV.
-    return require('polyseerio').start().then(client => { console.log('ok') });
+    return require('polyseerio').start().then(client ⇒ { console.log('ok') });
 
 Example: (Configured quick start)
 
@@ -49,7 +55,7 @@ Example: (Configured quick start)
           attach_strategy: polyseerio.Strategy.ID
         }
       }).
-      then(client => {
+      then(client ⇒ {
         console.log('ok');
       });
 
@@ -67,7 +73,7 @@ Example: (SDK)
     return Instance.attach({
       name: 'my-example-instance',
       strategy: Instance.attach.Strategy.FALLBACK
-    }).then(instance => {
+    }).then(instance ⇒ {
       console.log(`Instance attach as: ${instance.id}.`);
 
       return Event.create({
@@ -76,11 +82,11 @@ Example: (SDK)
         icon: polyseerio.Icon.CHECK,
         description: `ID: ${instance.id}`
       });
-    }).then(event => {
+    }).then(event ⇒ {
       console.log(`Event: ${event.id}, was triggered.`);
 
       return Alert.findByName('instance-attached');
-    }).then(alert => {
+    }).then(alert ⇒ {
       return alert.trigger({
         meta: {
           instance_name: 'my-example-instance'
@@ -108,7 +114,7 @@ instance, call the required polyseerio module.
 ### polyseerio
 
   * polyseerio
-    * `(options = {}) ⇒ Polyseerio::Client`
+    * `(options = {}) ⇒ Client`
       * `options (Object)`
         - `.deduce (Boolean)` if the environment should be deduced from the environment when not supplied
         - `.env (String)` environment variable holding current environment
@@ -117,9 +123,9 @@ instance, call the required polyseerio module.
         - `.token (String)` environment variable holding current environment
         - `.upsert_env (Boolean)` if an environment is not found it will be created and the SDK call retried
         - `.version (String)` api version to use
-    * `.start(options = {}) ⇒ Polyseerio::Client` generate a client and start an agent
+    * `.start(options = {}) ⇒ Client` generate a client and start an agent
       * `options (Object)` see () options, plus the additional below can be passed
-        - `.agent` options passed to agent
+        - `.agent` agent options (see client.startAgent options)
     * `.Color (Object)` platform color types
     * `.Determiner (Object)` expectation determiner types
     * `.Direction (Object)` instance direction types
@@ -133,7 +139,7 @@ instance, call the required polyseerio module.
 
   * client
     * `.getCurrentEnvironment() ⇒ client.Environment`  Resolves the current environment **IF** it has been deduced.
-    * `.startAgent(options = {}) ⇒ Polyseerio::Client`             Starts the Polyseer.io agent.
+    * `.startAgent(options = {}) ⇒ client`             Starts the Polyseer.io agent.
       * `options`
         - `.attach (Boolean)`
         - `.attach_strategy (Symbol)`
@@ -143,49 +149,51 @@ instance, call the required polyseerio module.
         - `.direction (polyseerio.Direction)` the monitoring direction (inbound) // force this
         - `.subtype (polyseerio.Subtype)` the instance subtype: periodic or long_running.
         - `.expectation` will be upserted for this instance
-          - `.is_alive` create an expectation that this process is alive
+          - `.is_alive (Boolean)` create an expectation that this process is alive
         - `.fact`
-          - `.architecture` the operating system architecture
-          - `.gid` the group if othe process is running under
-          - `.launch_arguments` command used to launch the instance
-          - `.node_version` the version of node being used
-          - `.pid` the id of the process
-          - `.platform` the operating platform of
-          - `.title` the title of the process
-          - `.uid` user id the process is running as
-          - `.uptime` the uptime of the process
-          - `.v8_version` the version of v8
+          - `.architecture (Boolean)` the operating system architecture
+          - `.gid (Boolean)` the group if othe process is running under
+          - `.launch_arguments (Boolean)` command used to launch the instance
+          - `.node_version (Boolean)` the version of node being used
+          - `.pid (Boolean)` the id of the process
+          - `.platform (Boolean)` the operating platform of
+          - `.title (Boolean)` the title of the process
+          - `.uid (Boolean)` user id the process is running as
+          - `.uptime (Boolean)` the uptime of the process
+          - `.v8_version (Boolean)` the version of v8
         - `.metric`
-          - `.cpu` track user and system cpu usage
-          - `.memory` track memory usage
-          - `.uptime` track process uptime
+          - `.cpu (Boolean)` track user and system cpu usage
+          - `.memory (Boolean)` track memory usage
+          - `.uptime (Boolean)` track process uptime
         - `.event`
-          - `.start` event notice when agent starts
-          - `.stop` event notice when agent stops
+          - `.start (Boolean)` event notice when agent starts
+          - `.stop (Boolean)` event notice when agent stops
         - `.process`
-          - `.SIGHUP` event notice when process receives SIGHUP
-          - `.SIGINT` event notice when process receives SIGINT
-          - `.SIGTERM` event notice when process receives SIGTERM
-          - `.exit` event notice on process exit
-          - `.uncaughtException` event notice on uncaught execptions
-          - `.unhandledRejection` event notice on unhandled promise rejections
-          - `.warning` event notice on process warning
+          - `.SIGHUP (Boolean)` event notice when process receives SIGHUP
+          - `.SIGINT (Boolean)` event notice when process receives SIGINT
+          - `.SIGTERM (Boolean)` event notice when process receives SIGTERM
+          - `.exit (Boolean)` event notice on process exit
+          - `.uncaughtException (Boolean)` event notice on uncaught execptions
+          - `.unhandledRejection (Boolean)` event notice on unhandled promise rejections
+          - `.warning (Boolean)` event notice on process warning
     * Contains all of the enum values exported on polyseerio as well.
     
 ### Alert
 
   * .Alert
-    * `.create(attributes = {}, options = {})`
-    * `.find(query = {}, options = {})`
-    * `.findById(id, options = {})`
-    * `.findByName(name, options = {})`
+    * `.create(attributes = {}, options = {}) ⇒ client.Alert`
+    * `.find(query = {}, options = {}) ⇒ client.Alert`
+    * `.findById(id, options = {}) ⇒ [client.Alert]`
+    * `.findByName(name, options = {}) ⇒ client.Alert`
     * `.remove(id, options = {})`
-    * `.trigger(id, payload = {}, options = {})`
-    * `.update(id, updates = {}, options = {})`
+    * `.trigger(id, payload = {}, options = {}) ⇒ client.Alert`
+    * `.update(id, updates = {}, options = {}) ⇒ client.Alert`
     * new **Alert**(attributes = {})
-      * `.save()`
-      * `.remove()`
-      * `.trigger(payload = {})`
+      * `.get(key) ⇒ Mixed`
+      * `.remove() ⇒ this`
+      * `.save() ⇒ this`
+      * `.set(key, value, default = undefined) ⇒ this`
+      * `.trigger(payload = {}) ⇒ this`
 
 ### Channel
 
@@ -198,9 +206,11 @@ instance, call the required polyseerio module.
     * `.remove(id, options = {})`
     * `.update(id, updates = {}, options = {})`
     * new **Channel**(attributes = {})
-      * `.save()`
-      * `.remove()`
+      * `.get() ⇒ Mixed`
       * `.message(content)`
+      * `.remove()`
+      * `.save() ⇒ this`
+      * `.set(key, value, default = undefined) ⇒ this`
 
 ### Environment
 
@@ -213,9 +223,11 @@ instance, call the required polyseerio module.
     * `.remove(id, options = {})`
     * `.update(id, payload = {}, options = {})`
     * new **Environment**(attributes = {})
-      * `.save()`
-      * `.remove()`
+      * `.get() ⇒ Mixed`
       * `.message(content)`
+      * `.remove()`
+      * `.save() ⇒ this`
+      * `.set(key, value, default = undefined) ⇒ this`
 
 ### Event
 
@@ -224,7 +236,9 @@ instance, call the required polyseerio module.
     * `.find(query = {}, options = {})`
     * `.findById(id, options = {})`
     * new **Event**(attributes = {})
-      * `.save()`
+      * `.get() ⇒ Mixed`
+      * `.save() ⇒ this`
+      * `.set(key, value, default = undefined) ⇒ this`
 
 ### Expectation
 
@@ -237,9 +251,11 @@ instance, call the required polyseerio module.
     * `.remove(id, options = {})`
     * `.update(id, updates = {}, options = {})`
     * new **Expectation**(attributes = {})
-      * `.save()`
-      * `.remove()`
       * `.check()`
+      * `.get() ⇒ Mixed`
+      * `.remove()`
+      * `.save() ⇒ this`
+      * `.set(key, value, default = undefined) ⇒ this`
 
 ### Instance
 
@@ -257,8 +273,10 @@ instance, call the required polyseerio module.
       * `.attach()`
       * `.fact()`
       * `.gauge()`
+      * `.get() ⇒ Mixed`
       * `.remove()`
-      * `.save()`
+      * `.save() ⇒ this`
+      * `.set(key, value, default = undefined) ⇒ this`
 
 ### Logic Block
 
@@ -271,9 +289,11 @@ instance, call the required polyseerio module.
     * `.remove(id, options = {})`
     * `.update(id, updates = {}, options = {})`
     * new **LogicBlock**(attributes = {})
-      * `.save()`
-      * `.remove()`
       * `.execute()`
+      * `.get() ⇒ Mixed`
+      * `.remove()`
+      * `.save() ⇒ this`
+      * `.set(key, value, default = undefined) ⇒ this`
 
 ### Member
 
@@ -284,8 +304,10 @@ instance, call the required polyseerio module.
     * `.remove(id, options = {})`
     * `.update(id, updates = {}, options = {})`
     * new **Member**(attributes = {})
-      * `.save()`
+      * `.get() ⇒ Mixed`
       * `.remove()`
+      * `.save() ⇒ this`
+      * `.set(key, value, default = undefined) ⇒ this`
 
 ### Settings
 
@@ -302,7 +324,8 @@ instance, call the required polyseerio module.
     * `.remove(id, options = {})`
     * `.update(id, updates = {}, options = {})`
     * new **Task**(attributes = {})
-      * `.save()`
+      * `.get() ⇒ Mixed`
+      * `.save() ⇒ this`
       * `.remove()`
 
 ## Contributing

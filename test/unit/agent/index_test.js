@@ -70,17 +70,22 @@ describe('Agent', () => {
         });
     });
 
-    it('calls setup from the Executor correctly passing client and forward args', () => {
+    it('calls setup from the Executor correctly passing client passing option', () => {
       const client = sinon.stub(),
-            agent = new Agent(client);
+            agent = new Agent(client),
+            options = {
+              foo: 'bar'
+            };
 
       ExecutorDouble.setup.returns(global.Promise.resolve('foo'));
 
-      return agent.start('alpha', 'beta', 'gamma', 11).
+      return agent.start(options).
         should.be.fulfilled().
         then(result => {
+          // ensure options were pushed through.
+          ExecutorDouble.setup.args[0][1].foo.should.eql('bar');
           ExecutorDouble.setup.
-            calledWithExactly(client, 'alpha', 'beta', 'gamma', 11).
+            calledWithExactly(client, sinon.match.any).
             should.eql(true);
         });
     });

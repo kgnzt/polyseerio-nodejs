@@ -110,6 +110,14 @@ describe('Helper', () => {
 
       (result === null).should.eql(true);
     });
+
+    it('returns the eid when using environment w/ name', () => {
+      const path = '/environments/name/validation-testing';
+
+      const result = getEidFromRequestPath(path);
+
+      result.should.eql('validation-testing');
+    });
   });
 
   describe('isResourceCollection', () => {

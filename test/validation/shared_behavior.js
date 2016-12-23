@@ -59,7 +59,7 @@ exports.uniquelyNameable = function () {
   it('can find an instance statically by name: Resource.findByName', function()  {
     return this.Resource.create(this.attributes).
       then(instance => {
-        return this.Resource.findByName(instance.name);
+        return this.Resource.findByName(instance.get('name'));
       }).should.be.fulfilled().
       then(instance => {
         if (canRemove(this.Resource)) {
@@ -117,12 +117,12 @@ exports.updatable = function () {
         return this.Resource.update(instance.get('id'), { name });
       }).should.be.fulfilled().
       then(instance => {
-        instance.name.should.eql(name);
+        instance.get('name').should.eql(name);
 
         return this.Resource.findById(instance.get('id'));
       }).
       then(instance => {
-        instance.name.should.eql(name);
+        instance.get('name').should.eql(name);
 
         if (canRemove(this.Resource)) {
           return this.Resource.remove(instance.get('id'));
@@ -142,7 +142,7 @@ exports.updatable = function () {
       }).then(instance => {
         return this.Resource.findById(instance.get('id'));
       }).then(instance => {
-        instance.name.should.eql(name);
+        instance.get('name').should.eql(name);
 
         if (canRemove(this.Resource)) {
           return this.Resource.remove(instance.get('id'));
