@@ -22,15 +22,15 @@ To install inside a project, run:
 
 ## Example
 
-Be sure to check out the examples are available in /example.
+Be sure to check out the examples in /example.
 
 ## Environment Variables
 
 Certain values can be set in environment variables:
 
-  * POLYSEERIO_TOKEN access-token used for API calls
-  * NODE_ENV         the current environment
-  * LOG_LEVEL        logging level for SDK
+  * POLYSEERIO_TOKEN    access-token used for API calls
+  * NODE_ENV            the current environment
+  * POLYSEERI_LOG_LEVEL SDK logging level default error
 
 ## Usage
 
@@ -112,13 +112,13 @@ instance, call the required polyseerio module.
         - `.deduce (Boolean)` if the environment should be deduced from the environment when not supplied
         - `.env (String)` environment variable holding current environment
         - `.timeout (Number)` integer containing number of ms to wait for server responses
-        - `.token_env (String)` if no token is provided this environment variable will be checked for one
         - `.token (String)` environment variable holding current environment
+        - `.token_env (String)` if no token is provided this environment variable will be checked for one
         - `.upsert_env (Boolean)` if an environment is not found it will be created and the SDK call retried
         - `.version (String)` api version to use
     * `.start(options = {}) ⇒ Client` generate a client and start an agent
       * `options (Object)` see () options, plus the additional below can be passed
-        - `.agent` agent options (see client.startAgent options)
+        - `.agent (Object)` agent options (see client.startAgent options)
     * `.Color (Object)` platform color types
     * `.Determiner (Object)` expectation determiner types
     * `.Direction (Object)` instance direction types
@@ -375,4 +375,4 @@ Requires the environment to have a root level access-token defined as:
 ## Debugging
 
 In order to debug an issue is can be helpful to enable debug logging. To do
-so set the environment variable: LOG_LEVEL to debug.
+so set the environment variable: POLYSEERIO_LOG_LEVEL to debug.
