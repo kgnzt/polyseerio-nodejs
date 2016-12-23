@@ -119,7 +119,7 @@ instance, call the required polyseerio module.
         - `.version` api version to use
     * `.start(options = {}) ⇒ Polyseerio::Client` generate a client and start an agent
       * `options (Object)` see () options, plus the additional below can be passed
-        - `.agent` agent options that will be used for agent
+        - `.agent` options passed to agent
     * `.Color (Object)` platform color types
     * `.Determiner (Object)` expectation determiner types
     * `.Direction (Object)` instance direction types
