@@ -59,11 +59,9 @@ Example: (Configured quick start)
 
 Example: (SDK only)
 
-    const polyseerio = require('polyseerio');
-
-    const client = polyseerio({ token: 'my-access-token' }); 
-
-    const { Event, 
+    const polyseerio = require('polyseerio'),
+          client = polyseerio({ token: 'my-access-token' }),
+          { Event, 
             Alert,
             Instance } = client;
 
