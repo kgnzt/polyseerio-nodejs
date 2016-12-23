@@ -4,6 +4,8 @@ const should = require('should'),
       sinon  = require('sinon');
 
 describe('Agent EventHandler', () => {
+  const { createInstance } = require('../../helper');
+
   const Interface = require('../../../../lib/agent/handler/interface');
 
   const Handler = require('../../../../lib/agent/handler/event');
@@ -16,9 +18,9 @@ describe('Agent EventHandler', () => {
               Event: {
                 create: sinon.stub()
               },
-              instance: {
+              instance: createInstance({
                 name: 'foo'
-              }
+              })
             };
 
       client.Event.create.withArgs({
@@ -42,9 +44,9 @@ describe('Agent EventHandler', () => {
               Event: {
                 create: sinon.stub()
               },
-              instance: {
+              instance: createInstance({
                 name: 'foo'
-              }
+              })
             };
 
       client.Event.create.returns(global.Promise.resolve('result_double'));

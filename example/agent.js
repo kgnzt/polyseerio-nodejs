@@ -1,8 +1,7 @@
 const polyseerio = require('../'),
-      config     = require('./poly.json'),
       co         = require('co');
 
-const client = polyseerio(config);
+const client = polyseerio();
 
 return client.startAgent().
   then(_ => {
