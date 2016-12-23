@@ -207,7 +207,7 @@ instance, call the required polyseerio module.
     * `.remove(id, options = {})`
     * `.update(id, updates = {}, options = {})`
     * new **Channel**(attributes = {})
-      * `.get() ⇒ Mixed`
+      * `.get(key) ⇒ Mixed`
       * `.message(content)`
       * `.remove()`
       * `.save() ⇒ this`
@@ -225,7 +225,7 @@ instance, call the required polyseerio module.
     * `.remove(id, options = {})`
     * `.update(id, payload = {}, options = {})`
     * new **Environment**(attributes = {})
-      * `.get() ⇒ Mixed`
+      * `.get(key) ⇒ Mixed`
       * `.message(content)`
       * `.remove()`
       * `.save() ⇒ this`
@@ -239,7 +239,7 @@ instance, call the required polyseerio module.
     * `.find(query = {}, options = {})`
     * `.findById(id, options = {})`
     * new **Event**(attributes = {})
-      * `.get() ⇒ Mixed`
+      * `.get(key) ⇒ Mixed`
       * `.save() ⇒ this`
       * `.set(key, value, default = undefined) ⇒ this`
       * `.setProperties(object = {}) ⇒ this`
@@ -256,7 +256,7 @@ instance, call the required polyseerio module.
     * `.update(id, updates = {}, options = {})`
     * new **Expectation**(attributes = {})
       * `.check()`
-      * `.get() ⇒ Mixed`
+      * `.get(key) ⇒ Mixed`
       * `.remove()`
       * `.save() ⇒ this`
       * `.set(key, value, default = undefined) ⇒ this`
@@ -278,7 +278,7 @@ instance, call the required polyseerio module.
       * `.attach()`
       * `.fact()`
       * `.gauge()`
-      * `.get() ⇒ Mixed`
+      * `.get(key) ⇒ Mixed`
       * `.remove()`
       * `.save() ⇒ this`
       * `.set(key, value, default = undefined) ⇒ this`
@@ -296,7 +296,7 @@ instance, call the required polyseerio module.
     * `.update(id, updates = {}, options = {})`
     * new **LogicBlock**(attributes = {})
       * `.execute()`
-      * `.get() ⇒ Mixed`
+      * `.get(key) ⇒ Mixed`
       * `.remove()`
       * `.save() ⇒ this`
       * `.set(key, value, default = undefined) ⇒ this`
@@ -311,7 +311,7 @@ instance, call the required polyseerio module.
     * `.remove(id, options = {})`
     * `.update(id, updates = {}, options = {})`
     * new **Member**(attributes = {})
-      * `.get() ⇒ Mixed`
+      * `.get(key) ⇒ Mixed`
       * `.remove()`
       * `.save() ⇒ this`
       * `.set(key, value, default = undefined) ⇒ this`
@@ -332,9 +332,10 @@ instance, call the required polyseerio module.
     * `.remove(id, options = {})`
     * `.update(id, updates = {}, options = {})`
     * new **Task**(attributes = {})
-      * `.get() ⇒ Mixed`
+      * `.get(key) ⇒ Mixed`
       * `.remove()`
       * `.save() ⇒ this`
+      * `.set(key, value, default = undefined) ⇒ this`
       * `.setProperties(object = {}) ⇒ this`
 
 ## Contributing
