@@ -110,13 +110,13 @@ instance, call the required polyseerio module.
   * polyseerio
     * `(options = {}) ⇒ Polyseerio::Client`
       * `options (Object)`
-        - `.deduce` if the environment should be deduced from the environment when not supplied
-        - `.env` environment variable holding current environment
-        - `.timeout` integer containing number of ms to wait for server responses
-        - `.token_env` if no token is provided this environment variable will be checked for one
-        - `.token` environment variable holding current environment
-        - `.upsert_env` if an environment is not found it will be created and the SDK call retried
-        - `.version` api version to use
+        - `.deduce (Boolean)` if the environment should be deduced from the environment when not supplied
+        - `.env (String)` environment variable holding current environment
+        - `.timeout (Number)` integer containing number of ms to wait for server responses
+        - `.token_env (String)` if no token is provided this environment variable will be checked for one
+        - `.token (String)` environment variable holding current environment
+        - `.upsert_env (Boolean)` if an environment is not found it will be created and the SDK call retried
+        - `.version (String)` api version to use
     * `.start(options = {}) ⇒ Polyseerio::Client` generate a client and start an agent
       * `options (Object)` see () options, plus the additional below can be passed
         - `.agent` options passed to agent
@@ -135,13 +135,13 @@ instance, call the required polyseerio module.
     * `.getCurrentEnvironment() ⇒ client.Environment`  Resolves the current environment **IF** it has been deduced.
     * `.startAgent(options = {}) ⇒ Polyseerio::Client`             Starts the Polyseer.io agent.
       * `options`
-        - `.attach`
-        - `.attach_strategy`
-        - `.name` instance name (will be used as a unique id)
-        - `.description` a description of this instance
-        - `.group` what group this instance belongs to
-        - `.direction` the monitoring direction (inbound) // force this
-        - `.subtype` the instance subtype: periodic or long_running.
+        - `.attach (Boolean)`
+        - `.attach_strategy (Symbol)`
+        - `.name (String)` instance name (will be used as a unique id)
+        - `.description (String)` a description of this instance
+        - `.group (String)` what group this instance belongs to
+        - `.direction (polyseerio.Direction)` the monitoring direction (inbound) // force this
+        - `.subtype (polyseerio.Subtype)` the instance subtype: periodic or long_running.
         - `.expectation` will be upserted for this instance
           - `.is_alive` create an expectation that this process is alive
         - `.fact`
