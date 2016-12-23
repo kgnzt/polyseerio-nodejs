@@ -193,6 +193,7 @@ instance, call the required polyseerio module.
       * `.remove() ⇒ this`
       * `.save() ⇒ this`
       * `.set(key, value, default = undefined) ⇒ this`
+      * `.setProperties(object = {}) ⇒ this`
       * `.trigger(payload = {}) ⇒ this`
 
 ### Channel
@@ -211,6 +212,7 @@ instance, call the required polyseerio module.
       * `.remove()`
       * `.save() ⇒ this`
       * `.set(key, value, default = undefined) ⇒ this`
+      * `.setProperties(object = {}) ⇒ this`
 
 ### Environment
 
@@ -228,6 +230,7 @@ instance, call the required polyseerio module.
       * `.remove()`
       * `.save() ⇒ this`
       * `.set(key, value, default = undefined) ⇒ this`
+      * `.setProperties(object = {}) ⇒ this`
 
 ### Event
 
@@ -239,6 +242,7 @@ instance, call the required polyseerio module.
       * `.get() ⇒ Mixed`
       * `.save() ⇒ this`
       * `.set(key, value, default = undefined) ⇒ this`
+      * `.setProperties(object = {}) ⇒ this`
 
 ### Expectation
 
@@ -256,6 +260,7 @@ instance, call the required polyseerio module.
       * `.remove()`
       * `.save() ⇒ this`
       * `.set(key, value, default = undefined) ⇒ this`
+      * `.setProperties(object = {}) ⇒ this`
 
 ### Instance
 
@@ -277,6 +282,7 @@ instance, call the required polyseerio module.
       * `.remove()`
       * `.save() ⇒ this`
       * `.set(key, value, default = undefined) ⇒ this`
+      * `.setProperties(object = {}) ⇒ this`
 
 ### Logic Block
 
@@ -294,6 +300,7 @@ instance, call the required polyseerio module.
       * `.remove()`
       * `.save() ⇒ this`
       * `.set(key, value, default = undefined) ⇒ this`
+      * `.setProperties(object = {}) ⇒ this`
 
 ### Member
 
@@ -308,6 +315,7 @@ instance, call the required polyseerio module.
       * `.remove()`
       * `.save() ⇒ this`
       * `.set(key, value, default = undefined) ⇒ this`
+      * `.setProperties(object = {}) ⇒ this`
 
 ### Settings
 
@@ -325,8 +333,9 @@ instance, call the required polyseerio module.
     * `.update(id, updates = {}, options = {})`
     * new **Task**(attributes = {})
       * `.get() ⇒ Mixed`
-      * `.save() ⇒ this`
       * `.remove()`
+      * `.save() ⇒ this`
+      * `.setProperties(object = {}) ⇒ this`
 
 ## Contributing
 
