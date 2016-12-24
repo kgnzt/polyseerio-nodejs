@@ -28,9 +28,9 @@ Be sure to check out the examples in /example.
 
 Certain values can be set in environment variables:
 
-  * POLYSEERIO_TOKEN    access-token used for API calls
-  * NODE_ENV            the current environment
-  * POLYSEERI_LOG_LEVEL SDK logging level default error
+  * POLYSEERIO_TOKEN     access-token used for API calls
+  * NODE_ENV             the current environment
+  * POLYSEERIO_LOG_LEVEL SDK logging level default error
 
 ## Usage
 
@@ -373,7 +373,7 @@ Requires the environment to have a root level access-token defined as:
 
     make version-testing
 
-To test a specific versions:
+To test specific versions:
 
     make version-testing SUPPORTED=4.0.0 5.0.0 5.2.0
 
