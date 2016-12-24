@@ -145,7 +145,12 @@ instance, call the required polyseerio module.
           - `.is_alive (Boolean)` create an expectation that this process is alive
         - `.fact`
           - `.architecture (Boolean)` the operating system architecture
+          - `.cpu_count (Boolean)` the number of cores
+          - `.endianess (Boolean)` if the architecture if little or big endian
+          - `.free_memory (Boolean)` the current free memory
           - `.gid (Boolean)` the group if othe process is running under
+          - `.home_directory (Boolean)` current user's home directory
+          - `.hostname (Boolean)` the system hostname
           - `.launch_arguments (Boolean)` command used to launch the instance
           - `.node_version (Boolean)` the version of node being used
           - `.pid (Boolean)` the id of the process
