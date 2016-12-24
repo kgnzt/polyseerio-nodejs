@@ -341,6 +341,7 @@ Testing requires:
 
   - Make
   - Grunt
+  - nvm (if doing version testing)
 
 Install node modules locally by running:
 
@@ -367,6 +368,14 @@ Requires the environment to have a root level access-token defined as:
     export ROOT_KEY=a-test-root-key
 
     make validation-test
+
+### Version testing
+
+    make version-testing
+
+To test a specific versions:
+
+    make version-testing SUPPORTED=4.0.0 5.0.0 5.2.0
 
 ### All
 

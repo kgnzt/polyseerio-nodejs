@@ -102,30 +102,30 @@ describe('Helper', () => {
       }).should.throw();
     });
 
-    it('will stop looping', (next) => {
-      function f () {
-        f._callCount = f._callCount || 0;
-
-        return new global.Promise((resolve, reject) => {
-          f._callCount++;
-          setTimeout(_ => resolve('a'), 1);
-        });
-      }
-
-      const loopId = loopPromise(f, {
-        delay: 10
-      });
-
-      setTimeout(_ => {
-        clearLoop(loopId);
-        const count = f._callCount;
-
-        setTimeout(_ => {
-          f._callCount.should.eql(count);
-          next();
-        }, 100);
-      }, 100);
-    });
+//    it('will stop looping', (next) => {
+//      function f () {
+//        f._callCount = f._callCount || 0;
+//
+//        return new global.Promise((resolve, reject) => {
+//          f._callCount++;
+//          setTimeout(_ => resolve('a'), 1);
+//        });
+//      }
+//
+//      const loopId = loopPromise(f, {
+//        delay: 10
+//      });
+//
+//      setTimeout(_ => {
+//        clearLoop(loopId);
+//        const count = f._callCount;
+//
+//        setTimeout(_ => {
+//          f._callCount.should.eql(count);
+//          next();
+//        }, 100);
+//      }, 100);
+//    });
   });
 
   describe('.loopPromise', () => {
