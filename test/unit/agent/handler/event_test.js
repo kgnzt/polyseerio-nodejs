@@ -20,7 +20,13 @@ describe('Agent EventHandler', () => {
               },
               instance: createInstance({
                 name: 'foo'
-              })
+              }),
+              Color: {
+                GREEN: 'green'
+              },
+              Icon: {
+                CHAIN: 'chain'
+              }
             };
 
       client.Event.create.withArgs({
@@ -46,7 +52,13 @@ describe('Agent EventHandler', () => {
               },
               instance: createInstance({
                 name: 'foo'
-              })
+              }),
+              Color: {
+                ORANGE: 'orange'
+              },
+              Icon: {
+                CHAIN_BROKEN: 'chain-broken'
+              }
             };
 
       client.Event.create.returns(global.Promise.resolve('result_double'));

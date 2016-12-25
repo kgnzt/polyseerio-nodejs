@@ -114,7 +114,7 @@ instance, call the required polyseerio module.
         - `.timeout (Number)` integer containing number of ms to wait for server responses
         - `.token (String)` environment variable holding current environment
         - `.token_env (String)` if no token is provided this environment variable will be checked for one
-        - `.upsert_env (Boolean)` if an environment is not found it will be created and the SDK call retried
+        - `.upsert_env (Boolean)` if an environment should be created when it cannot be found
         - `.version (String)` api version to use
     * `.start(options = {}) ⇒ Client` generate a client and start an agent
       * `options (Object)` see () options, plus the additional below can be passed

@@ -16,6 +16,12 @@ describe('Agent ExpectationHandler', () => {
               },
               instance: {
                 get: sinon.stub()
+              },
+              Type: {
+                INSTANCE: 'instance'
+              },
+              Determiner: {
+                ONE: 'one'
               }
             };
 
