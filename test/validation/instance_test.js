@@ -43,7 +43,7 @@ describe('Instances', function () {
         name: getUniqueName()
       }).should.be.fulfilled();
 
-      instance = yield Instance.attach(instance.id, {
+      instance = yield Instance.attach(instance.get('id'), {
         strategy: client.Strategy.ID
       }).should.be.fulfilled();
     });

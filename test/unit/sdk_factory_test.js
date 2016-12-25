@@ -38,14 +38,8 @@ describe('SDK Factory', () => {
       response.should.have.property('bar');
     });
 
-    it('correctly curries the first 3 arguments', () => {
-      const request = sinon.spy(),
-            resource = 'alpha',
-            statics = ['foo'];
-
-      const response = staticFactory(request, resource, statics);
-
-      response.foo('arg').should.eql([request, resource, {}, 'arg']);
+    it('', () => {
+      // TODO: ensure that preprocessing occurs.
     });
 
     it('throws if the requested static does not exist', () => {

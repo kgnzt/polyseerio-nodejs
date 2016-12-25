@@ -178,7 +178,7 @@ exports.messageable = function () {
       then(instance => {
         return this.Resource.message(instance.get('id'), 'hello world').
           then(_ => {
-            return instance.id;
+            return instance.get('id');
           });
       }).should.be.fulfilled().
       then(id => {

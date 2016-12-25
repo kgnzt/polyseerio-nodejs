@@ -452,6 +452,31 @@ describe('Helper', () => {
     });
   });
 
+  describe('resolveEid', () => {
+    const { resolveEid } = Helper;
+
+    it('returns the eid in the options if present', () => {
+      const options = {
+              environment: 'zing'
+            };
+
+      const result = resolveEid(options);
+
+      result.should.eql('zing');
+    });
+
+    it('wont return the environment key if its null', () => {
+      const options = {
+              environment: null,
+              deduce: false
+            };
+
+      const result = resolveEid(options);
+
+      result.should.eql('development');
+    });
+  });
+
   describe('deduceEid', () => {
     const { deduceEid } = Helper;
 

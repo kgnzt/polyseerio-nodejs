@@ -32,6 +32,15 @@ describe('UrlBuilder', () => {
 
         result.should.eql('/environments/zoo/events/foo');
       });
+
+      it('will not append an id if id is nil (null / undefined)', () => {
+        const result = getResourcePath('events', {
+          eid: 'zoo',
+          id: null
+        });
+
+        result.should.eql('/environments/zoo/events');
+      });
     });
 
     describe('non routable resources', () => {
