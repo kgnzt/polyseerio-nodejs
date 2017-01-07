@@ -90,4 +90,27 @@ describe('Middleware', () => {
       result.should.eql('foo');
     });
   });
+
+  describe('postReject', () => {
+    const { postReject } = Middleware;
+
+    it('simply rejects original error when there is no response in error', () => {
+      const error = new Error('foo'),
+            cid = 1,
+            request = sinon.stub();
+
+      return postReject(error, cid, request).should.be.rejectedWith(error);
+    });
+
+    it('simply rejects original error when error.response is nil', () => {
+      const error = {
+              a: 'b',
+              response: undefined
+            },
+            cid = 1,
+            request = sinon.stub();
+
+      return postReject(error, cid, request).should.be.rejectedWith(error);
+    });
+  });
 });

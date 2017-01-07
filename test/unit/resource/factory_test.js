@@ -383,23 +383,13 @@ describe('Resource Factory', () => {
       instance.ding.should.eql('dong');
     });
 
-    it('sets .isNew to true', () => {
+    it('defaults .eid to development', () => {
       const resource = 'foo',
             Resource = createResource(resource);
 
       const instance = new Resource({});
 
-      instance.should.have.property('isNew');
-      instance.isNew.should.eql(true);
-    });
-
-    it('defaults .eid to null', () => {
-      const resource = 'foo',
-            Resource = createResource(resource);
-
-      const instance = new Resource({});
-
-      (instance.eid === null).should.eql(true);
+      instance.eid.should.eql('development');
     });
 
     it('sets .eid if passed in attributes', () => {
@@ -421,7 +411,8 @@ describe('Resource Factory', () => {
       });
 
       instance.should.have.property('_attributes');
-      instance._attributes.should.eql({
+      instance.eid.should.eql('foo');
+      instance._attributes.should.containEql({
         ding: 'dong'
       });
     });

@@ -90,6 +90,12 @@ describe('SDKHelper', () => {
   describe('resolveEid', () => {
     const { resolveEid } = Helper;
 
+    it('simply returns default when no options passed', () => {
+      const result = resolveEid();
+
+      result.should.eql('development');
+    });
+
     it('returns the eid in the options if present', () => {
       const options = {
               environment: 'zing'

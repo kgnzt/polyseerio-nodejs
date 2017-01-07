@@ -8,13 +8,15 @@ describe('save', () => {
 
   const save = require('../../../../lib/sdk/instance/save');
 
-  it('makes the correct api call to create', () => {
+  it('makes the correct api call to create when instance is new', () => {
     const instance = {
-            id: 1,
+            id: null,
             resource: 'events',
             _request: createRequestMock(),
             eid: 'waterworld',
-            isNew: true,
+            isNew () {
+              return true;
+            },
             toJSON: sinon.stub()
           },
           resultDouble = sinon.stub();
