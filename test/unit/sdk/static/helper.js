@@ -4,6 +4,13 @@ const sinon = require('sinon');
 
 const resource = 'foo';
 
+function getContext () {
+  return {
+    request: createRequestMock(),
+    uri: 'alpha/beta/gamma'
+  };
+}
+
 function getCurryDefaults () {
   return {
     request: createRequestMock(),
@@ -13,7 +20,9 @@ function getCurryDefaults () {
 }
 
 function getDefaultCopts() {
-  return {};
+  return {
+    environment: 'test'
+  };
 }
 
 function createSDKHelperDouble () {
@@ -45,6 +54,7 @@ module.exports = {
   resource,
   getCurryDefaults,
   createRequestMock,
+  getContext,
   createSDKHelperDouble,
   resetSDKHelperDouble
 };

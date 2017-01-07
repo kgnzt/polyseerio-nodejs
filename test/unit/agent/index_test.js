@@ -70,11 +70,11 @@ describe('Agent', () => {
         });
     });
 
-    it('calls setup from the Executor correctly passes options to setup', () => {
+    it('calls setup from the Executor correctly passing client passing option', () => {
       const client = sinon.stub(),
             agent = new Agent(client),
             options = {
-              foo: 'bar'
+              name: 'bar'
             };
 
       ExecutorDouble.setup.returns(global.Promise.resolve('foo'));
@@ -84,7 +84,10 @@ describe('Agent', () => {
         then(result => {
           const passedOptions = ExecutorDouble.setup.args[0][1];
 
-          passedOptions.foo.should.eql('bar');
+          passedOptions.name.should.eql('bar');
+          ExecutorDouble.setup.
+            calledWithExactly(client, sinon.match.any).
+            should.eql(true);
         });
     });
   });

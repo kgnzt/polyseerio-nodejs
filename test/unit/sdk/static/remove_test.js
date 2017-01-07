@@ -1,66 +1,44 @@
 'use strict';
 
-const should     = require('should'),
-      proxyquire = require('proxyquire');
+const should = require('should'),
+      sinon  = require('sinon'),
+      helper = require('./helper');
 
 describe('Static: remove', () => {
-  const { getCurryDefaults,
-          createSDKHelperDouble,
-          resetSDKHelperDouble } = require('./helper'),
-        helperDouble = createSDKHelperDouble();
-  
-  const remove = proxyquire('../../../../lib/sdk/static/remove', {
-    '../helper': helperDouble
-  });
+  const method = require('../../../../lib/sdk/static/remove');
 
-  before(() => resetSDKHelperDouble(helperDouble));
+  const id = 100,
+        options = {};
 
   it('makes the correct call to del', () => {
-    const { request,
-            resource,
-            copts } = getCurryDefaults(),
-          id = 'omega',
-          options = {},
-          result = 'foo';
+    const context = helper.getContext();
 
-    helperDouble.resolveEid.returns('zing');
-    helperDouble.getResourcePath.withArgs(resource, {
-      id,
-      eid: 'zing'
-    }).returns('/foo/omega');
-    request.del.returns(global.Promise.resolve(result));
+    context.request.del.returns(global.Promise.resolve());
 
-    return remove(request, resource, copts, id, options).
+    return method(id, options, context).
       then(_ => {
-        request.del.calledWithExactly({
-          uri: '/foo/omega'
+        context.request.del.called.should.eql(true);
+        context.request.del.calledWithExactly({
+          uri: context.uri
         }).should.eql(true);
       });
   });
 
   it('resolves when del resolves', () => {
-    const { request,
-            resource,
-            copts } = getCurryDefaults(),
-          id = 'omega',
-          options = {},
-          result = 'foo';
+    const context = helper.getContext(),
+          result = sinon.stub();
 
-    request.del.returns(global.Promise.resolve(result));
+    context.request.del.returns(global.Promise.resolve(result));
 
-    return remove(request, resource, copts, id, options).should.be.fulfilled(result);
+    return method(id, options, context).should.be.fulfilled(result);
   });
 
   it('rejects when del rejects', () => {
-    const { request,
-            resource,
-            copts } = getCurryDefaults(),
-          id = 'omega',
-          options = {},
+    const context = helper.getContext(),
           error = new Error('foo');
 
-    request.del.returns(global.Promise.reject(error));
+    context.request.del.returns(global.Promise.reject(error));
 
-    return remove(request, resource, copts, id, options).should.be.rejectedWith(error);
+    return method(id, options, context).should.be.rejectedWith(error);
   });
 });

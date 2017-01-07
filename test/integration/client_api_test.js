@@ -91,10 +91,13 @@ describe('Client API is being defined correctly', () => {
 
       const instance = new Alert();
 
-      instance.should.have.property('save');
-      instance.should.have.property('trigger');
+      instance.should.have.property('get');
       instance.should.have.property('remove');
+      instance.should.have.property('save');
+      instance.should.have.property('set');
+      instance.should.have.property('setProperties');
       instance.should.have.property('toJSON');
+      instance.should.have.property('trigger');
     });
   });
 
@@ -118,9 +121,12 @@ describe('Client API is being defined correctly', () => {
 
       const instance = new Channel();
 
-      instance.should.have.property('save');
+      instance.should.have.property('get');
       instance.should.have.property('message');
       instance.should.have.property('remove');
+      instance.should.have.property('save');
+      instance.should.have.property('set');
+      instance.should.have.property('setProperties');
       instance.should.have.property('toJSON');
     });
   });
@@ -145,9 +151,12 @@ describe('Client API is being defined correctly', () => {
 
       const instance = new Environment();
 
-      instance.should.have.property('save');
+      instance.should.have.property('get');
       instance.should.have.property('message');
       instance.should.have.property('remove');
+      instance.should.have.property('save');
+      instance.should.have.property('set');
+      instance.should.have.property('setProperties');
       instance.should.have.property('toJSON');
     });
   });
@@ -168,7 +177,10 @@ describe('Client API is being defined correctly', () => {
 
       const instance = new Event();
 
+      instance.should.have.property('get');
       instance.should.have.property('save');
+      instance.should.have.property('set');
+      instance.should.have.property('setProperties');
     });
   });
 
@@ -192,9 +204,12 @@ describe('Client API is being defined correctly', () => {
 
       const instance = new Expectation();
 
-      instance.should.have.property('save');
-      instance.should.have.property('remove');
       instance.should.have.property('check');
+      instance.should.have.property('get');
+      instance.should.have.property('remove');
+      instance.should.have.property('save');
+      instance.should.have.property('set');
+      instance.should.have.property('setProperties');
       instance.should.have.property('toJSON');
     });
   });
@@ -219,14 +234,17 @@ describe('Client API is being defined correctly', () => {
 
       const instance = new Instance();
 
-      instance.should.have.property('save');
-      instance.should.have.property('remove');
-      instance.should.have.property('attach');
-      instance.should.have.property('toJSON');
-      instance.should.have.property('gauge');
-      instance.should.have.property('fact');
       instance.should.have.property('addFact');
       instance.should.have.property('addGauge');
+      instance.should.have.property('attach');
+      instance.should.have.property('fact');
+      instance.should.have.property('gauge');
+      instance.should.have.property('get');
+      instance.should.have.property('remove');
+      instance.should.have.property('save');
+      instance.should.have.property('set');
+      instance.should.have.property('setProperties');
+      instance.should.have.property('toJSON');
     });
   });
 
@@ -250,9 +268,12 @@ describe('Client API is being defined correctly', () => {
 
       const instance = new LogicBlock();
 
-      instance.should.have.property('save');
-      instance.should.have.property('remove');
       instance.should.have.property('execute');
+      instance.should.have.property('get');
+      instance.should.have.property('remove');
+      instance.should.have.property('save');
+      instance.should.have.property('set');
+      instance.should.have.property('setProperties');
       instance.should.have.property('toJSON');
     });
   });
@@ -275,8 +296,11 @@ describe('Client API is being defined correctly', () => {
 
       const instance = new Member();
 
-      instance.should.have.property('save');
+      instance.should.have.property('get');
       instance.should.have.property('remove');
+      instance.should.have.property('save');
+      instance.should.have.property('set');
+      instance.should.have.property('setProperties');
       instance.should.have.property('toJSON');
     });
   });
@@ -316,8 +340,11 @@ describe('Client API is being defined correctly', () => {
 
       const instance = new Task();
 
-      instance.should.have.property('save');
+      instance.should.have.property('get');
       instance.should.have.property('remove');
+      instance.should.have.property('save');
+      instance.should.have.property('set');
+      instance.should.have.property('setProperties');
       instance.should.have.property('toJSON');
     });
   });

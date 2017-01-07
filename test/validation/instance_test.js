@@ -43,7 +43,7 @@ describe('Instances', function () {
         name: getUniqueName()
       }).should.be.fulfilled();
 
-      instance = yield Instance.attach(instance.id, {
+      instance = yield Instance.attach(instance.get('id'), {
         strategy: client.Strategy.ID
       }).should.be.fulfilled();
     });
@@ -72,9 +72,9 @@ describe('Instances', function () {
         foo: 22
       }).should.be.fulfilled();
 
-      resource = yield Instance.findById(resource.id).should.be.fulfilled();
+      resource = yield Instance.findById(resource.get('id')).should.be.fulfilled();
 
-      resource.gauges.foo[0][0].should.eql(22);
+      resource.get('gauges').foo[0][0].should.eql(22);
     });
   });
 
@@ -90,9 +90,9 @@ describe('Instances', function () {
         foo: 'bar'
       }).should.be.fulfilled();
 
-      resource = yield Instance.findById(resource.id).should.be.fulfilled();
+      resource = yield Instance.findById(resource.get('id')).should.be.fulfilled();
 
-      resource.facts.foo.value.should.eql('bar');
+      resource.get('facts').foo.value.should.eql('bar');
     });
   });
 });

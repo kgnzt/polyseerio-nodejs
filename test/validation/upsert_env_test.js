@@ -30,15 +30,15 @@ describe('Upsert Environment', function () {
         environment: name
       });
 
-      event.name.should.eql('foofoo');
+      event.get('name').should.eql('foofoo');
 
-      const foundEvent = yield Event.findById(event.id, {
+      const foundEvent = yield Event.findById(event.get('id'), {
         environment: name
       });
 
       const environment = yield client.Environment.findByName(name);
 
-      const result = yield client.Environment.remove(environment.id);
+      const result = yield client.Environment.remove(environment.get('id'));
     });
   });
 });

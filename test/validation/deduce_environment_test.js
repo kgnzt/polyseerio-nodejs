@@ -16,15 +16,17 @@ describe('Environment deduction', function () {
   this.timeout(DEFAULT_TIMEOUT);
 
   const env = 'PING_PONG',
-        polyseerio = require('../../'),
-        Client = polyseerio({
-          token: ROOT_KEY,
-          deduce: true,
-          env
-        });
+        polyseerio = require('../../');
 
+  let Client = null;
   before(() => {
     process.env[env] = DeductionEnvironment.name;
+
+    Client = polyseerio({
+      token: ROOT_KEY,
+      deduce: true,
+      env
+    });
 
     return ensureEnvironments(Client.Environment, [
       TestEnvironment,
@@ -47,7 +49,7 @@ describe('Environment deduction', function () {
 
       const event = yield Event.create({ name: 'test' });
 
-      yield Event.findById(event.id, {
+      yield Event.findById(event.get('id'), {
         environment: DeductionEnvironment.name
       }).should.be.fulfilled();
     });
@@ -63,11 +65,11 @@ describe('Environment deduction', function () {
         environment: TestEnvironment.name
       });
 
-      yield Event.findById(event.id, {
+      yield Event.findById(event.get('id'), {
         environment: DeductionEnvironment.name
       }).should.be.rejected();
 
-      yield Event.findById(event.id, {
+      yield Event.findById(event.get('id'), {
         environment: TestEnvironment.name
       }).should.be.fulfilled();
     });

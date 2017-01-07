@@ -3,16 +3,8 @@
 const should     = require('should'),
       lodash     = require('lodash'),
       sinon      = require('sinon'),
+      { createRequestMock } = require('./helper'),
       proxyquire = require('proxyquire');
-
-/**
- * Returns a request mock.
- *
- * @return {sinon.stub}
- */
-function createRequestMock () {
-  return sinon.stub();
-}
 
 /**
  * Returns an Agent mock.

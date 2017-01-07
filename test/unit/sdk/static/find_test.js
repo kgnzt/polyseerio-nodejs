@@ -1,72 +1,58 @@
 'use strict';
 
-const should     = require('should'),
-      proxyquire = require('proxyquire');
+const should = require('should'),
+      sinon  = require('sinon'),
+      helper = require('./helper');
 
 describe('Static: find', () => {
-  const { getCurryDefaults,
-          createSDKHelperDouble,
-          resetSDKHelperDouble } = require('./helper'),
-        helperDouble = createSDKHelperDouble();
-  
-  const find = proxyquire('../../../../lib/sdk/static/find', {
-    '../helper': helperDouble
-  });
+  const method = require('../../../../lib/sdk/static/find');
 
-  before(() => resetSDKHelperDouble(helperDouble));
+  const query = {
+          foo: 'bar'
+        },
+        options = {};
 
   it('makes the correct call to get', () => {
-    const { request,
-            resource,
-            copts } = getCurryDefaults(),
-          qs = {
-            limit: 2
-          },
-          options = {},
-          result = 'foo';
+    const context = helper.getContext();
 
-    helperDouble.resolveEid.returns('zing');
-    helperDouble.getResourcePath.withArgs(resource, {
-      eid: 'zing'
-    }).returns('/foo');
-    request.get.returns(global.Promise.resolve(result));
+    context.request.get.returns(global.Promise.resolve());
 
-    return find(request, resource, copts, qs, options).
+    return method(query, options, context).
       then(_ => {
-        request.get.calledWithExactly({
-          qs,
-          uri: '/foo'
+        context.request.get.called.should.eql(true);
+        context.request.get.calledWithExactly({
+          uri: context.uri,
+          qs: query
         }).should.eql(true);
       });
   });
 
+  it('defaults query to an empty object', () => {
+    const context = helper.getContext();
+
+    context.request.get.returns(global.Promise.resolve());
+
+    return method({}, options, context).
+      then(_ => {
+        context.request.get.args[0][0].qs.should.eql({});
+      });
+  });
+
   it('resolves when get resolves', () => {
-    const { request,
-            resource,
-            copts } = getCurryDefaults(),
-          qs = {
-            limit: 2
-          },
-          options = {},
-          result = 'foo';
+    const context = helper.getContext(),
+          result = sinon.stub();
 
-    request.get.returns(global.Promise.resolve(result));
+    context.request.get.returns(global.Promise.resolve(result));
 
-    return find(request, resource, copts, qs, options).should.be.fulfilled(result);
+    return method(query, options, context).should.be.fulfilled(result);
   });
 
   it('rejects when get rejects', () => {
-    const { request,
-            resource,
-            copts } = getCurryDefaults(),
-          qs = {
-            limit: 2
-          },
-          options = {},
+    const context = helper.getContext(),
           error = new Error('foo');
 
-    request.get.returns(global.Promise.reject(error));
+    context.request.get.returns(global.Promise.reject(error));
 
-    return find(request, resource, copts, qs, options).should.be.rejectedWith(error);
+    return method(query, options, context).should.be.rejectedWith(error);
   });
 });

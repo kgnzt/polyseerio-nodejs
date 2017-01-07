@@ -5,6 +5,164 @@ const should = require('should');
 describe('Enum', () => {
   const Enum = require('../../lib/enum');
 
+  describe('Type', () => {
+    const { Type } = Enum;
+
+    it('correctly defines ALERT', () => {
+      const { ALERT } = Type;
+  
+      ALERT.should.eql('alert');
+    });
+
+    it('correctly defines CHANNEL', () => {
+      const { CHANNEL } = Type;
+  
+      CHANNEL.should.eql('channel');
+    });
+
+    it('correctly defines ENVIRONMENT', () => {
+      const { ENVIRONMENT } = Type;
+  
+      ENVIRONMENT.should.eql('environment');
+    });
+
+    it('correctly defines EVENT', () => {
+      const { EVENT } = Type;
+  
+      EVENT.should.eql('event');
+    });
+
+    it('correctly defines EXPECTATION', () => {
+      const { EXPECTATION } = Type;
+  
+      EXPECTATION.should.eql('expectation');
+    });
+
+    it('correctly defines GAUGE', () => {
+      const { GAUGE } = Type;
+  
+      GAUGE.should.eql('gauge');
+    });
+
+    it('correctly defines INSTANCE', () => {
+      const { INSTANCE } = Type;
+  
+      INSTANCE.should.eql('instance');
+    });
+
+    it('correctly defines LOGIC_BLOCK', () => {
+      const { LOGIC_BLOCK } = Type;
+  
+      LOGIC_BLOCK.should.eql('logic-block');
+    });
+
+    it('correctly defines MEMBER', () => {
+      const { MEMBER } = Type;
+  
+      MEMBER.should.eql('member');
+    });
+
+    it('correctly defines MESSAGE', () => {
+      const { MESSAGE } = Type;
+  
+      MESSAGE.should.eql('message');
+    });
+
+    it('correctly defines SETTING', () => {
+      const { SETTING } = Type;
+  
+      SETTING.should.eql('setting');
+    });
+
+    it('correctly defines TASK', () => {
+      const { TASK } = Type;
+  
+      TASK.should.eql('task');
+    });
+  });
+
+  describe('Resource', () => {
+    const { Resource } = Enum;
+  
+    it('correctly defines GAUGE', () => {
+      const { GAUGE } = Resource;
+  
+      GAUGE.should.eql('gauges');
+    });
+  
+    it('correctly defines ALERT', () => {
+      const { ALERT } = Resource;
+  
+      ALERT.should.eql('alerts');
+    });
+  
+    it('correctly defines CHANNEL', () => {
+      const { CHANNEL } = Resource;
+  
+      CHANNEL.should.eql('channels');
+    });
+  
+    it('correctly defines ENVIRONMENT', () => {
+      const { ENVIRONMENT } = Resource;
+  
+      ENVIRONMENT.should.eql('environments');
+    });
+  
+    it('correctly defines ENVIRONMENT_MESSAGE', () => {
+      const { ENVIRONMENT_MESSAGE } = Resource;
+  
+      ENVIRONMENT_MESSAGE.should.eql('environment-messages');
+    });
+  
+    it('correctly defines EVENT', () => {
+      const { EVENT } = Resource;
+  
+      EVENT.should.eql('events');
+    });
+  
+    it('correctly defines EXPECTATION', () => {
+      const { EXPECTATION } = Resource;
+  
+      EXPECTATION.should.eql('expectations');
+    });
+  
+    it('correctly defines INSTANCE', () => {
+      const { INSTANCE } = Resource;
+  
+      INSTANCE.should.eql('instances');
+    });
+  
+    it('correctly defines LOGIC_BLOCK', () => {
+      const { LOGIC_BLOCK } = Resource;
+  
+      LOGIC_BLOCK.should.eql('logic-blocks');
+    });
+  
+    it('correctly defines MEMBER', () => {
+      const { MEMBER } = Resource;
+  
+      MEMBER.should.eql('members');
+    });
+  
+    it('correctly defines MESSAGE', () => {
+      const { MESSAGE } = Resource;
+  
+      MESSAGE.should.eql('messages');
+    });
+  
+    it('correctly defines SETTING', () => {
+      const { SETTING } = Resource;
+  
+      SETTING.should.eql('settings');
+    });
+  
+    it('correctly defines TASK', () => {
+      const { TASK } = Resource;
+  
+      TASK.should.eql('tasks');
+    });
+  });
+
   describe('Protocol', () => {
     const { Protocol } = Enum;
 

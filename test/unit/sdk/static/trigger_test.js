@@ -1,72 +1,59 @@
 'use strict';
 
-const should     = require('should'),
-      proxyquire = require('proxyquire');
+const should = require('should'),
+      sinon  = require('sinon'),
+      helper = require('./helper');
 
 describe('Static: trigger', () => {
-  const { getCurryDefaults,
-          createSDKHelperDouble,
-          resetSDKHelperDouble } = require('./helper'),
-        helperDouble = createSDKHelperDouble();
-  
-  const trigger = proxyquire('../../../../lib/sdk/static/trigger', {
-    '../helper': helperDouble
-  });
+  const method = require('../../../../lib/sdk/static/trigger');
 
-  before(() => resetSDKHelperDouble(helperDouble));
+  const id = 100,
+        meta = {
+          foo: 'bar'
+        },
+        options = {};
 
   it('makes the correct call to post', () => {
-    const { request,
-            resource,
-            copts } = getCurryDefaults(),
-          id = 'omega',
-          payload = {a:'b'},
-          options = {},
-          result = 'foo';
+    const context = helper.getContext();
 
-    helperDouble.resolveEid.returns('zing');
-    helperDouble.getResourcePath.withArgs(resource, {
-      id,
-      eid: 'zing'
-    }).returns('/foo/omega');
-    request.post.returns(global.Promise.resolve(result));
+    context.request.post.returns(global.Promise.resolve());
 
-    return trigger(request, resource, copts, id, payload, options).
+    return method(id, meta, options, context).
       then(_ => {
-        request.post.calledWithExactly({
-          uri: '/foo/omega/trigger',
-          body: {
-            meta: payload
-          }
+        context.request.post.called.should.eql(true);
+        context.request.post.calledWithExactly({
+          uri: `${context.uri}/trigger`,
+          body: { meta }
         }).should.eql(true);
       });
   });
 
+  it('defaults body to an empty meta object', () => {
+    const context = helper.getContext();
+
+    context.request.post.returns(global.Promise.resolve());
+
+    return method(id, {}, options, context).
+      then(_ => {
+        context.request.post.args[0][0].body.should.eql({ meta: {} });
+      });
+  });
+
   it('resolves when post resolves', () => {
-    const { request,
-            resource,
-            copts } = getCurryDefaults(),
-          id = 'omega',
-          payload = {a:'b'},
-          options = {},
-          result = 'foo';
+    const context = helper.getContext(),
+          result = sinon.stub();
 
-    request.post.returns(global.Promise.resolve(result));
+    context.request.post.returns(global.Promise.resolve(result));
 
-    return trigger(request, resource, copts, id, payload, options).should.be.fulfilled(result);
+    return method(id, meta, options, context).should.be.fulfilled(result);
   });
 
   it('rejects when post rejects', () => {
-    const { request,
-            resource,
-            copts } = getCurryDefaults(),
-          id = 'omega',
-          payload = {a:'b'},
-          options = {},
+    const context = helper.getContext(),
           error = new Error('foo');
 
-    request.post.returns(global.Promise.reject(error));
+    context.request.post.returns(global.Promise.reject(error));
 
-    return trigger(request, resource, copts, id, payload, options).should.be.rejectedWith(error);
+    return method(id, meta, options, context).should.be.rejectedWith(error);
   });
 });

@@ -4,6 +4,8 @@ const should = require('should'),
       sinon  = require('sinon');
 
 describe('Agent EventHandler', () => {
+  const { createInstance } = require('../../helper');
+
   const Interface = require('../../../../lib/agent/handler/interface');
 
   const Handler = require('../../../../lib/agent/handler/event');
@@ -16,8 +18,14 @@ describe('Agent EventHandler', () => {
               Event: {
                 create: sinon.stub()
               },
-              instance: {
+              instance: createInstance({
                 name: 'foo'
+              }),
+              Color: {
+                GREEN: 'green'
+              },
+              Icon: {
+                CHAIN: 'chain'
               }
             };
 
@@ -42,8 +50,14 @@ describe('Agent EventHandler', () => {
               Event: {
                 create: sinon.stub()
               },
-              instance: {
+              instance: createInstance({
                 name: 'foo'
+              }),
+              Color: {
+                ORANGE: 'orange'
+              },
+              Icon: {
+                CHAIN_BROKEN: 'chain-broken'
               }
             };
 

@@ -1,74 +1,58 @@
 'use strict';
 
-const should     = require('should'),
-      proxyquire = require('proxyquire');
+const should = require('should'),
+      sinon  = require('sinon'),
+      helper = require('./helper');
 
 describe('Static: create', () => {
-  const { getCurryDefaults,
-          createSDKHelperDouble,
-          resetSDKHelperDouble } = require('./helper'),
-        helperDouble = createSDKHelperDouble();
-  
-  const create = proxyquire('../../../../lib/sdk/static/create', {
-    '../helper': helperDouble
-  });
+  const method = require('../../../../lib/sdk/static/create');
 
-  before(() => resetSDKHelperDouble(helperDouble));
+  const attributes = {
+          foo: 'bar'
+        },
+        options = {};
 
-  it('makes the correct call to post', () => {
-    const { request,
-            resource,
-            copts } = getCurryDefaults(),
-          attributes = {
-            name: 'foo',
-            age: 13
-          },
-          options = {},
-          result = 'foo';
+  it('makes the correct call to put', () => {
+    const context = helper.getContext();
 
-    helperDouble.resolveEid.returns('zing');
-    helperDouble.getResourcePath.withArgs(resource, {
-      eid: 'zing'
-    }).returns('/foo');
-    request.post.returns(global.Promise.resolve(result));
+    context.request.post.returns(global.Promise.resolve());
 
-    return create(request, resource, copts, attributes, options).
+    return method(attributes, options, context).
       then(_ => {
-        request.post.calledWithExactly({
-          uri: '/foo',
+        context.request.post.called.should.eql(true);
+        context.request.post.calledWithExactly({
+          uri: context.uri,
           body: attributes
         }).should.eql(true);
       });
   });
 
+  it('defaults attributes to an empty object', () => {
+    const context = helper.getContext();
+
+    context.request.post.returns(global.Promise.resolve());
+
+    return method(undefined, options, context).
+      then(_ => {
+        context.request.post.args[0][0].body.should.eql({});
+      });
+  });
+
   it('resolves when post resolves', () => {
-    const { request,
-            resource,
-            copts } = getCurryDefaults(),
-          attributes = {
-            name: 'foo'
-          },
-          options = {},
-          result = 'foo';
+    const context = helper.getContext(),
+          result = sinon.stub();
 
-    request.post.returns(global.Promise.resolve(result));
+    context.request.post.returns(global.Promise.resolve(result));
 
-    return create(request, resource, copts, attributes, options).
-      should.be.fulfilled(result);
+    return method(attributes, options, context).should.be.fulfilled(result);
   });
 
   it('rejects when post rejects', () => {
-    const { request,
-            resource,
-            copts } = getCurryDefaults(),
-          attributes = {
-            name: 'foo'
-          },
-          options = {},
+    const context = helper.getContext(),
           error = new Error('foo');
 
-    request.post.returns(global.Promise.reject(error));
+    context.request.post.returns(global.Promise.reject(error));
 
-    return create(request, resource, copts, attributes, options).should.be.rejectedWith(error);
+    return method(attributes, options, context).should.be.rejectedWith(error);
   });
 });

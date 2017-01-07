@@ -33,7 +33,7 @@ describe('UrlBuilder', () => {
         result.should.eql('/environments/zoo/events/foo');
       });
 
-      it('wont append an id if id passed is nil', () => {
+      it('will not append an id if id is nil (null / undefined)', () => {
         const result = getResourcePath('events', {
           eid: 'zoo',
           id: null

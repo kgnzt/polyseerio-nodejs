@@ -27,7 +27,11 @@ function ensureEnvironment (Environment, environment) {
       return Environment.findByName(environment.name);
     }).
     then(_ => _, error => {
-      return Environment.create(environment);
+      if (error.statusCode === 404) {
+        return Environment.create(environment);
+      }
+
+      return global.Promise.reject(error);
     });
 }
 
@@ -39,8 +43,8 @@ function ensureEnvironment (Environment, environment) {
  */
 function removeEnvironment (Environment, environment) {
   return Environment.findByName(environment.name).
-    then(data => {
-      return Environment.remove(data.id);
+    then(instance => {
+      return Environment.remove(instance.get('id'));
     }, error => {
       return;
     });

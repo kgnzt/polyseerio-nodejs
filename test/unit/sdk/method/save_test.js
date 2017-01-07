@@ -4,9 +4,9 @@ const should = require('should'),
       sinon  = require('sinon');
 
 describe('save', () => {
-  const { createRequestMock } = require('./helper');
+  const { createRequestMock } = require('../../helper');
 
-  const save = require('../../../../lib/sdk/instance/save');
+  const save = require('../../../../lib/sdk/method/save');
 
   it('makes the correct api call to create when instance is new', () => {
     const instance = {
@@ -14,6 +14,7 @@ describe('save', () => {
             resource: 'events',
             _request: createRequestMock(),
             eid: 'waterworld',
+            setProperties: sinon.stub(),
             isNew () {
               return true;
             },

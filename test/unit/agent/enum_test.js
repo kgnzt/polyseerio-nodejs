@@ -14,10 +14,40 @@ describe('Enum', () => {
       ARCHITECTURE.should.eql('architecture');
     });
 
+    it('correctly defines CPU_COUNT', () => {
+      const { CPU_COUNT } = Fact;
+  
+      CPU_COUNT.should.eql('cpu_count');
+    });
+
+    it('correctly defines ENDIANNESS', () => {
+      const { ENDIANNESS } = Fact;
+  
+      ENDIANNESS.should.eql('endianness');
+    });
+
+    it('correctly defines FREE_MEMORY', () => {
+      const { FREE_MEMORY } = Fact;
+  
+      FREE_MEMORY.should.eql('free_memory');
+    });
+
     it('correctly defines GID', () => {
       const { GID } = Fact;
   
       GID.should.eql('gid');
+    });
+
+    it('correctly defines HOME_DIRECTORY', () => {
+      const { HOME_DIRECTORY } = Fact;
+  
+      HOME_DIRECTORY.should.eql('home_directory');
+    });
+
+    it('correctly defines HOSTNAME', () => {
+      const { HOSTNAME } = Fact;
+  
+      HOSTNAME.should.eql('hostname');
     });
 
     it('correctly defines LAUNCH_ARGUMENTS', () => {
