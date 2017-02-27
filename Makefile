@@ -1,4 +1,5 @@
 BUILD_ENV?=development
+BABEL?=./node_modules/.bin/babel
 SUPPORTED?=\
 v7.3.0 \
 v7.2.1 \
@@ -71,6 +72,9 @@ v4.0.0 \
 NVM?=~/.nvm/nvm.sh
 
 all: install test
+
+compile:
+	$(BABEL) src -d lib
 
 install:
 	npm install
