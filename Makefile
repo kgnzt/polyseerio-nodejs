@@ -74,7 +74,7 @@ NVM?=~/.nvm/nvm.sh
 all: install test
 
 compile:
-	$(BABEL) src -d lib
+	$(BABEL) ./lib -d ./dist --copy-files
 
 install:
 	npm install

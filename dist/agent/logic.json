@@ -1,0 +1,10 @@
+{
+  "is_alive": {
+    "===": [
+      {
+        "pointer": "heartbeat_status"
+      },
+      "beating"
+    ]
+  }
+}
