@@ -22,7 +22,7 @@
     "url": "https://github.com/kgnzt/polyseerio-nodejs/issues"
   },
   "engines": {
-    "node": ">=6.0.0 <7.3.0"
+    "node": ">=4.0.0 <7.3.0"
   },
   "homepage": "https://github.com/kgnzt/polyseerio-nodejs#readme",
   "dependencies": {

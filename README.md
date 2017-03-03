@@ -11,7 +11,7 @@ provides teams with the resources needed to build, support, and maintain world
 class software products.
 
 ## Requirements
-  - Node.js
+  - Node.js (see package.json for supported versions)
   - NPM
 
 ## Installation
