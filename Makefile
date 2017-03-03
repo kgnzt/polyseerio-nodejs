@@ -1,6 +1,12 @@
 BUILD_ENV?=development
 BABEL?=./node_modules/.bin/babel
+NVM?=~/.nvm/nvm.sh
 SUPPORTED?=\
+v7.0.0 \
+v6.0.0 \
+v5.0.0 \
+v4.0.0
+FULL_SUPPORTED?=\
 v7.3.0 \
 v7.2.1 \
 v7.2.0 \
@@ -69,25 +75,22 @@ v4.1.1 \
 v4.1.0 \
 v4.0.0 \
 
-NVM?=~/.nvm/nvm.sh
-
 all: install test
 
+compile-test:
+	$(BABEL) ./test -d ./test-dist --copy-files
+
 compile:
-	$(BABEL) ./lib -d ./dist --copy-files
+	$(BABEL) ./src -d ./lib --copy-files
 
 install:
 	npm install
 
-version-test:
+# install supported versions
+version-install:
 	for i in $(SUPPORTED) ; do \
     source $(NVM);\
-    if nvm which $$i ; then \
-      nvm use $$i;\
-      $(MAKE) test;\
-    else \
-      echo "Skipping..." && continue;\
-    fi \
+    nvm install $$i;\
   done
 
 lint:
@@ -118,6 +121,20 @@ else
 	grunt mochaTest:validation_stdout
 endif
 
-test: lint unit-test integration-test validation-test
+# test package against all supported versions (when they are installed)
+version-test: version-install
+	for i in $(FULL_SUPPORTED) ; do \
+    source $(NVM);\
+    if nvm which $$i ; then \
+      nvm use $$i;\
+      $(MAKE) unit-test;\
+      $(MAKE) integration-test;\
+      $(MAKE) validation-test;\
+    else \
+      echo "Skipping..." && continue;\
+    fi \
+  done
+
+test: lint compile compile-test unit-test integration-test validation-test
 
 .PHONY: install lint unit-test integration-test validation-test version-test

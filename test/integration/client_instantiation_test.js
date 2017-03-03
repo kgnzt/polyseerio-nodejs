@@ -5,7 +5,7 @@ const should        = require('should'),
       { getClient } = require('./helper');
 
 describe('Client instantiation testing', () => {
-  const Client = require('../../dist/client');
+  const Client = require('../../lib/client');
 
   it('can be created', () => {
     const client = getClient();

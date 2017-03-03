@@ -1,10 +1,10 @@
 'use strict';
 
-const should     = require('should'),
-      lodash     = require('lodash'),
-      sinon      = require('sinon'),
-      { createRequestMock } = require('./helper'),
-      proxyquire = require('proxyquire');
+const should                = require('should'),
+      lodash                = require('lodash'),
+      sinon                 = require('sinon'),
+      proxyquire            = require('proxyquire'),
+      { createRequestMock } = require('./helper');
 
 /**
  * Returns an Agent mock.

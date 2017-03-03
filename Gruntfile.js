@@ -1,11 +1,10 @@
 'use strict';
 
-
 const jshintReporter = require('jshint-junit-reporter'),
-      lintableFiles  = ['example/**/*.js', 'example/**/*.json', 'test/**/*.js', 'lib/**/*.js'],
-      unitTestFiles  = ['test/unit/**/*_test.js'],
-      integrationTestFiles  = ['test/integration/**/*_test.js'],
-      validationTestFiles  = ['test/validation/**/*_test.js'];
+      lintableFiles  = ['example/**/*.js', 'example/**/*.json', 'test/**/*.js', 'src/**/*.js'],
+      unitTestFiles  = ['test-dist/unit/**/*_test.js'],
+      integrationTestFiles  = ['test-dist/integration/**/*_test.js'],
+      validationTestFiles  = ['test-dist/validation/**/*_test.js'];
 
 module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);

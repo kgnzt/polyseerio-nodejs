@@ -43,6 +43,7 @@
     "jshint-junit-reporter": "^0.2.2",
     "load-grunt-tasks": "^3.5.2",
     "mocha": "^3.0.2",
+    "nvm": "0.0.4",
     "proxyquire": "^1.7.10",
     "should": "^11.1.0",
     "sinon": "^1.17.5"
