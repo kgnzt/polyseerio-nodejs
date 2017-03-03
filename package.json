@@ -28,6 +28,7 @@
   "dependencies": {
     "co": "^4.6.0",
     "inflection": "^1.10.0",
+    "babel-polyfill": "^6.23.0",
     "lodash": "^4.15.0",
     "request": "^2.74.0",
     "request-promise": "^4.1.1",

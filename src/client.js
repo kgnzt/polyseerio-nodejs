@@ -64,6 +64,22 @@ class Client {
   }
 
   /**
+   * Stop the agent.
+   *
+   * TODO: unit-test
+   *
+   * @param {...}
+   * @return {Promise}
+   */
+  stopAgent (...args) {
+    if (lodash.isNull(this._agent)) {
+      return global.Promise.reject(new Error('No agent to stop.'));
+    }
+
+    return this._agent.stop(...args);
+  }
+
+  /**
    * Return the currently deduced environment.
    */
   getCurrentEnvironment () {

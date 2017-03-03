@@ -193,6 +193,39 @@ describe('Helper', () => {
         next();
       }, 100);
     });
+
+    it('will continue to loop despire rejections', (next) => {
+      function f () {
+        f._callCount = f._callCount || 0;
+        f._success = f._success || 0;
+        f._failure = f._failure || 0;
+
+        if (f._callCount >= 0 && f._callCount < 10) {
+          return new global.Promise((resolve, reject) => {
+            f._callCount++;
+            f._success++;
+            setTimeout(_ => reject(new Error('foo')), 1);
+          });
+        } else {
+          return new global.Promise((resolve, reject) => {
+            f._callCount++;
+            f._failure++;
+            setTimeout(_ => resolve('a'), 1);
+          });
+        }
+      }
+
+      const promise = f,
+            options = { delay: 1 };
+
+      loopPromise(promise, options);
+
+      setTimeout(_ => {
+        f._success.should.be.greaterThan(1);
+        f._failure.should.be.greaterThan(1);
+        next();
+      }, 200);
+    });
   });
 
   describe('forward', () => {
