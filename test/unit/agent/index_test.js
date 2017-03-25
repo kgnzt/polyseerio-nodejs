@@ -41,6 +41,26 @@ describe('Agent', () => {
     });
   });
 
+  describe('Event', () => {
+    const { Event } = Agent;
+
+    it('defines START', () => {
+      Event.START.should.eql('agent-start');
+    });
+
+    it('defines STOP', () => {
+      Event.STOP.should.eql('agent-stop');
+    });
+  });
+
+  it('is eventable', () => {
+    const agent = new Agent(sinon.stub());
+
+    agent.should.have.property('on');
+    agent.should.have.property('once');
+    agent.should.have.property('emit');
+  });
+
   describe('start', () => {
     it('returns the client', () => {
       const client = sinon.stub(),

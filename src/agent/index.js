@@ -1,10 +1,10 @@
 'use strict';
 
-const Client             = require('../client'),
-      DefaultConfig      = require('./default_config'),
+const DefaultConfig      = require('./default_config'),
       lodash             = require('lodash'),
       HandlerMap         = require('./handler'),
       logger             = require('../logger'),
+      EventEmitter       = require('events'),
       { logAndReject }   = logger,
       { clearLoop,
         loopPromise }    = require('../helper'),
@@ -13,14 +13,24 @@ const Client             = require('../client'),
         teardown }       = require('./executor');
 
 /**
+ * Agent events.
+ */
+const Event = {
+  START: 'agent-start',
+  STOP:  'agent-stop'
+};
+
+/**
  * The Polyseer.io agent.
  */
-class Agent {
+class Agent extends EventEmitter {
   /**
    * @param {Client}
    */
   constructor (client) {
-    if (lodash.isNil(Client) || !lodash.isObject(client)) {
+    super();
+
+    if (lodash.isNil(client) || !lodash.isObject(client)) {
       throw new TypeError('Must pass a Polyseer.io client to Agent.');
     }
 
@@ -61,6 +71,8 @@ class Agent {
             this._instance = instance; // TODO: is this the right place for this?
   
             clearLoop(loop);
+
+            this.emit(Event.START);
   
             return resolve(this._client);
           }).catch(error => {
@@ -82,9 +94,15 @@ class Agent {
   stop () {
     return teardown(this._client, this._handler_options).
       then(_ => {
+        this.emit(Event.STOP);
+
         return this._client;
       });
   }
 }
+
+Object.assign(Agent, {
+  Event
+});
 
 module.exports = Agent;

@@ -13,7 +13,8 @@ const should                = require('should'),
  */
 function createAgentMock () {
   return {
-    start: sinon.stub()
+    start: sinon.stub(),
+    on: sinon.stub()
   };
 }
 
@@ -27,6 +28,10 @@ class AgentDouble {
 
   start (...args) {
     return global.Promise.resolve(args);
+  }
+
+  on (...args) {
+    return args;
   }
 }
 
@@ -55,6 +60,29 @@ describe('Client', () => {
 
       lodash.isNull(client._agent).should.eql(true);
     });
+  });
+
+  describe('Event', () => {
+    const { Event } = Client;
+
+    it('defines AGENT_START', () => {
+      Event.AGENT_START.should.eql('agent-start');
+    });
+
+    it('defines AGENT_STOP', () => {
+      Event.AGENT_STOP.should.eql('agent-stop');
+    });
+  });
+
+
+  it('is eventable', () => {
+    const client = new Client(0, {
+      request: createRequestMock()
+    });
+
+    client.should.have.property('on');
+    client.should.have.property('once');
+    client.should.have.property('emit');
   });
 
   describe('startAgent', () => {
