@@ -66,7 +66,7 @@ function attach (instance, options) {
   const uri = getResourcePath(instance.resource, { eid: instance.eid, id: instance.get('id') });
 
   const loop = () => {
-    logger.log('debug', `Heartbeat.`);
+    logger.log('debug', 'Heartbeat.');
 
     const body = {};
 

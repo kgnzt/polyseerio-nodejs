@@ -11,9 +11,10 @@ module.exports = {
   id: null,
   name: null,
   description: 'Created by the Polyseer.io Node.JS agent.',
-  group: 'agent-created',
+  group: 'agent',
   direction: Direction.INBOUND,
   subtype: Subtype.LONG_RUNNING,
+  agent_retry: 60000, // 1 minute
   // disabled until better discovery pattern
   expectation: {
     [Handler.Expectation.IS_ALIVE]: false

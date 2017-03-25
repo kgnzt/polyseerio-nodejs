@@ -139,6 +139,7 @@ instance, call the required polyseerio module.
         - `.name (String)` instance name (will be used as a unique id)
         - `.description (String)` a description of this instance
         - `.group (String)` what group this instance belongs to
+        - `.agent_retry (Number)` number of ms to retry agent attach when initial attach fails
         - `.direction (polyseerio.Direction)` the monitoring direction (inbound) // force this
         - `.subtype (polyseerio.Subtype)` the instance subtype: periodic or long_running.
         - `.expectation` will be upserted for this instance

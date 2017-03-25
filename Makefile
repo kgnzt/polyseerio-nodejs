@@ -77,11 +77,13 @@ v4.0.0 \
 
 all: install test
 
+compile-lib:
+	$(BABEL) ./src -d ./lib --copy-files
+
 compile-test:
 	$(BABEL) ./test -d ./test-dist --copy-files
 
-compile:
-	$(BABEL) ./src -d ./lib --copy-files
+compile: compile-lib compile-test
 
 install:
 	npm install
@@ -100,26 +102,29 @@ else
 	grunt jshint:stdout
 endif
 
-unit-test:
+raw-unit-test:
 ifeq ($(BUILD_ENV),ci)
 	grunt mochaTest:unit_file
 else
 	grunt mochaTest:unit_stdout
 endif
+unit-test: compile raw-unit-test
 
-integration-test:
+raw-integration-test:
 ifeq ($(BUILD_ENV),ci)
 	grunt mochaTest:integration_file
 else
 	grunt mochaTest:integration_stdout
 endif
+integration-test: compile raw-integration-test
 
-validation-test:
+raw-validation-test:
 ifeq ($(BUILD_ENV),ci)
 	grunt mochaTest:validation_file
 else
 	grunt mochaTest:validation_stdout
 endif
+validation-test: compile raw-validation-test
 
 # test package against all supported versions (when they are installed)
 version-test: version-install
@@ -135,6 +140,23 @@ version-test: version-install
     fi \
   done
 
-test: lint compile compile-test unit-test integration-test validation-test
+# complete test sequence
+test: lint \
+      compile \
+      raw-unit-test \
+      raw-integration-test \
+      raw-validation-test
 
-.PHONY: install lint unit-test integration-test validation-test version-test
+.PHONY: compile-lib \
+        compile-test \
+        compile \
+        install \
+        version-install \
+        lint \
+        raw-unit-test \
+        unit-test \
+        integration-test \
+        raw-integration-test \
+        validation-test \
+        raw-validation-test \
+        version-test
